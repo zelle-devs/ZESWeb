@@ -1,0 +1,279 @@
+:root { 
+  --zescloud-primary: #3989E2; 
+  --zescloud-primary-dark: #1848D9; 
+  --zescloud-primary-hover: #2570C7;    
+  --zescloud-accent-cyan: #56B4FF;      
+  
+  --zescloud-gradient-start: #3989E2;
+  --zescloud-gradient-end: #1848D9;
+  --zescloud-btn-gradient: linear-gradient(135deg, #3989E2 0%, #1848D9 100%);
+  --zescloud-btn-gradient-hover: linear-gradient(135deg, #4BA0FF 0%, #2054F0 100%);
+  --zescloud-text-gradient-blue: linear-gradient(90deg, #56B4FF 0%, #3989E2 100%);
+
+  --zescloud-bg-base: #020A13;           
+  --zescloud-bg-elevated: #05101F;      
+  --zescloud-bg-surface: #071527;        
+  --zescloud-bg-surface-hover: #0B1F38;
+  --zescloud-bg-panel: rgba(7, 21, 39, 0.65);
+  --zescloud-bg-badge: rgba(57, 137, 226, 0.12);
+
+  --zescloud-status-healthy: #10B981;
+  --zescloud-status-healthy-bg: rgba(16, 185, 129, 0.12);
+  
+  --zescloud-status-danger: #EF4444;
+  --zescloud-status-danger-bg: rgba(239, 68, 68, 0.12);
+  
+  --zescloud-status-warning: #F59E0B;
+  --zescloud-status-warning-bg: rgba(245, 158, 11, 0.12);
+  
+  --zescloud-status-purple: #8B5CF6;
+  --zescloud-status-purple-bg: rgba(139, 92, 246, 0.12);
+  
+  --zescloud-status-pink: #EC4899;
+  --zescloud-status-pink-bg: rgba(236, 72, 153, 0.12);
+
+  --zescloud-text-white: #FFFFFF;
+  --zescloud-text-gray-100: #E2E8F0;
+  --zescloud-text-gray-300: #94A3B8;
+  --zescloud-text-gray-500: #64748B;
+
+  --zescloud-border-subtle: #0F233D;
+  --zescloud-border-highlight: #1E3A5F;
+  --zescloud-border-glow: rgba(57, 137, 226, 0.4);
+
+  --zescloud-font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, sans-serif;
+  --zescloud-heading-font: var(--font-montserrat), -apple-system, BlinkMacSystemFont, sans-serif;
+  --zescloud-font-size-base: 16px;
+  
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --zescloud-container-width: 1590px;
+  --zescloud-padding-x: 2rem;
+  --zescloud-section-gap: 3rem;
+  --zescloud-radius-sm: 8px;
+  --zescloud-radius-md: 12px;
+  --zescloud-radius-lg: 24px;
+  --zescloud-radius-pill: 9999px;
+  
+  --transition-fast: 0.2s ease-in-out;
+  --transition-base: 0.3s ease-in-out;
+
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 17px;
+  --font-size-xl: 19px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 26px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 38px;
+  --font-size-6xl: 46px;
+  --font-size-special: 48px;
+  --font-size-7xl: 52px;
+  --font-size-8xl: 64px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: var(--zescloud-font-size-base);
+  scroll-behavior: smooth;
+}
+
+button, a, input, select, textarea {
+  outline: none;
+  font-family: inherit;
+}
+
+body {
+  font-family: var(--zescloud-font-family);
+  background-color: var(--zescloud-bg-base);
+  color: var(--zescloud-text-gray-100);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--zescloud-heading-font);
+  color: var(--zescloud-text-white);
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.01em; }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h4 { font-size: 1.25rem; }
+
+p {
+  color: var(--zescloud-text-gray-300); 
+}
+
+.zescloud-text-primary { 
+  color: var(--zescloud-primary); 
+}
+
+.zescloud-text-gradient {
+  background: var(--zescloud-text-gradient-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.zescloud-container {
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+.zescloud-section {
+  padding: var(--zescloud-section-gap) 0;
+}
+
+.zescloud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: var(--fw-semibold);
+  border-radius: var(--zescloud-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: none;
+  font-size: 0.95rem;
+}
+
+.zescloud-btn-primary {
+  background: var(--zescloud-btn-gradient);
+  color: var(--zescloud-text-white);
+  box-shadow: 0 4px 15px rgba(24, 72, 217, 0.35);
+}
+
+.zescloud-btn-primary:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(57, 137, 226, 0.5);
+}
+
+.zescloud-btn-outline {
+  background-color: rgba(7, 21, 39, 0.5);
+  color: var(--zescloud-text-white);
+  border: 1px solid var(--zescloud-border-highlight);
+}
+
+.zescloud-btn-outline:hover {
+  border-color: var(--zescloud-primary);
+  background-color: rgba(57, 137, 226, 0.1);
+}
+
+.zescloud-card {
+  background-color: var(--zescloud-bg-surface);
+  border: 1px solid var(--zescloud-border-subtle);
+  border-radius: var(--zescloud-radius-md);
+  padding: 1.75rem;
+  transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.zescloud-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--zescloud-border-highlight);
+  background-color: var(--zescloud-bg-surface-hover);
+}
+
+.zescloud-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--zescloud-bg-badge);
+  color: var(--zescloud-primary);
+  border: 1px solid rgba(57, 137, 226, 0.25);
+  border-radius: var(--zescloud-radius-pill);
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.zescloud-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.zescloud-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.zescloud-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.zescloud-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.zescloud-grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+@media (max-width: 1024px) {
+  .zescloud-grid-5,
+  .zescloud-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .zescloud-grid-2, 
+  .zescloud-grid-3, 
+  .zescloud-grid-4,
+  .zescloud-grid-5 {
+    grid-template-columns: 1fr;
+  }
+  
+  :root {
+    --zescloud-section-gap: 3rem;
+  }
+}
+
+
+
+/* Main page layout: Header -> Content -> Footer */
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.zescloud-main-content {
+  position: relative;
+  flex: 1 0 auto;
+  width: 100%;
+  min-width: 0;
+  /* padding-top: 100px; */
+}

@@ -1,0 +1,805 @@
+/* =====================================================================
+   BeyoundIntegrationsProvide — "API & Webhooks" banner
+   - Every class ends in -BeyoundIntegrationsProvide (no collisions).
+   - Continuous animations use transform / opacity / stroke-dashoffset only.
+   - Everything pauses while the section is off-screen (.is-paused).
+   ===================================================================== */
+
+.section-BeyoundIntegrationsProvide {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5.5rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* freeze every CSS animation while the section is off-screen / tab hidden */
+.section-BeyoundIntegrationsProvide.is-paused-BeyoundIntegrationsProvide *,
+.section-BeyoundIntegrationsProvide.is-paused-BeyoundIntegrationsProvide *::before,
+.section-BeyoundIntegrationsProvide.is-paused-BeyoundIntegrationsProvide *::after {
+  animation-play-state: paused !important;
+}
+
+.container-BeyoundIntegrationsProvide {
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+/* ============================== PANEL ============================== */
+
+.panel-BeyoundIntegrationsProvide {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.9rem, 3vw, 2.75rem) clamp(1.5rem, 4.4vw, 4.25rem) clamp(1.9rem, 3vw, 2.75rem) clamp(1.5rem, 4.6vw, 4.4rem);
+  border-radius: 22px;
+  border: 1px solid rgba(30, 58, 95, 0.6);
+  background:
+    radial-gradient(70% 90% at 78% 50%, rgba(24, 72, 217, 0.14), transparent 70%),
+    linear-gradient(180deg, #03101F 0%, #020B16 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(120, 180, 255, 0.07),
+    0 30px 80px rgba(1, 6, 14, 0.55);
+  opacity: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .panel-BeyoundIntegrationsProvide {
+  animation: panelIn-BeyoundIntegrationsProvide 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* top edge highlight */
+.panel-BeyoundIntegrationsProvide::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  z-index: 2;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(86, 180, 255, 0.55), transparent);
+  pointer-events: none;
+}
+
+/* ============================ BACKGROUND ============================ */
+
+.bg-BeyoundIntegrationsProvide {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-glow-BeyoundIntegrationsProvide {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.bg-glow-a-BeyoundIntegrationsProvide {
+  right: -8%;
+  top: 10%;
+  width: 60%;
+  height: 90%;
+  background: radial-gradient(ellipse closest-side, rgba(24, 72, 217, 0.22), transparent);
+  animation: glowDrift-BeyoundIntegrationsProvide 18s ease-in-out infinite alternate;
+}
+
+.bg-glow-b-BeyoundIntegrationsProvide {
+  left: -10%;
+  top: -30%;
+  width: 45%;
+  height: 90%;
+  background: radial-gradient(ellipse closest-side, rgba(57, 137, 226, 0.1), transparent);
+  animation: glowDrift-BeyoundIntegrationsProvide 22s ease-in-out -7s infinite alternate-reverse;
+}
+
+/* fine dot grid on the right half */
+.bg-dots-BeyoundIntegrationsProvide {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(86, 160, 255, 0.16) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 25%, #000 75%);
+  mask-image: linear-gradient(90deg, transparent 25%, #000 75%);
+  opacity: 0.55;
+}
+
+/* slow light sweep across the whole panel */
+.bg-scan-BeyoundIntegrationsProvide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: none;
+  left: 0;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, rgba(86, 180, 255, 0.05), transparent);
+  transform: translateX(-120%);
+  will-change: transform;
+  animation: scan-BeyoundIntegrationsProvide 11s ease-in-out 2.5s infinite;
+}
+
+/* ----------------------------- wires ------------------------------- */
+
+/* fixed pixel scale, anchored to the right + top / bottom edges */
+.wires-BeyoundIntegrationsProvide {
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 1440px;
+  height: 150px;
+  max-width: none;
+  overflow: visible;
+}
+
+.wires-top-BeyoundIntegrationsProvide {
+  top: 0;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 55%),
+    linear-gradient(180deg, #000 45%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 55%),
+    linear-gradient(180deg, #000 45%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.wires-bottom-BeyoundIntegrationsProvide {
+  bottom: 0;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 55%),
+    linear-gradient(0deg, #000 45%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 30%, #000 55%),
+    linear-gradient(0deg, #000 45%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.wire-line-BeyoundIntegrationsProvide,
+.wire-flow-BeyoundIntegrationsProvide {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the trace itself — drawn in once when the section appears */
+.wire-line-BeyoundIntegrationsProvide {
+  stroke: rgba(70, 140, 230, 0.3);
+  stroke-width: 1;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.is-bright-BeyoundIntegrationsProvide .wire-line-BeyoundIntegrationsProvide {
+  stroke: rgba(96, 172, 255, 0.5);
+}
+
+.is-inview-BeyoundIntegrationsProvide .wire-line-BeyoundIntegrationsProvide {
+  animation: wireDraw-BeyoundIntegrationsProvide 1.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: calc(0.3s + var(--i-BeyoundIntegrationsProvide) * 0.04s);
+}
+
+/* light streak running along every trace, forever */
+.wire-flow-BeyoundIntegrationsProvide {
+  stroke: #8FD0FF;
+  stroke-width: 1.3;
+  stroke-dasharray: 6 94;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .wire-flow-BeyoundIntegrationsProvide {
+  opacity: 0.45;
+  animation: wireFlow-BeyoundIntegrationsProvide var(--flow-BeyoundIntegrationsProvide) linear infinite;
+  animation-delay: calc(1.2s + var(--delay-BeyoundIntegrationsProvide));
+}
+
+.is-inview-BeyoundIntegrationsProvide .is-bright-BeyoundIntegrationsProvide .wire-flow-BeyoundIntegrationsProvide {
+  opacity: 0.85;
+}
+
+/* end pads */
+.wire-pad-BeyoundIntegrationsProvide {
+  fill: #071A33;
+  stroke: rgba(110, 180, 255, 0.65);
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .wire-pad-BeyoundIntegrationsProvide {
+  animation: fadeIn-BeyoundIntegrationsProvide 0.6s ease-out 1.4s forwards;
+}
+
+.is-inview-BeyoundIntegrationsProvide .wire-pad-BeyoundIntegrationsProvide.is-blink-BeyoundIntegrationsProvide {
+  animation: padBlink-BeyoundIntegrationsProvide 2.6s ease-in-out infinite;
+  animation-delay: calc(1.4s + var(--delay-BeyoundIntegrationsProvide));
+}
+
+/* running dots (moved by SMIL animateMotion) */
+.wire-dot-BeyoundIntegrationsProvide {
+  opacity: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .wire-dot-BeyoundIntegrationsProvide {
+  animation: fadeIn-BeyoundIntegrationsProvide 0.8s ease-out 1.5s forwards;
+}
+
+.wire-dot-halo-BeyoundIntegrationsProvide {
+  fill: rgba(86, 180, 255, 0.2);
+}
+
+.wire-dot-core-BeyoundIntegrationsProvide {
+  fill: #E6F5FF;
+}
+
+.is-bright-BeyoundIntegrationsProvide .wire-dot-halo-BeyoundIntegrationsProvide {
+  fill: rgba(120, 200, 255, 0.32);
+}
+
+/* ============================== LAYOUT ============================== */
+
+.layout-BeyoundIntegrationsProvide {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) clamp(56px, 5.2vw, 92px) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(0.75rem, 1.6vw, 1.75rem);
+}
+
+/* ------------------------------ text ------------------------------- */
+
+.content-BeyoundIntegrationsProvide {
+  max-width: 560px;
+}
+
+.reveal-BeyoundIntegrationsProvide,
+.title-text-BeyoundIntegrationsProvide,
+.cell-BeyoundIntegrationsProvide,
+.glyph-BeyoundIntegrationsProvide {
+  opacity: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .reveal-BeyoundIntegrationsProvide {
+  animation: fadeUp-BeyoundIntegrationsProvide 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-BeyoundIntegrationsProvide, 0s) both;
+}
+
+.eyebrow-BeyoundIntegrationsProvide {
+  margin: 0 0 0.95rem;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.78);
+}
+
+.title-BeyoundIntegrationsProvide {
+  margin: 0 0 1rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(1.9rem, 2.75vw, 2.75rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-BeyoundIntegrationsProvide {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.06em 0.1em 0;
+  margin-bottom: -0.1em;
+}
+
+.title-text-BeyoundIntegrationsProvide {
+  display: inline-block;
+}
+
+.is-inview-BeyoundIntegrationsProvide .title-text-BeyoundIntegrationsProvide {
+  animation: lineUp-BeyoundIntegrationsProvide 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-BeyoundIntegrationsProvide, 0s) both;
+}
+
+.title-accent-BeyoundIntegrationsProvide {
+  background: linear-gradient(90deg,
+      #19B6FF 0%,
+      var(--zescloud-accent-cyan) 25%,
+      #0FA2F0 50%,
+      #4CC6FF 75%,
+      #19B6FF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.is-inview-BeyoundIntegrationsProvide .title-accent-BeyoundIntegrationsProvide {
+  animation:
+    lineUp-BeyoundIntegrationsProvide 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-BeyoundIntegrationsProvide, 0s) both,
+    textShimmer-BeyoundIntegrationsProvide 7s linear 1.3s infinite;
+}
+
+.lead-BeyoundIntegrationsProvide {
+  max-width: 560px;
+  margin: 0 0 1.7rem;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.86);
+}
+
+/* ----------------------------- button ------------------------------ */
+
+.actions-BeyoundIntegrationsProvide {
+  display: flex;
+}
+
+.btn-BeyoundIntegrationsProvide {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 52px;
+  padding: 0.9rem 1.65rem;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #1D5CFF 0%, #1C8DFF 55%, #22B4FF 100%);
+  box-shadow:
+    0 8px 24px rgba(24, 92, 255, 0.4),
+    inset 0 1px 0 rgba(220, 240, 255, 0.35);
+}
+
+/* glow that breathes (opacity layer, no box-shadow animation) */
+.btn-BeyoundIntegrationsProvide::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -2;
+  border-radius: inherit;
+  box-shadow: 0 0 30px rgba(34, 160, 255, 0.65);
+  opacity: 0;
+  pointer-events: none;
+  animation: glowPulse-BeyoundIntegrationsProvide 3.2s ease-in-out 1.5s infinite;
+}
+
+.btn-BeyoundIntegrationsProvide:hover {
+  background: linear-gradient(90deg, #2A68FF 0%, #2A9BFF 55%, #3EC2FF 100%);
+}
+
+.btn-shine-BeyoundIntegrationsProvide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  animation: btnShine-BeyoundIntegrationsProvide 4.5s ease-in-out 2.2s infinite;
+  pointer-events: none;
+}
+
+.btn-arrow-BeyoundIntegrationsProvide {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-base);
+}
+
+.btn-arrow-BeyoundIntegrationsProvide svg {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-BeyoundIntegrationsProvide:hover .btn-arrow-BeyoundIntegrationsProvide {
+  transform: translateX(4px);
+}
+
+.btn-BeyoundIntegrationsProvide:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 3px;
+}
+
+/* ------------------------ floating </> glyph ------------------------ */
+
+.glyph-BeyoundIntegrationsProvide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 132 / 116;
+  perspective: 600px;
+}
+
+.is-inview-BeyoundIntegrationsProvide .glyph-BeyoundIntegrationsProvide {
+  animation: glyphIn-BeyoundIntegrationsProvide 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.glyph-glow-BeyoundIntegrationsProvide {
+  position: absolute;
+  inset: -35%;
+  border-radius: 50%;
+  /* background: radial-gradient(circle closest-side, rgba(40, 120, 255, 0.22), transparent); */
+  will-change: opacity, transform;
+  animation: glyphGlow-BeyoundIntegrationsProvide 4s ease-in-out infinite;
+}
+
+.glyph-svg-BeyoundIntegrationsProvide {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotateY(-22deg) rotateX(6deg);
+  filter: drop-shadow(0 0 14px rgba(59, 140, 255, 0.45));
+  will-change: transform;
+  animation: glyphFloat-BeyoundIntegrationsProvide 6s ease-in-out infinite;
+}
+
+.glyph-base-BeyoundIntegrationsProvide,
+.glyph-edge-BeyoundIntegrationsProvide,
+.glyph-run-BeyoundIntegrationsProvide {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.glyph-base-BeyoundIntegrationsProvide {
+  stroke: url(#glyphGrad-BeyoundIntegrationsProvide);
+  stroke-width: 11;
+  opacity: 0.45;
+}
+
+.glyph-edge-BeyoundIntegrationsProvide {
+  stroke: rgba(170, 215, 255, 0.35);
+  stroke-width: 2;
+}
+
+/* light running along the glyph strokes */
+.glyph-run-BeyoundIntegrationsProvide {
+  stroke: #CFEAFF;
+  stroke-width: 3;
+  stroke-dasharray: 16 84;
+  stroke-dashoffset: 100;
+  opacity: 0.9;
+  animation: wireFlow-BeyoundIntegrationsProvide 3.4s linear infinite;
+  animation-delay: calc(var(--g-BeyoundIntegrationsProvide) * 0.55s);
+}
+
+/* ---------------------------- feature cards ---------------------------- */
+
+.features-BeyoundIntegrationsProvide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.15vw, 1.05rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the cell owns the entry animation, the card owns hover */
+.cell-BeyoundIntegrationsProvide {
+  display: flex;
+  min-width: 0;
+}
+
+.is-inview-BeyoundIntegrationsProvide .cell-BeyoundIntegrationsProvide {
+  animation: cardIn-BeyoundIntegrationsProvide 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.4s + var(--i-BeyoundIntegrationsProvide) * 0.1s);
+}
+
+.card-BeyoundIntegrationsProvide {
+  --mx-BeyoundIntegrationsProvide: 50%;
+  --my-BeyoundIntegrationsProvide: 0%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 0.95vw, 0.9rem);
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(0.95rem, 1.3vw, 1.2rem) clamp(0.9rem, 1.15vw, 1.1rem);
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(40, 75, 120, 0.5);
+  background:
+    radial-gradient(110% 80% at 0% 0%, rgba(var(--tone-BeyoundIntegrationsProvide), 0.07), transparent 60%),
+    linear-gradient(180deg, rgba(10, 26, 48, 0.88) 0%, rgba(4, 13, 27, 0.92) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(150, 200, 255, 0.06),
+    0 12px 30px rgba(1, 6, 14, 0.4);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.45s ease;
+}
+
+.card-BeyoundIntegrationsProvide:hover {
+  /* transform: translateY(-5px); */
+  /* border-color: rgba(var(--tone-BeyoundIntegrationsProvide), 0.5); */
+  
+}
+
+.card-spot-BeyoundIntegrationsProvide {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(240px circle at var(--mx-BeyoundIntegrationsProvide) var(--my-BeyoundIntegrationsProvide),
+      rgba(var(--tone-BeyoundIntegrationsProvide), 0.15),
+      transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-border-BeyoundIntegrationsProvide {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(200px circle at var(--mx-BeyoundIntegrationsProvide) var(--my-BeyoundIntegrationsProvide),
+      rgba(var(--tone-BeyoundIntegrationsProvide), 0.95),
+      transparent 55%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-BeyoundIntegrationsProvide:hover .card-spot-BeyoundIntegrationsProvide,
+.card-BeyoundIntegrationsProvide:hover .card-border-BeyoundIntegrationsProvide {
+  opacity: 1;
+}
+
+.card-shine-BeyoundIntegrationsProvide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(190, 228, 255, 0.08), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  pointer-events: none;
+}
+
+.card-BeyoundIntegrationsProvide:hover .card-shine-BeyoundIntegrationsProvide {
+  animation: sweep-BeyoundIntegrationsProvide 1.1s ease-out both;
+}
+
+.card-icon-BeyoundIntegrationsProvide {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: clamp(46px, 3.6vw, 54px);
+  height: clamp(46px, 3.6vw, 54px);
+  border-radius: 13px;
+  color: var(--icon-BeyoundIntegrationsProvide);
+  background: linear-gradient(145deg,
+      rgba(var(--tone-BeyoundIntegrationsProvide), 0.32),
+      rgba(var(--tone-BeyoundIntegrationsProvide), 0.08));
+  border: 1px solid rgba(var(--tone-BeyoundIntegrationsProvide), 0.32);
+  box-shadow:
+    0 0 20px rgba(var(--tone-BeyoundIntegrationsProvide), 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.card-icon-BeyoundIntegrationsProvide svg {
+  position: relative;
+  z-index: 1;
+  width: 54%;
+  height: 54%;
+  filter: drop-shadow(0 0 7px rgba(var(--tone-BeyoundIntegrationsProvide), 0.75));
+}
+
+/* idle pulse ring, card after card */
+.card-icon-BeyoundIntegrationsProvide::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid rgba(var(--tone-BeyoundIntegrationsProvide), 0.75);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-inview-BeyoundIntegrationsProvide .card-icon-BeyoundIntegrationsProvide::after {
+  animation: iconPing-BeyoundIntegrationsProvide 5.2s ease-out infinite;
+  animation-delay: calc(1.6s + var(--i-BeyoundIntegrationsProvide) * 1.3s);
+}
+
+.card-BeyoundIntegrationsProvide:hover .card-icon-BeyoundIntegrationsProvide {
+  transform: translateY(-2px) scale(1.07);
+  box-shadow:
+    0 0 30px rgba(var(--tone-BeyoundIntegrationsProvide), 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.glyph-cut-BeyoundIntegrationsProvide {
+  fill: #071427;
+}
+
+.card-text-BeyoundIntegrationsProvide {
+  min-width: 0;
+}
+
+.card-title-BeyoundIntegrationsProvide {
+  margin: 0 0 0.35rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(0.95rem, 1.05vw, 1.04rem);
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+}
+
+.card-desc-BeyoundIntegrationsProvide {
+  margin: 0;
+  font-size: clamp(0.82rem, 0.86vw, 0.88rem);
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.74);
+}
+
+/* =========================== KEYFRAMES =========================== */
+
+@keyframes panelIn-BeyoundIntegrationsProvide {
+  from { opacity: 0; transform: translateY(26px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeIn-BeyoundIntegrationsProvide {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp-BeyoundIntegrationsProvide {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineUp-BeyoundIntegrationsProvide {
+  from { opacity: 0; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* @keyframes textShimmer-BeyoundIntegrationsProvide {
+  from { background-position: 0% center; }
+  to { background-position: -200% center; }
+} */
+
+@keyframes cardIn-BeyoundIntegrationsProvide {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes glyphIn-BeyoundIntegrationsProvide {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glyphFloat-BeyoundIntegrationsProvide {
+  0%, 100% { transform: rotateY(-22deg) rotateX(6deg) translateY(0); }
+  50% { transform: rotateY(-16deg) rotateX(4deg) translateY(-8px); }
+}
+
+/* @keyframes glyphGlow-BeyoundIntegrationsProvide {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.05); }
+} */
+
+@keyframes wireDraw-BeyoundIntegrationsProvide {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes wireFlow-BeyoundIntegrationsProvide {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes padBlink-BeyoundIntegrationsProvide {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@keyframes glowPulse-BeyoundIntegrationsProvide {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* @keyframes btnShine-BeyoundIntegrationsProvide {
+  0% { transform: translateX(-160%) skewX(-18deg); }
+  40%, 100% { transform: translateX(330%) skewX(-18deg); }
+} */
+
+@keyframes sweep-BeyoundIntegrationsProvide {
+  from { transform: translateX(-160%) skewX(-18deg); }
+  to { transform: translateX(330%) skewX(-18deg); }
+}
+
+@keyframes iconPing-BeyoundIntegrationsProvide {
+  0% { opacity: 0.85; transform: scale(1); }
+  30%, 100% { opacity: 0; transform: scale(1.35); }
+}
+
+/* @keyframes scan-BeyoundIntegrationsProvide {
+  0% { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(560%); }
+} */
+
+@keyframes glowDrift-BeyoundIntegrationsProvide {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  100% { transform: translate3d(-30px, 16px, 0) scale(1.1); opacity: 1; }
+}
+
+/* =========================== RESPONSIVE =========================== */
+
+@media (max-width: 1200px) {
+  .layout-BeyoundIntegrationsProvide {
+    grid-template-columns: minmax(0, 0.9fr) 56px minmax(0, 1.12fr);
+  }
+}
+
+/* stacked: text on top, cards below, glyph hidden */
+@media (max-width: 1024px) {
+  .layout-BeyoundIntegrationsProvide {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .content-BeyoundIntegrationsProvide { max-width: 640px; }
+
+  .glyph-BeyoundIntegrationsProvide { display: none; }
+
+  .wires-top-BeyoundIntegrationsProvide { opacity: 0.6; }
+}
+
+@media (max-width: 600px) {
+  .panel-BeyoundIntegrationsProvide {
+    padding: 2rem 1.15rem;
+    border-radius: 18px;
+  }
+
+  .features-BeyoundIntegrationsProvide { grid-template-columns: 1fr; }
+
+  .actions-BeyoundIntegrationsProvide .zescloud-btn { width: 100%; }
+}
+
+/* touch screens: no hover-only effects stuck on after a tap */
+@media (hover: none) {
+  .card-BeyoundIntegrationsProvide:hover { transform: none; }
+  .card-BeyoundIntegrationsProvide:hover .card-spot-BeyoundIntegrationsProvide,
+  .card-BeyoundIntegrationsProvide:hover .card-border-BeyoundIntegrationsProvide { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-BeyoundIntegrationsProvide *,
+  .section-BeyoundIntegrationsProvide *::before,
+  .section-BeyoundIntegrationsProvide *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .panel-BeyoundIntegrationsProvide,
+  .reveal-BeyoundIntegrationsProvide,
+  .title-text-BeyoundIntegrationsProvide,
+  .cell-BeyoundIntegrationsProvide,
+  .glyph-BeyoundIntegrationsProvide {
+    opacity: 1;
+  }
+
+  .wire-line-BeyoundIntegrationsProvide { stroke-dashoffset: 0; }
+
+  .wire-dot-BeyoundIntegrationsProvide,
+  .wire-flow-BeyoundIntegrationsProvide,
+  .glyph-run-BeyoundIntegrationsProvide,
+  .bg-scan-BeyoundIntegrationsProvide {
+    display: none;
+  }
+}

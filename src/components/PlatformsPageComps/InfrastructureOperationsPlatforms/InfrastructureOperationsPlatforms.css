@@ -1,0 +1,459 @@
+/* =====================================================================
+   InfrastructureOperationsPlatforms
+   All classes, keyframes & local variables end with
+   "-InfrastructureOperationsPlatforms" so nothing merges with other components.
+===================================================================== */
+
+.section-InfrastructureOperationsPlatforms {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4.5rem, 7vw, 7rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* soft blue light behind the grid (fades into bg-base at top & bottom) */
+.ambient-InfrastructureOperationsPlatforms {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 45%;
+  width: min(90vw, 1300px);
+  height: 70%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(57, 137, 226, 0.12) 0%, rgba(24, 72, 217, 0.04) 45%, transparent 70%);
+  pointer-events: none;
+  animation: ambientPulse-InfrastructureOperationsPlatforms 9s ease-in-out infinite;
+}
+
+.container-InfrastructureOperationsPlatforms {
+  position: relative;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+/* ------------------------- Tones ------------------------- */
+.tone-blue-InfrastructureOperationsPlatforms {
+  --tone-InfrastructureOperationsPlatforms: var(--zescloud-accent-cyan);
+  --tone-bg-InfrastructureOperationsPlatforms: rgba(57, 137, 226, 0.14);
+  --tone-border-InfrastructureOperationsPlatforms: rgba(86, 180, 255, 0.45);
+  --tone-glow-InfrastructureOperationsPlatforms: rgba(57, 137, 226, 0.35);
+}
+
+.tone-purple-InfrastructureOperationsPlatforms {
+  --tone-InfrastructureOperationsPlatforms: #A78BFA;
+  --tone-bg-InfrastructureOperationsPlatforms: var(--zescloud-status-purple-bg);
+  --tone-border-InfrastructureOperationsPlatforms: rgba(167, 139, 250, 0.45);
+  --tone-glow-InfrastructureOperationsPlatforms: rgba(139, 92, 246, 0.35);
+}
+
+.tone-green-InfrastructureOperationsPlatforms {
+  --tone-InfrastructureOperationsPlatforms: #34D399;
+  --tone-bg-InfrastructureOperationsPlatforms: var(--zescloud-status-healthy-bg);
+  --tone-border-InfrastructureOperationsPlatforms: rgba(52, 211, 153, 0.45);
+  --tone-glow-InfrastructureOperationsPlatforms: rgba(16, 185, 129, 0.32);
+}
+
+/* =========================== HEADER =========================== */
+.header-InfrastructureOperationsPlatforms {
+  max-width: 900px;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+}
+
+.eyebrow-InfrastructureOperationsPlatforms {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.heading-InfrastructureOperationsPlatforms {
+  margin-bottom: 1rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2rem, 3.4vw, var(--font-size-7xl));
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--zescloud-text-white);
+}
+
+.heading-line-InfrastructureOperationsPlatforms,
+.heading-accent-InfrastructureOperationsPlatforms {
+  display: block;
+}
+
+.heading-accent-InfrastructureOperationsPlatforms {
+  width: fit-content;
+  max-width: 100%;
+  background: linear-gradient(90deg,
+      var(--zescloud-primary) 0%,
+      var(--zescloud-accent-cyan) 25%,
+      var(--zescloud-primary) 50%,
+      var(--zescloud-primary-hover) 75%,
+      var(--zescloud-primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(57, 137, 226, 0.35));
+  animation: textShimmer-InfrastructureOperationsPlatforms 6s linear infinite;
+}
+
+.lead-InfrastructureOperationsPlatforms {
+  font-size: clamp(1rem, 1.2vw, var(--font-size-lg));
+  line-height: 1.6;
+  color: var(--zescloud-text-gray-300);
+}
+
+/* =========================== GRID & CARDS =========================== */
+.grid-InfrastructureOperationsPlatforms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.card-InfrastructureOperationsPlatforms {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1.75rem 1.75rem 1.6rem;
+  border-radius: var(--zescloud-radius-md);
+  border: 1px solid var(--zescloud-border-subtle);
+  background: linear-gradient(180deg, rgba(11, 31, 56, 0.55) 0%, rgba(5, 16, 31, 0.88) 100%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(2, 10, 19, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-InfrastructureOperationsPlatforms:hover {
+  border-color: var(--tone-border-InfrastructureOperationsPlatforms);
+  box-shadow:
+    0 22px 50px rgba(2, 10, 19, 0.6),
+    0 0 30px var(--tone-glow-InfrastructureOperationsPlatforms),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* soft tone glow in the top-left corner, grows on hover */
+.glow-InfrastructureOperationsPlatforms {
+  position: absolute;
+  z-index: -1;
+  top: -35%;
+  left: -20%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--tone-glow-InfrastructureOperationsPlatforms) 0%, transparent 65%);
+  opacity: 0.3;
+  transition: opacity var(--transition-base), transform 0.6s ease;
+  pointer-events: none;
+}
+
+.card-InfrastructureOperationsPlatforms:hover .glow-InfrastructureOperationsPlatforms {
+  opacity: 0.85;
+  transform: scale(1.2);
+}
+
+/* ------------------------- Card head ------------------------- */
+.card-head-InfrastructureOperationsPlatforms {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.icon-box-InfrastructureOperationsPlatforms {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  color: var(--tone-InfrastructureOperationsPlatforms);
+  background: var(--tone-bg-InfrastructureOperationsPlatforms);
+  border: 1px solid var(--tone-border-InfrastructureOperationsPlatforms);
+  box-shadow:
+    0 0 18px var(--tone-glow-InfrastructureOperationsPlatforms),
+    inset 0 0 12px var(--tone-glow-InfrastructureOperationsPlatforms);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.icon-box-InfrastructureOperationsPlatforms svg {
+  display: block;
+  filter: drop-shadow(0 0 6px var(--tone-InfrastructureOperationsPlatforms));
+}
+
+.card-InfrastructureOperationsPlatforms:hover .icon-box-InfrastructureOperationsPlatforms {
+  box-shadow:
+    0 0 30px var(--tone-glow-InfrastructureOperationsPlatforms),
+    inset 0 0 18px var(--tone-glow-InfrastructureOperationsPlatforms);
+}
+
+/* ripple ring around the icon box */
+.icon-ring-InfrastructureOperationsPlatforms {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--tone-InfrastructureOperationsPlatforms);
+  opacity: 0;
+  animation: ring-InfrastructureOperationsPlatforms 3.4s ease-out infinite;
+  pointer-events: none;
+}
+
+.card-InfrastructureOperationsPlatforms:nth-child(2) .icon-ring-InfrastructureOperationsPlatforms { animation-delay: 0.55s; }
+.card-InfrastructureOperationsPlatforms:nth-child(3) .icon-ring-InfrastructureOperationsPlatforms { animation-delay: 1.1s; }
+.card-InfrastructureOperationsPlatforms:nth-child(4) .icon-ring-InfrastructureOperationsPlatforms { animation-delay: 1.65s; }
+.card-InfrastructureOperationsPlatforms:nth-child(5) .icon-ring-InfrastructureOperationsPlatforms { animation-delay: 2.2s; }
+.card-InfrastructureOperationsPlatforms:nth-child(6) .icon-ring-InfrastructureOperationsPlatforms { animation-delay: 2.75s; }
+
+/* per-icon animations */
+.icon-anim-server-InfrastructureOperationsPlatforms,
+.icon-anim-layers-InfrastructureOperationsPlatforms,
+.icon-anim-brain-InfrastructureOperationsPlatforms,
+.icon-anim-gear-InfrastructureOperationsPlatforms,
+.icon-anim-recovery-InfrastructureOperationsPlatforms,
+.icon-anim-shield-InfrastructureOperationsPlatforms {
+  display: grid;
+  place-items: center;
+}
+
+/* Server – soft "data" flicker */
+.icon-anim-server-InfrastructureOperationsPlatforms {
+  animation: flicker-InfrastructureOperationsPlatforms 3s ease-in-out infinite;
+}
+
+/* Layers – gentle stacking bob */
+.icon-anim-layers-InfrastructureOperationsPlatforms {
+  animation: bob-InfrastructureOperationsPlatforms 3s ease-in-out infinite;
+}
+
+/* Brain – thinking pulse */
+.icon-anim-brain-InfrastructureOperationsPlatforms {
+  animation: think-InfrastructureOperationsPlatforms 2.8s ease-in-out infinite;
+}
+
+/* Gear – slow spin, faster on hover */
+.icon-anim-gear-InfrastructureOperationsPlatforms {
+  animation: spin-InfrastructureOperationsPlatforms 8s linear infinite;
+}
+
+.card-InfrastructureOperationsPlatforms:hover .icon-anim-gear-InfrastructureOperationsPlatforms {
+  animation-duration: 2.5s;
+}
+
+/* Recovery – rewinds every few seconds */
+.icon-anim-recovery-InfrastructureOperationsPlatforms {
+  animation: rewind-InfrastructureOperationsPlatforms 4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* Shield – protective pulse */
+.icon-anim-shield-InfrastructureOperationsPlatforms {
+  animation: guard-InfrastructureOperationsPlatforms 3.2s ease-in-out infinite;
+}
+
+.card-title-wrap-InfrastructureOperationsPlatforms {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.card-title-InfrastructureOperationsPlatforms {
+  margin-bottom: 0.3rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: var(--font-size-lg);
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+  transition: text-shadow var(--transition-base);
+}
+
+.card-InfrastructureOperationsPlatforms:hover .card-title-InfrastructureOperationsPlatforms {
+  text-shadow: 0 0 18px var(--tone-glow-InfrastructureOperationsPlatforms);
+}
+
+.card-subtitle-InfrastructureOperationsPlatforms {
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-100);
+}
+
+/* ------------------------- Card body ------------------------- */
+.card-desc-InfrastructureOperationsPlatforms {
+  margin-bottom: 1.25rem;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--zescloud-text-gray-300);
+}
+
+.points-InfrastructureOperationsPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+}
+
+.point-InfrastructureOperationsPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--font-size-sm);
+  color: var(--zescloud-text-gray-100);
+  transition: color var(--transition-base), transform var(--transition-base);
+}
+
+.bullet-InfrastructureOperationsPlatforms {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--zescloud-text-gray-300);
+  transition: background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.point-InfrastructureOperationsPlatforms:hover {
+  color: var(--zescloud-text-white);
+  transform: translateX(4px);
+}
+
+.card-InfrastructureOperationsPlatforms:hover .bullet-InfrastructureOperationsPlatforms {
+  background: var(--tone-InfrastructureOperationsPlatforms);
+  box-shadow: 0 0 8px var(--tone-InfrastructureOperationsPlatforms);
+}
+
+.point-InfrastructureOperationsPlatforms:hover .bullet-InfrastructureOperationsPlatforms {
+  transform: scale(1.5);
+}
+
+/* ------------------------- Link ------------------------- */
+.link-InfrastructureOperationsPlatforms {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin-top: auto;
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-accent-cyan);
+}
+
+.link-text-InfrastructureOperationsPlatforms {
+  position: relative;
+}
+
+/* underline that grows on hover */
+.link-text-InfrastructureOperationsPlatforms::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px var(--zescloud-accent-cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-arrow-InfrastructureOperationsPlatforms {
+  transition: transform var(--transition-base);
+}
+
+.card-InfrastructureOperationsPlatforms:hover .link-text-InfrastructureOperationsPlatforms::after {
+  transform: scaleX(1);
+}
+
+.card-InfrastructureOperationsPlatforms:hover .link-arrow-InfrastructureOperationsPlatforms {
+  transform: translateX(5px);
+}
+
+/* =========================== KEYFRAMES =========================== */
+@keyframes ambientPulse-InfrastructureOperationsPlatforms {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes textShimmer-InfrastructureOperationsPlatforms {
+  from { background-position: 0% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes ring-InfrastructureOperationsPlatforms {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes flicker-InfrastructureOperationsPlatforms {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 1; }
+  50% { opacity: 0.55; }
+  55% { opacity: 1; }
+  60% { opacity: 0.7; }
+  65% { opacity: 1; }
+}
+
+@keyframes bob-InfrastructureOperationsPlatforms {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes think-InfrastructureOperationsPlatforms {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes spin-InfrastructureOperationsPlatforms {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rewind-InfrastructureOperationsPlatforms {
+  0%, 55% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes guard-InfrastructureOperationsPlatforms {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* =========================== RESPONSIVE =========================== */
+@media (max-width: 1100px) {
+  .grid-InfrastructureOperationsPlatforms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .grid-InfrastructureOperationsPlatforms {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .card-InfrastructureOperationsPlatforms {
+    padding: 1.5rem 1.35rem 1.4rem;
+  }
+
+  .heading-accent-InfrastructureOperationsPlatforms {
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-InfrastructureOperationsPlatforms *,
+  .section-InfrastructureOperationsPlatforms *::before,
+  .section-InfrastructureOperationsPlatforms *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

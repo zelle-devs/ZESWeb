@@ -1,0 +1,597 @@
+/* =========================================================
+   zescloud Footer
+   - Large "N" mark sits bottom-right as a background
+   - Dark black overlay is layered ABOVE the image
+   - One entrance sequence on scroll-into-view, then a slow float
+   ========================================================= */
+
+.footerWrapperzescloudMainFooter {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--zescloud-bg-base, #06080C);
+  padding: 5rem 0 0;
+  border-top: 1px solid var(--zescloud-border-subtle, #1E293B);
+  width: 100%;
+}
+
+/* ---------- Background layers ---------- */
+
+.bgLayerszescloudMainFooter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Soft teal glow behind the image */
+.glowzescloudMainFooter {
+  position: absolute;
+  right: -8%;
+  bottom: -30%;
+  width: clamp(420px, 55vw, 860px);
+  height: clamp(420px, 55vw, 860px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 230, 153, 0.32) 0%,
+    rgba(0, 230, 153, 0.10) 40%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+/* Entrance wrapper (slides in from the bottom-right corner) */
+.bgImageWrapzescloudMainFooter {
+  position: absolute;
+  right: -5%;
+  bottom: -22%;
+  width: clamp(380px, 46vw, 720px);
+  aspect-ratio: 1 / 1;
+  opacity: 0;
+  transform: translate(18%, 18%) scale(0.8) rotate(8deg);
+  transform-origin: bottom right;
+}
+
+/* The image itself (continuous slow float) */
+.bgImagezescloudMainFooter {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  filter: saturate(1.1) drop-shadow(0 0 60px rgba(0, 230, 153, 0.35));
+}
+
+/* Faint dot grid, fades out toward the left */
+.gridzescloudMainFooter {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    rgba(148, 163, 184, 0.16) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.8), transparent 65%);
+  mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.8), transparent 65%);
+  opacity: 0.5;
+}
+
+/* DARK BLACK OVERLAY — sits above the image so text stays readable */
+.overlayzescloudMainFooter {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.86) 40%,
+      rgba(0, 0, 0, 0.62) 100%
+    ),
+    linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 45%);
+}
+/* Top border light sweep (track) */
+.topLinezescloudMainFooter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.topLinezescloudMainFooter::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--zescloud-primary, #00E699) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%); /* parked fully outside the left edge */
+  will-change: transform;
+}
+
+/* ---------- Content ---------- */
+
+.containerzescloudMainFooter {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--zescloud-container-width, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x, 2rem);
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  padding-bottom: 3.5rem;
+}
+
+.brandColzescloudMainFooter {
+  flex: 0 0 28%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logozescloudMainFooter {
+  object-fit: contain;
+  margin-bottom: 1.25rem;
+  width: 190px;
+  /* margin-left: -20px; */
+
+}
+
+.taglinezescloudMainFooter {
+  font-family: var(--font-poppins, sans-serif);
+  font-size: 0.9rem;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  margin: 0 0 1rem 0;
+  max-width: 140px;
+  border-left: 1px solid var(--zescloud-text-gray-300);
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.socialszescloudMainFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.socialLinkzescloudMainFooter {
+  color: var(--zescloud-primary, #00E699);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 230, 153, 0.25);
+  background: rgba(0, 230, 153, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.socialLinkzescloudMainFooter:hover,
+.socialLinkzescloudMainFooter:focus-visible {
+  transform: translateY(-4px);
+  background: var(--zescloud-primary, #00E699);
+  border-color: var(--zescloud-primary, #00E699);
+  color: #06080C;
+  box-shadow: 0 8px 20px rgba(0, 230, 153, 0.4);
+  outline: none;
+}
+
+.linksColGroupzescloudMainFooter {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 720px;
+}
+
+.linkColzescloudMainFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.colHeadingzescloudMainFooter {
+  font-family: var(--font-poppins, sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--zescloud-text-white, #FFFFFF);
+  margin: 0 0 1.5rem 0;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  text-align: left;
+}
+
+.colHeadingIconzescloudMainFooter {
+  display: none;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.linkListzescloudMainFooter {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+  overflow: hidden;
+}
+
+.linkItemzescloudMainFooter {
+  margin: 0;
+  padding: 8px 10px;
+  padding-left: 0;
+}
+
+.linkzescloudMainFooter {
+  position: relative;
+  font-family: var(--font-poppins, sans-serif);
+  font-size: 0.85rem;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+.MainFooterLogoMainDivzescloudMain{
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+  margin-left: -20px;
+}
+/* Underline that draws in on hover */
+.linkzescloudMainFooter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--zescloud-primary, #00E699);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.linkzescloudMainFooter:hover,
+.linkzescloudMainFooter:focus-visible {
+  color: var(--zescloud-text-white, #FFFFFF);
+  transform: translateX(6px);
+  outline: none;
+}
+
+.linkzescloudMainFooter:hover::after,
+.linkzescloudMainFooter:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Bottom bar ---------- */
+
+.bottomBarzescloudMainFooter {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-top: 1px solid var(--zescloud-border-subtle, #1E293B);
+  padding: 1.5rem var(--zescloud-padding-x, 2rem);
+}
+
+.bottomInnerzescloudMainFooter {
+  max-width: var(--zescloud-container-width, 1280px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.copyrightzescloudMainFooter {
+  margin: 0;
+  font-family: var(--font-poppins, sans-serif);
+  font-size: 0.8rem;
+  color: var(--zescloud-text-gray-500, #64748B);
+}
+
+.backToTopzescloudMainFooter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-poppins, sans-serif);
+  font-size: 0.8rem;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--zescloud-border-subtle, #1E293B);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.backToTopzescloudMainFooter svg {
+  transition: transform 0.3s ease;
+}
+
+.backToTopzescloudMainFooter:hover,
+.backToTopzescloudMainFooter:focus-visible {
+  color: var(--zescloud-primary, #00E699);
+  border-color: var(--zescloud-primary, #00E699);
+  outline: none;
+}
+
+.backToTopzescloudMainFooter:hover svg,
+.backToTopzescloudMainFooter:focus-visible svg {
+  transform: translateY(-3px);
+}
+
+/* =========================================================
+   Entrance sequence — runs once when the footer enters view
+   ========================================================= */
+
+/* Hidden until the footer is in view */
+.revealzescloudMainFooter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.isInViewzescloudMainFooter .revealzescloudMainFooter {
+  animation: fadeUpzescloudMainFooter 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.isInViewzescloudMainFooter .bgImageWrapzescloudMainFooter {
+  animation: imageEnterzescloudMainFooter 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+.isInViewzescloudMainFooter .bgImagezescloudMainFooter {
+  animation: imageFloatzescloudMainFooter 9s ease-in-out 1.7s infinite;
+}
+
+.isInViewzescloudMainFooter .glowzescloudMainFooter {
+  animation:
+    glowEnterzescloudMainFooter 1.8s ease-out 0.1s forwards,
+    glowPulsezescloudMainFooter 6s ease-in-out 1.9s infinite;
+}
+
+.isInViewzescloudMainFooter .topLinezescloudMainFooter::after {
+  animation: lineSweepzescloudMainFooter 5s infinite;
+}
+@keyframes fadeUpzescloudMainFooter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imageEnterzescloudMainFooter {
+  from {
+    opacity: 0;
+    transform: translate(18%, 18%) scale(0.8) rotate(8deg);
+  }
+  to {
+    opacity: 0.6;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes imageFloatzescloudMainFooter {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(-2deg);
+  }
+}
+
+@keyframes glowEnterzescloudMainFooter {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulsezescloudMainFooter {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+@keyframes lineSweepzescloudMainFooter {
+  0% {
+    transform: translateX(-100%);              /* left se bahar */
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  31.25% {
+    transform: translateX(180%);               /* right edge par smoothly ruk gayi */
+    animation-timing-function: linear;
+  }
+  81.25% {
+    transform: translateX(180%);               /* 4 second ruki rahegi */
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+  100% {
+    transform: translateX(250%);               /* right se bahar smoothly nikal gayi */
+  }
+}
+/* =========================================================
+   Tablet / Mobile
+   ========================================================= */
+
+@media (max-width: 992px) {
+  .bgImageWrapzescloudMainFooter {
+    width: clamp(320px, 70vw, 520px);
+    right: -12%;
+    bottom: -14%;
+  }
+
+  .glowzescloudMainFooter {
+    width: clamp(320px, 80vw, 600px);
+    height: clamp(320px, 80vw, 600px);
+  }
+
+  /* Slightly heavier overlay so stacked text stays readable */
+  .overlayzescloudMainFooter {
+    background:
+      linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.94) 0%,
+        rgba(0, 0, 0, 0.8) 60%,
+        rgba(0, 0, 0, 0.7) 100%
+      ),
+      linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 45%);
+  }
+
+  .containerzescloudMainFooter {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .brandColzescloudMainFooter {
+    flex: none;
+    align-items: center;
+    text-align: center;
+  }
+
+  .taglinezescloudMainFooter {
+    max-width: 160px;
+    text-align: left;
+  }
+  .MainFooterLogoMainDivzescloudMain{
+    margin-left: 30px;
+  }
+
+  .linksColGroupzescloudMainFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: none;
+  }
+
+  .linkColzescloudMainFooter {
+    border-bottom: 1px solid var(--zescloud-border-subtle, #1E293B);
+  }
+
+  .linkColzescloudMainFooter:first-child {
+    border-top: 1px solid var(--zescloud-border-subtle, #1E293B);
+  }
+
+  .colHeadingzescloudMainFooter {
+    cursor: pointer;
+    padding: 1.15rem 0.25rem;
+    margin: 0;
+  }
+
+  .colHeadingIconzescloudMainFooter {
+    display: block;
+  }
+
+  .colHeadingzescloudMainFooter.isOpenzescloudMainFooter .colHeadingIconzescloudMainFooter {
+    transform: rotate(180deg);
+    color: var(--zescloud-primary, #00E699);
+  }
+
+  .linkListzescloudMainFooter {
+    max-height: 0;
+    opacity: 0;
+    gap: 0;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease, padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 0.25rem;
+  }
+
+  .linkListzescloudMainFooter.isOpenzescloudMainFooter {
+    max-height: 320px;
+    opacity: 1;
+    gap: 0.85rem;
+    padding: 0 0.25rem 1.15rem;
+  }
+
+  .bottomInnerzescloudMainFooter {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerWrapperzescloudMainFooter {
+    padding-top: 3.5rem;
+  }
+
+  .logozescloudMainFooter {
+    width: 160px;
+  }
+
+  .bgImageWrapzescloudMainFooter {
+    width: 360px;
+    right: -22%;
+    bottom: -8%;
+  }
+}
+
+/* =========================================================
+   Reduced motion — show everything immediately, no movement
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .revealzescloudMainFooter {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .bgImageWrapzescloudMainFooter {
+    opacity: 0.6;
+    transform: none;
+    animation: none !important;
+  }
+
+  .bgImagezescloudMainFooter {
+    animation: none !important;
+  }
+
+  .topLinezescloudMainFooter::after {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .glowzescloudMainFooter {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}

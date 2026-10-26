@@ -1,0 +1,748 @@
+/* =====================================================================
+   UnderstandActHomePage
+   Dark "answer" section: smoky blue background image, left-side
+   animated copy, right-side a tilted, skewed dashboard mockup with an
+   orbiting healthy-status ring and a pulsing world map.
+   ===================================================================== */
+:root {
+  --understand-act-bg-image: url('/UnderstandActHomePage.png');
+}
+.section-UnderstandActHomePage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--zescloud-bg-base);
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* ---------------------------- BACKGROUND ---------------------------- */
+/* Set your smoky background image here, or define
+   --understand-act-bg-image on :root and leave this as-is. */
+.bgImage-UnderstandActHomePage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--understand-act-bg-image, none);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.bgOverlay-UnderstandActHomePage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 60% at 78% 45%, color-mix(in srgb, var(--zescloud-primary) 16%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, var(--zescloud-bg-base) 0%, transparent 18%, transparent 78%, var(--zescloud-bg-base) 100%),
+    linear-gradient(90deg, var(--zescloud-bg-base) 0%, transparent 30%);
+}
+
+/* Dark gradient fade at the very bottom of the whole section */
+.bottomFade-UnderstandActHomePage {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: clamp(90px, 10vw, 160px);
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--zescloud-bg-base) 0%, transparent 100%);
+}
+
+.grid-UnderstandActHomePage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: 3.5rem;
+}
+
+/* ------------------------------ LEFT -------------------------------- */
+.content-col-UnderstandActHomePage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 560px;
+}
+
+.overline-UnderstandActHomePage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 2px;
+  color: var(--zescloud-accent-cyan);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.overlineDot-UnderstandActHomePage {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 10px var(--zescloud-accent-cyan);
+}
+
+.overlineDot-UnderstandActHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: dotPing-UnderstandActHomePage 2s ease-out infinite;
+}
+
+.heading-UnderstandActHomePage {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-6xl);
+  font-weight: var(--fw-bold);
+  line-height: 1.12;
+  color: var(--zescloud-text-white);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.headingLine-UnderstandActHomePage {
+  display: block;
+}
+
+.highlight-UnderstandActHomePage {
+  background: linear-gradient(
+    90deg,
+    var(--zescloud-accent-cyan) 0%,
+    var(--zescloud-primary) 45%,
+    var(--zescloud-accent-cyan) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 26px var(--zescloud-border-glow));
+  animation: accentShimmer-UnderstandActHomePage 6s linear infinite;
+}
+
+.desc-UnderstandActHomePage {
+  font-size: var(--font-size-lg);
+  color: var(--zescloud-text-gray-300);
+  line-height: 1.65;
+  max-width: 92%;
+  margin-bottom: 2.25rem;
+}
+
+.cta-UnderstandActHomePage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.75rem;
+  font-family: var(--zescloud-font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  background: var(--zescloud-btn-gradient);
+  border: 1px solid var(--zescloud-border-glow);
+  border-radius: var(--zescloud-radius-md);
+  box-shadow: 0 4px 24px var(--zescloud-border-glow);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    background var(--transition-base);
+}
+
+.cta-UnderstandActHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.22) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: btnShine-UnderstandActHomePage 4.5s ease-in-out 1s infinite;
+}
+
+.cta-UnderstandActHomePage:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--zescloud-border-glow);
+}
+
+.ctaIcon-UnderstandActHomePage {
+  transition: transform var(--transition-fast);
+}
+
+.cta-UnderstandActHomePage:hover .ctaIcon-UnderstandActHomePage {
+  transform: translateX(4px);
+}
+
+/* ------------------------------ RIGHT ------------------------------- */
+.visual-col-UnderstandActHomePage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panelStage-UnderstandActHomePage {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  perspective: 900px;
+}
+
+.panelGlow-UnderstandActHomePage {
+  position: absolute;
+  inset: -12%;
+  z-index: -1;
+  background: radial-gradient(55% 55% at 55% 45%, color-mix(in srgb, var(--zescloud-primary) 26%, transparent) 0%, transparent 72%);
+  filter: blur(40px);
+}
+
+/* ------------------------- SVG DEVICE FRAME -------------------------
+   A real tablet bezel drawn in SVG (aluminium gradient body, inset
+   screen, camera dot). The dashboard itself lives inside the screen
+   cutout via <foreignObject>, so it is genuinely framed rather than a
+   div faked to look tilted. The tilt + a very slow, subtle idle float
+   are the only motion on the frame - no continuous shine sweep. */
+.tabletFrame-UnderstandActHomePage {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-left: -150px;
+  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.55));
+  transform: rotateX(8deg) rotateY(-14deg) rotateZ(1.5deg);
+  transform-style: preserve-3d;
+  animation: panelFloat-UnderstandActHomePage 8s ease-in-out infinite;
+}
+
+/* The dashboard rendered inside the foreignObject screen area. Real
+   glass look (translucent + blur + a fixed edge highlight), but static
+   - no looping shine, just the one-time diagonal reflection drawn in
+   the SVG itself. */
+.dashboard-UnderstandActHomePage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(165deg, color-mix(in srgb, var(--zescloud-bg-panel) 82%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-surface) 70%, transparent) 100%);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Soft, static top highlight - like light resting on the glass once,
+   not sweeping across it. */
+.dashboard-UnderstandActHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 18%);
+}
+
+.dashHeader-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--zescloud-border-subtle) 80%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--zescloud-bg-base) 48%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-base) 30%, transparent) 100%);
+}
+
+.brand-UnderstandActHomePage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandIcon-UnderstandActHomePage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  color: var(--zescloud-text-white);
+  background: var(--zescloud-btn-gradient);
+}
+
+.brandName-UnderstandActHomePage {
+  font-size: 1.05rem;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+}
+
+.dashHeaderRight-UnderstandActHomePage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.accessPill-UnderstandActHomePage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-300);
+  background: var(--zescloud-bg-badge);
+  border: 1px solid var(--zescloud-border-subtle);
+  border-radius: var(--zescloud-radius-pill);
+}
+
+.dashIconBtn-UnderstandActHomePage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--zescloud-text-gray-300);
+  background: var(--zescloud-bg-badge);
+  border: 1px solid var(--zescloud-border-subtle);
+}
+
+.dashIconDot-UnderstandActHomePage {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--zescloud-status-danger);
+  box-shadow: 0 0 6px var(--zescloud-status-danger);
+}
+
+.dashBody-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+}
+
+/* Sidebar */
+.sidebar-UnderstandActHomePage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 0.65rem;
+  border-right: 1px solid color-mix(in srgb, var(--zescloud-border-subtle) 80%, transparent);
+  background: color-mix(in srgb, var(--zescloud-bg-base) 22%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.navItem-UnderstandActHomePage {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-500);
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.navItemActive-UnderstandActHomePage {
+  color: var(--zescloud-text-white);
+  background: var(--zescloud-bg-badge);
+  box-shadow: inset 0 0 0 1px var(--zescloud-border-highlight);
+}
+
+/* Main dashboard content */
+.dashMain-UnderstandActHomePage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.1rem;
+}
+
+.mainRow-UnderstandActHomePage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.5fr);
+  gap: 0.9rem;
+}
+
+/* Status card with the orbiting healthy ring - small glass tile with
+   its own faint top highlight, same language as the outer panel. */
+.statusCard-UnderstandActHomePage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 1.2rem 0.8rem;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--zescloud-bg-panel) 85%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-panel) 55%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--zescloud-border-subtle) 90%, transparent);
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.statusCard-UnderstandActHomePage::before,
+.mapCard-UnderstandActHomePage::before,
+.statCard-UnderstandActHomePage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, transparent 35%);
+}
+
+.statusCardLabel-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-500);
+}
+
+.ring-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  width: 78px;
+  height: 78px;
+  margin: 0.35rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Faint full circle underneath, like the screenshot's subtle base track */
+.ringTrackSvg-UnderstandActHomePage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ringTrackSvg-UnderstandActHomePage circle {
+  fill: none;
+  stroke: color-mix(in srgb, var(--zescloud-status-healthy) 16%, transparent);
+  stroke-width: 3;
+}
+
+/* 3 rounded-end arc segments drawn as one dashed stroke (arc length and
+   gap are each exactly a third of the circle's circumference, so you
+   get 3 separate rounded lines, not a row of small dots). The whole
+   SVG spins continuously, so the 3 arcs circulate together as one
+   ring - this is the "continuously moving in circular" piece. */
+.ringArcsSvg-UnderstandActHomePage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--zescloud-status-healthy) 70%, transparent));
+  animation: ringSpin-UnderstandActHomePage 4s linear infinite;
+}
+
+.ringArcsSvg-UnderstandActHomePage circle {
+  fill: none;
+  stroke: var(--zescloud-status-healthy);
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* circumference (r=34) ≈ 213.6 -> each third ≈ 71.2: ~60% arc, ~40% gap */
+  stroke-dasharray: 43 28.2;
+}
+
+.ringCenterIcon-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  color: var(--zescloud-status-healthy);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--zescloud-status-healthy) 60%, transparent));
+}
+
+.statusCardState-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: 1.05rem;
+  font-weight: var(--fw-bold);
+  color: var(--zescloud-status-healthy);
+}
+
+.statusCardSub-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: 0.78rem;
+  color: var(--zescloud-text-gray-500);
+}
+
+/* World map card */
+.mapCard-UnderstandActHomePage {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--zescloud-bg-panel) 85%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-panel) 55%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--zescloud-border-subtle) 90%, transparent);
+}
+
+.mapBox-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+}
+
+/* Simple CSS "world" texture: scattered dots masked into rough
+   continent bands, so it reads as a world map without an image. */
+.mapDots-UnderstandActHomePage {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--zescloud-accent-cyan) 55%, transparent) 1px, transparent 1.4px);
+  background-size: 9px 9px;
+  -webkit-mask-image:
+    radial-gradient(18% 30% at 16% 35%, #000 60%, transparent 100%),
+    radial-gradient(10% 22% at 27% 68%, #000 60%, transparent 100%),
+    radial-gradient(16% 22% at 48% 30%, #000 60%, transparent 100%),
+    radial-gradient(14% 26% at 50% 60%, #000 55%, transparent 100%),
+    radial-gradient(22% 28% at 72% 32%, #000 60%, transparent 100%),
+    radial-gradient(14% 20% at 80% 50%, #000 55%, transparent 100%),
+    radial-gradient(10% 14% at 83% 70%, #000 55%, transparent 100%);
+  mask-image:
+    radial-gradient(18% 30% at 16% 35%, #000 60%, transparent 100%),
+    radial-gradient(10% 22% at 27% 68%, #000 60%, transparent 100%),
+    radial-gradient(16% 22% at 48% 30%, #000 60%, transparent 100%),
+    radial-gradient(14% 26% at 50% 60%, #000 55%, transparent 100%),
+    radial-gradient(22% 28% at 72% 32%, #000 60%, transparent 100%),
+    radial-gradient(14% 20% at 80% 50%, #000 55%, transparent 100%),
+    radial-gradient(10% 14% at 83% 70%, #000 55%, transparent 100%);
+  opacity: 0.6;
+}
+
+.mapPin-UnderstandActHomePage {
+  position: absolute;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px;
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px var(--zescloud-accent-cyan);
+  animation: pinTwinkle-UnderstandActHomePage 2.6s ease-in-out infinite;
+}
+
+.mapPin_md-UnderstandActHomePage {
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+}
+
+.mapPin_lg-UnderstandActHomePage {
+  width: 10px;
+  height: 10px;
+  margin: -5px;
+  background: var(--zescloud-primary);
+  box-shadow: 0 0 12px var(--zescloud-primary);
+}
+
+.mapPinPing-UnderstandActHomePage {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  color: inherit;
+  animation: dotPing-UnderstandActHomePage 2.2s ease-out infinite;
+}
+
+/* Stat cards row */
+.statsRow-UnderstandActHomePage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.statCard-UnderstandActHomePage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 0.9rem;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--zescloud-bg-panel) 85%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-panel) 55%, transparent) 100%);
+  border: 1px solid color-mix(in srgb, var(--zescloud-border-subtle) 90%, transparent);
+  border-radius: 11px;
+  overflow: hidden;
+  justify-content: center;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.statCard-UnderstandActHomePage:hover {
+  border-color: var(--zescloud-border-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.statCardLabel-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: 0.78rem;
+  color: var(--zescloud-text-gray-500);
+}
+
+.statCardValue-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: 1.5rem;
+  font-weight: var(--fw-bold);
+  color: var(--zescloud-text-white);
+}
+
+.statCardNote-UnderstandActHomePage {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: var(--fw-medium);
+}
+
+.statCardNoteIcon-UnderstandActHomePage {
+  flex-shrink: 0;
+}
+
+.statCardNote_ok-UnderstandActHomePage {
+  color: var(--zescloud-status-healthy);
+}
+
+.statCardNote_flat-UnderstandActHomePage {
+  color: var(--zescloud-status-danger);
+}
+
+/* ---------------------------- KEYFRAMES ------------------------------ */
+@keyframes dotPing-UnderstandActHomePage {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes accentShimmer-UnderstandActHomePage {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@keyframes btnShine-UnderstandActHomePage {
+  0% { transform: translateX(-120%); }
+  35%, 100% { transform: translateX(120%); }
+}
+
+/* Very slow, subtle idle float on the whole tablet frame - not a
+   "shine", just a gentle sense that it's a real floating device. */
+@keyframes panelFloat-UnderstandActHomePage {
+  0%, 100% { transform: rotateX(8deg) rotateY(-14deg) rotateZ(1.5deg) translateY(0); }
+  50% { transform: rotateX(7.5deg) rotateY(-13deg) rotateZ(1.2deg) translateY(-6px); }
+}
+
+/* Continuous 360deg circulation around the healthy ring */
+@keyframes ringSpin-UnderstandActHomePage {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pinTwinkle-UnderstandActHomePage {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+/* -------------------------- RESPONSIVE -------------------------- */
+@media (max-width: 1200px) {
+  .grid-UnderstandActHomePage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .content-col-UnderstandActHomePage {
+    max-width: 100%;
+  }
+
+  .panelStage-UnderstandActHomePage {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .tabletFrame-UnderstandActHomePage {
+    transform: rotateX(4deg) rotateY(-7deg) rotateZ(0.8deg);
+  }
+
+  @keyframes panelFloat-UnderstandActHomePage {
+    0%, 100% { transform: rotateX(4deg) rotateY(-7deg) rotateZ(0.8deg) translateY(0); }
+    50% { transform: rotateX(3.5deg) rotateY(-6.5deg) rotateZ(0.6deg) translateY(-5px); }
+  }
+}
+
+@media (max-width: 860px) {
+  .heading-UnderstandActHomePage {
+    font-size: clamp(2.25rem, 6vw, var(--font-size-6xl));
+  }
+
+  .desc-UnderstandActHomePage {
+    max-width: 100%;
+    font-size: var(--font-size-base);
+  }
+
+  .tabletFrame-UnderstandActHomePage {
+    transform: none;
+    animation: none;
+    filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.45));
+  }
+
+  .mainRow-UnderstandActHomePage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashBody-UnderstandActHomePage {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-UnderstandActHomePage {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--zescloud-border-subtle);
+  }
+}
+
+@media (max-width: 520px) {
+  .statsRow-UnderstandActHomePage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cta-UnderstandActHomePage {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* -------------------------- ACCESSIBILITY -------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .section-UnderstandActHomePage *,
+  .section-UnderstandActHomePage *::before,
+  .section-UnderstandActHomePage *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .tabletFrame-UnderstandActHomePage {
+    transform: none;
+  }
+}

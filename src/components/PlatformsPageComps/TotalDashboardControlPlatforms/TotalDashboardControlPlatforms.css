@@ -1,0 +1,1488 @@
+/* =====================================================================
+   TotalDashboardControlPlatforms
+   All classes, keyframes & local variables end with
+   "-TotalDashboardControlPlatforms" so nothing merges with other components.
+===================================================================== */
+
+.section-TotalDashboardControlPlatforms {
+  --bg-image-TotalDashboardControlPlatforms: none;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4.5rem, 7vw, 7rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* Top dark fade – blends this section into the one above it */
+.section-TotalDashboardControlPlatforms::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  height: clamp(140px, 22vh, 260px);
+  background: linear-gradient(180deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0.9) 25%,
+      rgba(2, 10, 19, 0.55) 60%,
+      rgba(2, 10, 19, 0) 100%);
+  pointer-events: none;
+}
+
+/* ------------------------- Background ------------------------- */
+.bg-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image: var(--bg-image-TotalDashboardControlPlatforms);
+  background-size: contain;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transform: scale(1.05);
+  animation: bgDrift-TotalDashboardControlPlatforms 26s ease-in-out infinite alternate;
+     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1994' height='789' viewBox='0 0 1994 789' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='white' stop-opacity='0'/%3E%3Cstop offset='0.3' stop-color='white'/%3E%3Cstop offset='0.75' stop-color='white'/%3E%3Cstop offset='1' stop-color='white' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1994' height='789' fill='url(%23g)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1994' height='789' viewBox='0 0 1994 789' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='white' stop-opacity='0'/%3E%3Cstop offset='0.3' stop-color='white'/%3E%3Cstop offset='0.75' stop-color='white'/%3E%3Cstop offset='1' stop-color='white' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1994' height='789' fill='url(%23g)'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center bottom;
+  mask-position: center bottom;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.overlay-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg,
+      rgba(2, 10, 19, 0.92) 0%,
+      rgba(2, 10, 19, 0.7) 35%,
+      rgba(2, 10, 19, 0.25) 65%,
+      rgba(2, 10, 19, 0.1) 100%),
+    linear-gradient(180deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0) 16%,
+      rgba(2, 10, 19, 0) 80%,
+      var(--zescloud-bg-base) 100%);
+}
+
+/* soft moving light beam (top right) */
+.beam-TotalDashboardControlPlatforms {
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+  right: 4%;
+  width: 34%;
+  height: 120%;
+  background: linear-gradient(200deg, rgba(86, 180, 255, 0.18) 0%, rgba(57, 137, 226, 0.06) 45%, transparent 70%);
+  filter: blur(30px);
+  transform: rotate(18deg);
+  transform-origin: top right;
+  pointer-events: none;
+  animation: beamSway-TotalDashboardControlPlatforms 10s ease-in-out infinite alternate;
+}
+
+/* ------------------------- Layout ------------------------- */
+.container-TotalDashboardControlPlatforms {
+  position: relative;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4.5rem);
+}
+
+/* ------------------------- Tones ------------------------- */
+.tone-blue-TotalDashboardControlPlatforms {
+  --tone-TotalDashboardControlPlatforms: var(--zescloud-accent-cyan);
+  --tone-bg-TotalDashboardControlPlatforms: rgba(57, 137, 226, 0.16);
+  --tone-border-TotalDashboardControlPlatforms: rgba(86, 180, 255, 0.45);
+  --tone-glow-TotalDashboardControlPlatforms: rgba(57, 137, 226, 0.4);
+}
+
+.tone-green-TotalDashboardControlPlatforms {
+  --tone-TotalDashboardControlPlatforms: #34D399;
+  --tone-bg-TotalDashboardControlPlatforms: var(--zescloud-status-healthy-bg);
+  --tone-border-TotalDashboardControlPlatforms: rgba(52, 211, 153, 0.45);
+  --tone-glow-TotalDashboardControlPlatforms: rgba(16, 185, 129, 0.38);
+}
+
+.tone-purple-TotalDashboardControlPlatforms {
+  --tone-TotalDashboardControlPlatforms: #A78BFA;
+  --tone-bg-TotalDashboardControlPlatforms: var(--zescloud-status-purple-bg);
+  --tone-border-TotalDashboardControlPlatforms: rgba(167, 139, 250, 0.45);
+  --tone-glow-TotalDashboardControlPlatforms: rgba(139, 92, 246, 0.4);
+}
+
+.tone-red-TotalDashboardControlPlatforms {
+  --tone-TotalDashboardControlPlatforms: #F87171;
+  --tone-bg-TotalDashboardControlPlatforms: var(--zescloud-status-danger-bg);
+  --tone-border-TotalDashboardControlPlatforms: rgba(248, 113, 113, 0.45);
+  --tone-glow-TotalDashboardControlPlatforms: rgba(239, 68, 68, 0.4);
+}
+
+.tone-orange-TotalDashboardControlPlatforms {
+  --tone-TotalDashboardControlPlatforms: #FBBF24;
+  --tone-bg-TotalDashboardControlPlatforms: var(--zescloud-status-warning-bg);
+  --tone-border-TotalDashboardControlPlatforms: rgba(251, 191, 36, 0.45);
+  --tone-glow-TotalDashboardControlPlatforms: rgba(245, 158, 11, 0.38);
+}
+
+/* =========================== LEFT CONTENT =========================== */
+.content-TotalDashboardControlPlatforms {
+  max-width: 600px;
+}
+
+.eyebrow-TotalDashboardControlPlatforms {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.heading-TotalDashboardControlPlatforms {
+  margin-bottom: 1.25rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.2rem, 3.7vw, var(--font-size-7xl));
+  font-weight: var(--fw-bold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--zescloud-text-white);
+}
+
+.heading-line-TotalDashboardControlPlatforms,
+.heading-accent-TotalDashboardControlPlatforms {
+  display: block;
+}
+
+.heading-accent-TotalDashboardControlPlatforms {
+  width: fit-content;
+  background: linear-gradient(90deg,
+      var(--zescloud-primary) 0%,
+      var(--zescloud-accent-cyan) 25%,
+      var(--zescloud-primary) 50%,
+      var(--zescloud-primary-hover) 75%,
+      var(--zescloud-primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(57, 137, 226, 0.35));
+  animation: textShimmer-TotalDashboardControlPlatforms 6s linear infinite;
+}
+
+.lead-TotalDashboardControlPlatforms {
+  max-width: 520px;
+  margin-bottom: 2rem;
+  font-size: clamp(1rem, 1.2vw, var(--font-size-lg));
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-100);
+}
+
+/* Features */
+.features-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-bottom: 2.25rem;
+}
+
+.feature-TotalDashboardControlPlatforms {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  align-items: start;
+  gap: 1rem;
+  padding: 0.35rem 0.5rem 0.35rem 0;
+  border-radius: var(--zescloud-radius-sm);
+  cursor: default;
+}
+
+.feature-icon-TotalDashboardControlPlatforms {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: var(--tone-TotalDashboardControlPlatforms);
+  background: var(--tone-bg-TotalDashboardControlPlatforms);
+  border: 1px solid var(--tone-border-TotalDashboardControlPlatforms);
+  box-shadow: 0 0 14px var(--tone-glow-TotalDashboardControlPlatforms);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.feature-icon-TotalDashboardControlPlatforms svg {
+  filter: drop-shadow(0 0 5px var(--tone-TotalDashboardControlPlatforms));
+}
+
+/* sequential "scanning" glow running down the list */
+.feature-icon-TotalDashboardControlPlatforms::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--tone-TotalDashboardControlPlatforms);
+  box-shadow: 0 0 22px var(--tone-glow-TotalDashboardControlPlatforms);
+  opacity: 0;
+  animation: iconScan-TotalDashboardControlPlatforms 4.8s ease-in-out infinite;
+  animation-delay: calc(var(--i-TotalDashboardControlPlatforms) * 0.8s + 1.5s);
+  pointer-events: none;
+}
+
+.feature-text-TotalDashboardControlPlatforms {
+  transition: transform var(--transition-base);
+}
+
+.feature-title-TotalDashboardControlPlatforms {
+  margin-bottom: 0.25rem;
+  font-family: var(--zescloud-font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+  color: var(--zescloud-text-white);
+  transition: color var(--transition-base);
+}
+
+.feature-desc-TotalDashboardControlPlatforms {
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-300);
+}
+
+.feature-TotalDashboardControlPlatforms:hover .feature-icon-TotalDashboardControlPlatforms {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 0 26px var(--tone-glow-TotalDashboardControlPlatforms);
+}
+
+.feature-TotalDashboardControlPlatforms:hover .feature-text-TotalDashboardControlPlatforms {
+  transform: translateX(4px);
+}
+
+.feature-TotalDashboardControlPlatforms:hover .feature-title-TotalDashboardControlPlatforms {
+  color: var(--tone-TotalDashboardControlPlatforms);
+}
+
+/* Button */
+.btn-TotalDashboardControlPlatforms {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  overflow: hidden;
+  border-radius: var(--zescloud-radius-sm);
+  background: var(--zescloud-btn-gradient);
+  color: var(--zescloud-text-white);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 8px 28px rgba(24, 72, 217, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+}
+
+.btn-TotalDashboardControlPlatforms::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  animation: btnShine-TotalDashboardControlPlatforms 4.5s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+
+.btn-TotalDashboardControlPlatforms:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(57, 137, 226, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-arrow-TotalDashboardControlPlatforms {
+  transition: transform var(--transition-base);
+}
+
+.btn-TotalDashboardControlPlatforms:hover .btn-arrow-TotalDashboardControlPlatforms {
+  transform: translateX(4px);
+}
+
+/* =========================== RIGHT VISUAL =========================== */
+.visual-TotalDashboardControlPlatforms {
+  --scale-TotalDashboardControlPlatforms: 0.9;
+  position: relative;
+  width: 100%;
+  height: calc(760px * var(--scale-TotalDashboardControlPlatforms));
+}
+
+.scale-wrap-TotalDashboardControlPlatforms {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 900px;
+  height: 860px;
+  transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+  transform-origin: top center;
+}
+
+.dash-glow-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 8% 6% 10% 6%;
+  border-radius: 40px;
+  background: radial-gradient(ellipse at 40% 50%, rgba(57, 137, 226, 0.45), rgba(24, 72, 217, 0.12) 50%, transparent 72%);
+  filter: blur(40px);
+  animation: glowPulse-TotalDashboardControlPlatforms 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.floor-TotalDashboardControlPlatforms {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 0;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(57, 137, 226, 0.45), transparent 70%);
+  filter: blur(14px);
+  animation: glowPulse-TotalDashboardControlPlatforms 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.enter-TotalDashboardControlPlatforms {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 860px;
+  height: 720px;
+}
+
+.float-TotalDashboardControlPlatforms {
+  width: 100%;
+  height: 100%;
+  perspective: 2200px;
+  perspective-origin: 30% 50%;
+  animation: dashFloat-TotalDashboardControlPlatforms 7s ease-in-out infinite;
+}
+
+/* ------------------------- Dashboard frame ------------------------- */
+.dash-TotalDashboardControlPlatforms {
+  position: relative;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  width: 860px;
+  height: 820px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(86, 180, 255, 0.4);
+  background: linear-gradient(160deg, rgba(9, 24, 44, 0.97) 0%, rgba(4, 12, 24, 0.98) 100%);
+  box-shadow:
+    -6px 0 20px rgba(86, 180, 255, 0.35),
+    0 0 20px rgba(57, 137, 226, 0.4),
+    0 40px 40px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(150, 210, 255, 0.15);
+  transform: rotateY(-12deg) rotateX(3deg);
+  transform-origin: left center;
+  color: var(--zescloud-text-gray-100);
+  font-family: var(--zescloud-font-family);
+}
+
+/* rotating light that runs along the dashboard border */
+@property --angle-TotalDashboardControlPlatforms {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.dash-border-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  padding: 1.5px;
+  border-radius: inherit;
+  /* fixed light on the top-left corner (no rotation) */
+  background: conic-gradient(from 0deg,
+      transparent 0deg,
+      transparent 260deg,
+      rgba(86, 180, 255, 0.9) 290deg,
+      #E3F3FF 310deg,
+      rgba(86, 180, 255, 0.9) 330deg,
+      transparent 360deg);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: none;
+  pointer-events: none;
+}
+
+/* scan light moving down the screen */
+.dash-scan-TotalDashboardControlPlatforms {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -25%;
+  z-index: 5;
+  height: 140px;
+  background: linear-gradient(180deg, transparent, rgba(86, 180, 255, 0.07), transparent);
+  animation: scanDown-TotalDashboardControlPlatforms 7s linear infinite;
+  pointer-events: none;
+}
+
+/* ------------------------- Sidebar ------------------------- */
+.sidebar-TotalDashboardControlPlatforms {
+  padding: 18px 12px;
+  border-right: 1px solid rgba(86, 180, 255, 0.12);
+  background: rgba(5, 16, 31, 0.65);
+}
+
+.logo-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 22px 6px;
+}
+
+.logo-icon-TotalDashboardControlPlatforms {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--zescloud-btn-gradient);
+  color: var(--zescloud-text-white);
+  box-shadow: 0 0 14px rgba(57, 137, 226, 0.6);
+}
+
+.logo-text-TotalDashboardControlPlatforms {
+  font-family: var(--zescloud-heading-font);
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  color: var(--zescloud-text-white);
+}
+
+.nav-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item-TotalDashboardControlPlatforms {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 12.5px;
+  color: var(--zescloud-text-gray-300);
+}
+
+.nav-active-TotalDashboardControlPlatforms {
+  color: var(--zescloud-text-white);
+  background: linear-gradient(90deg, rgba(57, 137, 226, 0.28), rgba(57, 137, 226, 0.08));
+  border-color: rgba(86, 180, 255, 0.35);
+  box-shadow: 0 0 16px rgba(57, 137, 226, 0.3);
+}
+
+.nav-active-TotalDashboardControlPlatforms svg {
+  color: var(--zescloud-accent-cyan);
+}
+
+.nav-active-TotalDashboardControlPlatforms::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 10px var(--zescloud-accent-cyan);
+  animation: barPulse-TotalDashboardControlPlatforms 2.4s ease-in-out infinite;
+}
+
+/* ------------------------- Main area ------------------------- */
+.main-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px 18px;
+}
+
+/* Topbar */
+.topbar-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+}
+
+.search-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 320px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--zescloud-border-subtle);
+  background: rgba(2, 10, 19, 0.6);
+  font-size: 11.5px;
+  color: var(--zescloud-text-gray-500);
+}
+
+.caret-TotalDashboardControlPlatforms {
+  width: 1px;
+  height: 13px;
+  margin-left: -4px;
+  background: var(--zescloud-accent-cyan);
+  animation: caretBlink-TotalDashboardControlPlatforms 1s steps(1) infinite;
+}
+
+.topbar-right-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.range-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--zescloud-border-subtle);
+  background: rgba(2, 10, 19, 0.6);
+  font-size: 11.5px;
+  color: var(--zescloud-text-gray-100);
+}
+
+.bell-TotalDashboardControlPlatforms {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--zescloud-border-subtle);
+  background: rgba(2, 10, 19, 0.6);
+  color: var(--zescloud-text-gray-100);
+}
+
+.bell-TotalDashboardControlPlatforms svg {
+  transform-origin: top center;
+  animation: bellShake-TotalDashboardControlPlatforms 5s ease-in-out 2s infinite;
+}
+
+.bell-dot-TotalDashboardControlPlatforms {
+  position: absolute;
+  top: 7px;
+  right: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zescloud-status-danger);
+  box-shadow: 0 0 8px var(--zescloud-status-danger);
+}
+
+.bell-dot-TotalDashboardControlPlatforms::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-status-danger);
+  animation: ping-TotalDashboardControlPlatforms 1.8s ease-out infinite;
+}
+
+/* Panels */
+.panel-TotalDashboardControlPlatforms {
+  position: relative;
+  padding: 12px 16px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(30, 58, 95, 0.75);
+  background: rgba(7, 21, 39, 0.72);
+  box-shadow: inset 0 1px 0 rgba(150, 210, 255, 0.05);
+}
+
+.panel-title-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-family: var(--zescloud-font-family);
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+}
+
+/* ------------------------- Health ------------------------- */
+.health-TotalDashboardControlPlatforms {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.gauge-block-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.gauge-TotalDashboardControlPlatforms {
+  position: relative;
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
+  animation: gaugeGlow-TotalDashboardControlPlatforms 3s ease-in-out infinite;
+}
+
+.gauge-svg-TotalDashboardControlPlatforms {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.gauge-track-TotalDashboardControlPlatforms {
+  fill: none;
+  stroke: rgba(16, 185, 129, 0.14);
+  stroke-width: 8;
+}
+
+.gauge-value-TotalDashboardControlPlatforms {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(52, 211, 153, 0.8));
+}
+
+.gauge-number-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--zescloud-heading-font);
+  font-size: 26px;
+  font-weight: var(--fw-bold);
+  color: var(--zescloud-text-white);
+}
+
+.gauge-text-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gauge-label-TotalDashboardControlPlatforms {
+  font-size: 11px;
+  color: var(--zescloud-text-gray-300);
+}
+
+.gauge-status-TotalDashboardControlPlatforms {
+  font-size: 18px;
+  font-weight: var(--fw-bold);
+  color: #34D399;
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.gauge-trend-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  color: var(--zescloud-text-gray-300);
+}
+
+.gauge-trend-TotalDashboardControlPlatforms svg {
+  color: #34D399;
+}
+
+.stats-TotalDashboardControlPlatforms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.stat-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  padding: 7px 12px;
+  border-radius: 9px;
+  border: 1px solid rgba(30, 58, 95, 0.6);
+  background: rgba(2, 10, 19, 0.5);
+}
+
+.stat-label-TotalDashboardControlPlatforms {
+  font-size: 10.5px;
+  color: var(--zescloud-text-gray-300);
+}
+
+.stat-value-TotalDashboardControlPlatforms {
+  font-family: var(--zescloud-heading-font);
+  font-size: 19px;
+  font-weight: var(--fw-bold);
+  line-height: 1.25;
+  color: var(--zescloud-text-white);
+}
+
+.stat-status-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  color: var(--tone-TotalDashboardControlPlatforms);
+}
+
+.dot-TotalDashboardControlPlatforms {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tone-TotalDashboardControlPlatforms);
+  box-shadow: 0 0 6px var(--tone-TotalDashboardControlPlatforms);
+}
+
+.stat-TotalDashboardControlPlatforms.tone-orange-TotalDashboardControlPlatforms .dot-TotalDashboardControlPlatforms {
+  animation: blink-TotalDashboardControlPlatforms 1.4s ease-in-out infinite;
+}
+
+/* ------------------------- Map ------------------------- */
+.map-panel-TotalDashboardControlPlatforms {
+  padding-bottom: 12px;
+}
+
+.map-controls-TotalDashboardControlPlatforms {
+  position: absolute;
+  top: 40px;
+  right: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.map-btn-TotalDashboardControlPlatforms {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-border-highlight);
+  background: rgba(2, 10, 19, 0.7);
+  color: var(--zescloud-text-gray-300);
+}
+
+.map-TotalDashboardControlPlatforms {
+  position: relative;
+  width: 632px;
+  height: 190px;
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(57, 137, 226, 0.12), transparent 70%),
+    radial-gradient(rgba(86, 180, 255, 0.12) 1px, transparent 1px);
+  background-size: 100% 100%, 18px 18px;
+}
+
+.map-svg-TotalDashboardControlPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* links */
+.link-blue-TotalDashboardControlPlatforms { --link-TotalDashboardControlPlatforms: #56B4FF; }
+.link-red-TotalDashboardControlPlatforms { --link-TotalDashboardControlPlatforms: #F87171; }
+.link-green-TotalDashboardControlPlatforms { --link-TotalDashboardControlPlatforms: #34D399; }
+.link-faint-TotalDashboardControlPlatforms { --link-TotalDashboardControlPlatforms: #3989E2; opacity: 0.55; }
+
+.link-base-TotalDashboardControlPlatforms {
+  fill: none;
+  stroke: var(--link-TotalDashboardControlPlatforms);
+  stroke-opacity: 0.35;
+  stroke-width: 1.3;
+}
+
+.link-flow-TotalDashboardControlPlatforms {
+  fill: none;
+  stroke: var(--link-TotalDashboardControlPlatforms);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 10;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px var(--link-TotalDashboardControlPlatforms));
+  opacity: 0;
+  animation:
+    fadeIn-TotalDashboardControlPlatforms 0.8s ease-out 2s forwards,
+    dashFlow-TotalDashboardControlPlatforms 1.6s linear infinite;
+}
+
+.link-dot-TotalDashboardControlPlatforms {
+  fill: #E3F3FF;
+  filter: drop-shadow(0 0 4px var(--link-TotalDashboardControlPlatforms)) drop-shadow(0 0 8px var(--link-TotalDashboardControlPlatforms));
+}
+
+/* nodes */
+.node-pos-TotalDashboardControlPlatforms {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+}
+
+.node-TotalDashboardControlPlatforms {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 9px;
+  border: 1px solid var(--tone-border-TotalDashboardControlPlatforms);
+  background: rgba(5, 16, 31, 0.94);
+  box-shadow: 0 0 16px var(--tone-glow-TotalDashboardControlPlatforms);
+  white-space: nowrap;
+}
+
+.node-TotalDashboardControlPlatforms::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--tone-TotalDashboardControlPlatforms);
+  opacity: 0;
+  animation: nodeRing-TotalDashboardControlPlatforms 3.2s ease-out infinite;
+  pointer-events: none;
+}
+
+.node-TotalDashboardControlPlatforms.tone-red-TotalDashboardControlPlatforms::after {
+  animation-duration: 1.6s;
+}
+
+.node-icon-TotalDashboardControlPlatforms {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--tone-bg-TotalDashboardControlPlatforms);
+  border: 1px solid var(--tone-border-TotalDashboardControlPlatforms);
+  color: var(--tone-TotalDashboardControlPlatforms);
+}
+
+.node-text-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.node-label-TotalDashboardControlPlatforms {
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+}
+
+.node-status-TotalDashboardControlPlatforms {
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  color: var(--tone-TotalDashboardControlPlatforms);
+}
+
+.node-compact-TotalDashboardControlPlatforms {
+  padding: 5px 12px 5px 5px;
+}
+
+/* ------------------------- Alerts ------------------------- */
+.alerts-panel-TotalDashboardControlPlatforms {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.alerts-head-TotalDashboardControlPlatforms {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.live-TotalDashboardControlPlatforms {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--zescloud-status-danger-bg);
+  font-size: 9.5px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #F87171;
+}
+
+.live-dot-TotalDashboardControlPlatforms {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F87171;
+  box-shadow: 0 0 6px #F87171;
+  animation: blink-TotalDashboardControlPlatforms 1.2s ease-in-out infinite;
+}
+
+.view-all-TotalDashboardControlPlatforms {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-accent-cyan);
+}
+
+.alerts-TotalDashboardControlPlatforms {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-row-TotalDashboardControlPlatforms {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 120px 84px;
+  align-items: center;
+  padding: 7px 8px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(30, 58, 95, 0.45);
+  font-size: 11px;
+}
+
+.alert-row-TotalDashboardControlPlatforms:last-child {
+  border-bottom: none;
+}
+
+/* highlight sweep travelling down the rows */
+.alert-row-TotalDashboardControlPlatforms::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--tone-bg-TotalDashboardControlPlatforms), transparent);
+  transform: translateX(-100%);
+  animation: rowSweep-TotalDashboardControlPlatforms 6s ease-in-out infinite;
+  animation-delay: calc(var(--i-TotalDashboardControlPlatforms) * 0.5s + 2.5s);
+  pointer-events: none;
+}
+
+.alert-text-TotalDashboardControlPlatforms {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--zescloud-text-gray-100);
+  white-space: nowrap;
+}
+
+.alert-text-TotalDashboardControlPlatforms svg {
+  flex-shrink: 0;
+  color: var(--tone-TotalDashboardControlPlatforms);
+  filter: drop-shadow(0 0 4px var(--tone-TotalDashboardControlPlatforms));
+}
+
+.alert-time-TotalDashboardControlPlatforms {
+  position: relative;
+  color: var(--zescloud-text-gray-300);
+}
+
+.alert-pill-TotalDashboardControlPlatforms {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--tone-bg-TotalDashboardControlPlatforms);
+  border: 1px solid var(--tone-border-TotalDashboardControlPlatforms);
+  font-size: 10px;
+  font-weight: var(--fw-semibold);
+  color: var(--tone-TotalDashboardControlPlatforms);
+}
+
+.alert-row-TotalDashboardControlPlatforms.tone-red-TotalDashboardControlPlatforms .dot-TotalDashboardControlPlatforms {
+  animation: blink-TotalDashboardControlPlatforms 1s ease-in-out infinite;
+}
+
+/* =========================== KEYFRAMES =========================== */
+@keyframes bgDrift-TotalDashboardControlPlatforms {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(-1.5%, -1%, 0); }
+}
+
+@keyframes beamSway-TotalDashboardControlPlatforms {
+  from { transform: rotate(14deg); opacity: 0.7; }
+  to { transform: rotate(22deg); opacity: 1; }
+}
+
+@keyframes textShimmer-TotalDashboardControlPlatforms {
+  from { background-position: 0% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes iconScan-TotalDashboardControlPlatforms {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  10% { opacity: 1; transform: scale(1.06); }
+  25% { opacity: 0; transform: scale(1.25); }
+}
+
+@keyframes btnShine-TotalDashboardControlPlatforms {
+  0% { transform: translateX(-160%) skewX(-18deg); }
+  40%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+
+@keyframes glowPulse-TotalDashboardControlPlatforms {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes dashFloat-TotalDashboardControlPlatforms {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes borderSpin-TotalDashboardControlPlatforms {
+  to { --angle-TotalDashboardControlPlatforms: 360deg; }
+}
+
+@keyframes scanDown-TotalDashboardControlPlatforms {
+  from { top: -25%; }
+  to { top: 110%; }
+}
+
+@keyframes barPulse-TotalDashboardControlPlatforms {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes caretBlink-TotalDashboardControlPlatforms {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes bellShake-TotalDashboardControlPlatforms {
+  0%, 84%, 100% { transform: rotate(0); }
+  86% { transform: rotate(14deg); }
+  89% { transform: rotate(-12deg); }
+  92% { transform: rotate(8deg); }
+  95% { transform: rotate(-5deg); }
+}
+
+@keyframes ping-TotalDashboardControlPlatforms {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes gaugeGlow-TotalDashboardControlPlatforms {
+  0%, 100% { box-shadow: 0 0 22px rgba(16, 185, 129, 0.2); }
+  50% { box-shadow: 0 0 38px rgba(16, 185, 129, 0.45); }
+}
+
+@keyframes blink-TotalDashboardControlPlatforms {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@keyframes fadeIn-TotalDashboardControlPlatforms {
+  to { opacity: 0.9; }
+}
+
+@keyframes dashFlow-TotalDashboardControlPlatforms {
+  to { stroke-dashoffset: -28; }
+}
+
+@keyframes nodeRing-TotalDashboardControlPlatforms {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.25, 1.6); opacity: 0; }
+}
+
+@keyframes rowSweep-TotalDashboardControlPlatforms {
+  0% { transform: translateX(-100%); }
+  30%, 100% { transform: translateX(100%); }
+}
+
+/* =========================================================
+   RESPONSIVE: TotalDashboardControlPlatforms
+   ========================================================= */
+
+/* =========================
+   TABLET / SMALL DESKTOP
+   1200px
+========================= */
+@media (max-width: 1200px) {
+  .section-TotalDashboardControlPlatforms {
+    padding: 5rem 0;
+  }
+
+  .container-TotalDashboardControlPlatforms {
+    gap: 2rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .content-TotalDashboardControlPlatforms {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .heading-TotalDashboardControlPlatforms {
+    font-size: clamp(2rem, 3.2vw, 2.8rem);
+  }
+
+  .visual-TotalDashboardControlPlatforms {
+    --scale-TotalDashboardControlPlatforms: 0.58;
+    height: 500px;
+    min-width: 0;
+  }
+
+  .scale-wrap-TotalDashboardControlPlatforms {
+    left: 50%;
+    transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+    transform-origin: top center;
+  }
+}
+
+
+/* =========================
+   TABLET
+   1024px
+========================= */
+@media (max-width: 1024px) {
+  .section-TotalDashboardControlPlatforms {
+    padding: 4.5rem 0;
+  }
+
+  .container-TotalDashboardControlPlatforms {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .content-TotalDashboardControlPlatforms {
+    width: 100%;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .heading-TotalDashboardControlPlatforms {
+    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+    line-height: 1.12;
+  }
+
+  .lead-TotalDashboardControlPlatforms {
+    max-width: 650px;
+  }
+
+  .features-TotalDashboardControlPlatforms {
+    gap: 1.1rem;
+  }
+
+  .visual-TotalDashboardControlPlatforms {
+    --scale-TotalDashboardControlPlatforms: 0.68;
+    width: 100%;
+    height: 585px;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .scale-wrap-TotalDashboardControlPlatforms {
+    left: 50%;
+    transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+    transform-origin: top center;
+  }
+
+  .overlay-TotalDashboardControlPlatforms {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 10, 19, 0.15) 0%,
+        rgba(2, 10, 19, 0.05) 35%,
+        rgba(2, 10, 19, 0.2) 75%,
+        var(--zescloud-bg-base) 100%
+      );
+  }
+
+  .section-TotalDashboardControlPlatforms::before {
+    height: 120px;
+    background: linear-gradient(
+      180deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0.35) 45%,
+      transparent 100%
+    );
+  }
+}
+
+
+/* =========================
+   MOBILE / SMALL TABLET
+   749px
+========================= */
+@media (max-width: 749px) {
+  .section-TotalDashboardControlPlatforms {
+    padding: 3.5rem 0;
+  }
+
+  .container-TotalDashboardControlPlatforms {
+    padding-inline: max(1.1rem, var(--zescloud-padding-x));
+    gap: 2rem;
+  }
+
+  .eyebrow-TotalDashboardControlPlatforms {
+    margin-bottom: 0.8rem;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    line-height: 1.6;
+  }
+
+  .heading-TotalDashboardControlPlatforms {
+    margin-bottom: 1rem;
+    font-size: clamp(1.85rem, 6vw, 2.6rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    overflow-wrap: break-word;
+  }
+
+  .heading-line-TotalDashboardControlPlatforms,
+  .heading-accent-TotalDashboardControlPlatforms {
+    max-width: 100%;
+  }
+
+  .lead-TotalDashboardControlPlatforms {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .features-TotalDashboardControlPlatforms {
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .feature-TotalDashboardControlPlatforms {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 0.25rem 0;
+  }
+
+  .feature-icon-TotalDashboardControlPlatforms {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  .feature-icon-TotalDashboardControlPlatforms svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .feature-title-TotalDashboardControlPlatforms {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .feature-desc-TotalDashboardControlPlatforms {
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .btn-TotalDashboardControlPlatforms {
+    min-height: 46px;
+    padding: 0.85rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .visual-TotalDashboardControlPlatforms {
+    --scale-TotalDashboardControlPlatforms: 0.52;
+    width: 100%;
+    height: 447px;
+    margin-inline: auto;
+    overflow: visible;
+  }
+
+  .scale-wrap-TotalDashboardControlPlatforms {
+    top: 0;
+    left: 50%;
+    width: 900px;
+    height: 860px;
+    transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+    transform-origin: top center;
+  }
+
+  .dash-TotalDashboardControlPlatforms {
+    transform: rotateY(-4deg) rotateX(1deg);
+    transform-origin: center center;
+  }
+
+  .dash-glow-TotalDashboardControlPlatforms {
+    filter: blur(25px);
+  }
+
+  .floor-TotalDashboardControlPlatforms {
+    filter: blur(10px);
+  }
+
+  .beam-TotalDashboardControlPlatforms {
+    width: 45%;
+    right: -5%;
+    opacity: 0.65;
+  }
+
+  .section-TotalDashboardControlPlatforms::before {
+    height: 90px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+   480px
+========================= */
+@media (max-width: 480px) {
+  .section-TotalDashboardControlPlatforms {
+    padding: 3rem 0;
+  }
+
+  .container-TotalDashboardControlPlatforms {
+    padding-inline: 1rem;
+    gap: 1.5rem;
+  }
+
+  .heading-TotalDashboardControlPlatforms {
+    font-size: clamp(1.7rem, 7.2vw, 2.15rem);
+    line-height: 1.16;
+  }
+
+  .lead-TotalDashboardControlPlatforms {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .features-TotalDashboardControlPlatforms {
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-TotalDashboardControlPlatforms {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .feature-icon-TotalDashboardControlPlatforms {
+    width: 34px;
+    height: 34px;
+  }
+
+  .feature-title-TotalDashboardControlPlatforms {
+    font-size: 0.86rem;
+  }
+
+  .feature-desc-TotalDashboardControlPlatforms {
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  .btn-TotalDashboardControlPlatforms {
+    width: 100%;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .visual-TotalDashboardControlPlatforms {
+    --scale-TotalDashboardControlPlatforms: 0.4;
+    height: 344px;
+    width: 100%;
+  }
+
+  .scale-wrap-TotalDashboardControlPlatforms {
+    left: 50%;
+    transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+  }
+
+  .dash-TotalDashboardControlPlatforms {
+    transform: rotateY(-2deg) rotateX(0);
+  }
+
+  .dash-glow-TotalDashboardControlPlatforms {
+    inset: 10% 4%;
+    filter: blur(18px);
+  }
+
+  .floor-TotalDashboardControlPlatforms {
+    height: 35px;
+    filter: blur(8px);
+  }
+
+  .section-TotalDashboardControlPlatforms::before {
+    height: 70px;
+  }
+
+  .beam-TotalDashboardControlPlatforms {
+    filter: blur(22px);
+  }
+}
+
+
+/* =========================
+   EXTRA SMALL MOBILE
+   360px
+========================= */
+@media (max-width: 360px) {
+  .container-TotalDashboardControlPlatforms {
+    padding-inline: 0.85rem;
+  }
+
+  .heading-TotalDashboardControlPlatforms {
+    font-size: 1.65rem;
+  }
+
+  .eyebrow-TotalDashboardControlPlatforms {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+  }
+
+  .visual-TotalDashboardControlPlatforms {
+    --scale-TotalDashboardControlPlatforms: 0.36;
+    height: 310px;
+  }
+
+  .scale-wrap-TotalDashboardControlPlatforms {
+    transform: translateX(-50%) scale(var(--scale-TotalDashboardControlPlatforms));
+  }
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+  .section-TotalDashboardControlPlatforms .bg-TotalDashboardControlPlatforms,
+  .section-TotalDashboardControlPlatforms .beam-TotalDashboardControlPlatforms,
+  .section-TotalDashboardControlPlatforms .dash-glow-TotalDashboardControlPlatforms,
+  .section-TotalDashboardControlPlatforms .floor-TotalDashboardControlPlatforms,
+  .section-TotalDashboardControlPlatforms .float-TotalDashboardControlPlatforms {
+    animation: none !important;
+  }
+}

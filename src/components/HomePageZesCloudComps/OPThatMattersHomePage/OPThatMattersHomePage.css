@@ -1,0 +1,635 @@
+/* =====================================================================
+   OPThatMattersHomePage
+   "One Platform. Everything that matters." - a 10-card feature grid on
+   a dark animated backdrop, with top/bottom gradient fades so this
+   section flows seamlessly into the ones above and below it.
+   ===================================================================== */
+
+.section-OPThatMattersHomePage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--zescloud-bg-base);
+  padding-block: clamp(4.5rem, 9vw, 7.5rem);
+}
+
+/* ---------------------- ANIMATED BACKGROUND ------------------------ */
+/* Two slow-drifting glows (blue + cyan), like a living backdrop rather
+   than a flat color. */
+.bgGlowA-OPThatMattersHomePage {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 55%;
+  height: 70%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--zescloud-primary) 22%, transparent) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: glowDriftA-OPThatMattersHomePage 14s ease-in-out infinite;
+}
+
+.bgGlowB-OPThatMattersHomePage {
+  position: absolute;
+  bottom: -25%;
+  right: -12%;
+  width: 50%;
+  height: 65%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--zescloud-accent-cyan) 18%, transparent) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: glowDriftB-OPThatMattersHomePage 17s ease-in-out infinite;
+}
+
+/* Faint technical grid drifting slowly, masked so it fades at the edges */
+.bgGrid-OPThatMattersHomePage {
+  position: absolute;
+  inset: -2% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--zescloud-border-subtle) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--zescloud-border-subtle) 55%, transparent) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: radial-gradient(85% 75% at 50% 40%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(85% 75% at 50% 40%, #000 0%, transparent 78%);
+  opacity: 0.45;
+  animation: gridDrift-OPThatMattersHomePage 22s linear infinite;
+}
+
+/* ------------------------ TOP / BOTTOM FADE ------------------------- */
+/* Keeps this section's edges blending into whatever sits above/below. */
+.topFade-OPThatMattersHomePage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(80px, 9vw, 140px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--zescloud-bg-base) 0%, transparent 100%);
+}
+
+.bottomFade-OPThatMattersHomePage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(80px, 9vw, 140px);
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--zescloud-bg-base) 0%, transparent 100%);
+}
+
+/* ------------------------------ HEADER ------------------------------ */
+.header-OPThatMattersHomePage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: end;
+  gap: 2.5rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.headerLeft-OPThatMattersHomePage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.overline-OPThatMattersHomePage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: var(--fw-bold);
+  letter-spacing: 2px;
+  color: var(--zescloud-accent-cyan);
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+
+.overlineDot-OPThatMattersHomePage {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 10px var(--zescloud-accent-cyan);
+}
+
+.overlineDot-OPThatMattersHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: dotPing-OPThatMattersHomePage 2s ease-out infinite;
+}
+
+.heading-OPThatMattersHomePage {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-5xl);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  color: var(--zescloud-text-white);
+  text-transform: uppercase;
+}
+
+.headingLine-OPThatMattersHomePage {
+  display: block;
+}
+
+.highlight-OPThatMattersHomePage {
+  background: linear-gradient(
+    90deg,
+    var(--zescloud-accent-cyan) 0%,
+    var(--zescloud-primary) 45%,
+    var(--zescloud-accent-cyan) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 24px var(--zescloud-border-glow));
+  animation: accentShimmer-OPThatMattersHomePage 6s linear infinite;
+}
+
+.headerDesc-OPThatMattersHomePage {
+  font-size: var(--font-size-base);
+  line-height: 1.65;
+  color: var(--zescloud-text-gray-300);
+  max-width: 420px;
+  justify-self: end;
+  text-align: right;
+}
+
+/* ------------------------------- GRID -------------------------------- */
+.grid-OPThatMattersHomePage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card-OPThatMattersHomePage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem 1.35rem 1.65rem;
+  text-decoration: none;
+  background: linear-gradient(165deg, color-mix(in srgb, var(--zescloud-bg-panel) 90%, transparent) 0%, color-mix(in srgb, var(--zescloud-bg-panel) 60%, transparent) 100%);
+  border: 1px solid var(--zescloud-border-subtle);
+  border-radius: var(--zescloud-radius-md, 14px);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Soft static top highlight, same glass language as the other sections */
+.card-OPThatMattersHomePage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+}
+
+/* A soft colored glow that only appears on hover, tinted per-card via
+   the --accent custom property set inline in the JSX. */
+.card-OPThatMattersHomePage::after {
+  content: '';
+  position: absolute;
+  inset: -40% -40% auto auto;
+  width: 70%;
+  height: 70%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-OPThatMattersHomePage, var(--zescloud-primary)) 32%, transparent) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.card-OPThatMattersHomePage:hover {
+  border-color: color-mix(in srgb, var(--accent-OPThatMattersHomePage, var(--zescloud-primary)) 55%, var(--zescloud-border-highlight));
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+
+.card-OPThatMattersHomePage:hover::after {
+  opacity: 1;
+}
+
+.cardIconBox-OPThatMattersHomePage {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1rem;
+  border-radius: 11px;
+  color: var(--accent-OPThatMattersHomePage, var(--zescloud-primary));
+  background: color-mix(in srgb, var(--accent-OPThatMattersHomePage, var(--zescloud-primary)) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-OPThatMattersHomePage, var(--zescloud-primary)) 38%, transparent);
+  transition: transform var(--transition-fast);
+}
+
+.card-OPThatMattersHomePage:hover .cardIconBox-OPThatMattersHomePage {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.cardTitle-OPThatMattersHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  margin-bottom: 0.45rem;
+}
+
+.cardDesc-OPThatMattersHomePage {
+  position: relative;
+  z-index: 1;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-300);
+}
+
+.cardArrow-OPThatMattersHomePage {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zescloud-text-gray-500);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), color var(--transition-fast);
+}
+
+.card-OPThatMattersHomePage:hover .cardArrow-OPThatMattersHomePage {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--accent-OPThatMattersHomePage, var(--zescloud-primary));
+}
+
+/* ---------------------------- KEYFRAMES ------------------------------ */
+@keyframes dotPing-OPThatMattersHomePage {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes accentShimmer-OPThatMattersHomePage {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@keyframes glowDriftA-OPThatMattersHomePage {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4%, 5%) scale(1.08); }
+}
+
+@keyframes glowDriftB-OPThatMattersHomePage {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-4%, -4%) scale(1.1); }
+}
+
+@keyframes gridDrift-OPThatMattersHomePage {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 52px 52px, 52px 52px; }
+}
+/* ==========================================================
+   Responsive: OPThatMattersHomePage
+   Carefully tuned for desktop, tablet, and mobile screens
+   ========================================================== */
+
+/* ---------- Laptops and small desktops ---------- */
+@media (max-width: 1200px) {
+  .section-OPThatMattersHomePage {
+    padding-block: clamp(4rem, 7vw, 6rem);
+  }
+
+  .header-OPThatMattersHomePage {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 2rem;
+    margin-bottom: 2.75rem;
+  }
+
+  .heading-OPThatMattersHomePage {
+    font-size: clamp(2.25rem, 4vw, var(--font-size-5xl));
+    line-height: 1.15;
+  }
+
+  .headerDesc-OPThatMattersHomePage {
+    max-width: 100%;
+    font-size: var(--font-size-base);
+  }
+
+  .grid-OPThatMattersHomePage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .card-OPThatMattersHomePage {
+    min-width: 0;
+    padding: 1.35rem 1.2rem 1.5rem;
+  }
+
+  .cardTitle-OPThatMattersHomePage {
+    line-height: 1.45;
+  }
+
+  .cardDesc-OPThatMattersHomePage {
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .bgGlowA-OPThatMattersHomePage,
+  .bgGlowB-OPThatMattersHomePage {
+    filter: blur(45px);
+  }
+}
+
+/* ---------- Tablets and compact laptops ---------- */
+@media (max-width: 1024px) {
+  .section-OPThatMattersHomePage {
+    padding-block: 4.5rem;
+  }
+
+  .header-OPThatMattersHomePage {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .headerLeft-OPThatMattersHomePage {
+    width: 100%;
+  }
+
+  .overline-OPThatMattersHomePage {
+    margin-bottom: 0.875rem;
+    font-size: 0.7rem;
+    letter-spacing: 1.7px;
+  }
+
+  .heading-OPThatMattersHomePage {
+    font-size: clamp(2.25rem, 5vw, var(--font-size-5xl));
+    line-height: 1.15;
+  }
+
+  .headerDesc-OPThatMattersHomePage {
+    justify-self: start;
+    max-width: 680px;
+    text-align: left;
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+  }
+
+  .grid-OPThatMattersHomePage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+
+  .card-OPThatMattersHomePage {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  .cardIconBox-OPThatMattersHomePage {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.875rem;
+  }
+
+  .cardTitle-OPThatMattersHomePage {
+    font-size: var(--font-size-base);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .cardDesc-OPThatMattersHomePage {
+    font-size: 0.8rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .cardArrow-OPThatMattersHomePage {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .bgGrid-OPThatMattersHomePage {
+    background-size: 42px 42px;
+  }
+}
+
+/* ---------- Small tablets and large phones ---------- */
+@media (max-width: 749px) {
+  .section-OPThatMattersHomePage {
+    padding-block: 3.75rem;
+  }
+
+  .topFade-OPThatMattersHomePage,
+  .bottomFade-OPThatMattersHomePage {
+    height: clamp(65px, 12vw, 100px);
+  }
+
+  .header-OPThatMattersHomePage {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .overline-OPThatMattersHomePage {
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+  }
+
+  .heading-OPThatMattersHomePage {
+    font-size: clamp(1.9rem, 6vw, 2.75rem);
+    line-height: 1.15;
+  }
+
+  .headerDesc-OPThatMattersHomePage {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .grid-OPThatMattersHomePage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+
+  .card-OPThatMattersHomePage {
+    padding: 1.15rem 1rem 1.5rem;
+    border-radius: var(--zescloud-radius-md, 14px);
+  }
+
+  .cardIconBox-OPThatMattersHomePage {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.75rem;
+    border-radius: 10px;
+  }
+
+  .cardTitle-OPThatMattersHomePage {
+    margin-bottom: 0.4rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .cardDesc-OPThatMattersHomePage {
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .cardArrow-OPThatMattersHomePage {
+    right: 0.65rem;
+    bottom: 0.65rem;
+  }
+
+  .bgGlowA-OPThatMattersHomePage,
+  .bgGlowB-OPThatMattersHomePage {
+    filter: blur(35px);
+  }
+
+  .bgGrid-OPThatMattersHomePage {
+    background-size: 34px 34px;
+    opacity: 0.3;
+  }
+}
+
+/* ---------- Mobile phones ---------- */
+@media (max-width: 480px) {
+  .section-OPThatMattersHomePage {
+    padding-block: 3rem;
+  }
+
+  .topFade-OPThatMattersHomePage,
+  .bottomFade-OPThatMattersHomePage {
+    height: 65px;
+  }
+
+  .header-OPThatMattersHomePage {
+    gap: 0.875rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .overline-OPThatMattersHomePage {
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.625rem;
+    letter-spacing: 1.3px;
+  }
+
+  .overlineDot-OPThatMattersHomePage {
+    width: 5px;
+    height: 5px;
+  }
+
+  .heading-OPThatMattersHomePage {
+    font-size: clamp(1.65rem, 7.5vw, 2.1rem);
+    line-height: 1.18;
+    overflow-wrap: anywhere;
+  }
+
+  .headerDesc-OPThatMattersHomePage {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .grid-OPThatMattersHomePage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .card-OPThatMattersHomePage {
+    padding: 1.125rem 1rem 1.375rem;
+  }
+
+  .cardIconBox-OPThatMattersHomePage {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0.75rem;
+    border-radius: 9px;
+  }
+
+  .cardTitle-OPThatMattersHomePage {
+    padding-right: 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .cardDesc-OPThatMattersHomePage {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+  }
+
+  .cardArrow-OPThatMattersHomePage {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .bgGlowA-OPThatMattersHomePage {
+    width: 85%;
+    height: 55%;
+    filter: blur(28px);
+  }
+
+  .bgGlowB-OPThatMattersHomePage {
+    width: 75%;
+    height: 50%;
+    filter: blur(28px);
+  }
+
+  .bgGrid-OPThatMattersHomePage {
+    inset: -1%;
+    background-size: 28px 28px;
+    opacity: 0.22;
+  }
+}
+
+/* ---------- Touchscreen devices ---------- */
+@media (hover: none) {
+  .card-OPThatMattersHomePage:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card-OPThatMattersHomePage:hover::after {
+    opacity: 0;
+  }
+
+  .card-OPThatMattersHomePage:hover .cardIconBox-OPThatMattersHomePage {
+    transform: none;
+  }
+
+  .card-OPThatMattersHomePage:hover .cardArrow-OPThatMattersHomePage {
+    opacity: 0;
+    transform: translateX(-4px);
+    color: var(--zescloud-text-gray-500);
+  }
+}
+
+/* ---------- Reduced motion accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .section-OPThatMattersHomePage *,
+  .section-OPThatMattersHomePage *::before,
+  .section-OPThatMattersHomePage *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

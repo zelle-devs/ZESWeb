@@ -1,0 +1,613 @@
+.bcta-section-BottomCTAMoonHomePage {
+  position: relative;
+  width: 100%;
+  padding: var(--zescloud-section-gap) 0;
+  background-color: var(--zescloud-bg-base);
+  overflow: hidden;
+}
+
+.bcta-container-BottomCTAMoonHomePage {
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+.bcta-stage-BottomCTAMoonHomePage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: clamp(560px, 42vw, 720px);
+  border-radius: var(--zescloud-radius-lg);
+  border: 1px solid var(--zescloud-border-subtle);
+  background-color: #030a1a;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  box-shadow:
+    0 40px 100px -30px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(57, 137, 226, 0.04) inset;
+}
+
+.bcta-sky-BottomCTAMoonHomePage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* background:
+    radial-gradient(120% 80% at 50% 0%, #0d2150 0%, rgba(13, 33, 80, 0) 60%),
+    radial-gradient(60% 50% at 85% 20%, rgba(98, 64, 190, 0.22) 0%, rgba(98, 64, 190, 0) 70%),
+    radial-gradient(55% 45% at 12% 25%, rgba(57, 137, 226, 0.18) 0%, rgba(57, 137, 226, 0) 70%),
+    linear-gradient(180deg, #050f26 0%, #040b1d 45%, #020713 100%); */
+}
+
+.bcta-nebula-BottomCTAMoonHomePage {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  animation: bctaNebulaDrift-BottomCTAMoonHomePage 26s ease-in-out infinite alternate;
+}
+
+.bcta-nebula-left-BottomCTAMoonHomePage {
+  top: -20%;
+  left: -15%;
+  width: 55%;
+  height: 70%;
+  background: radial-gradient(closest-side, rgba(57, 137, 226, 0.35), rgba(57, 137, 226, 0));
+}
+
+.bcta-nebula-right-BottomCTAMoonHomePage {
+  top: -10%;
+  right: -12%;
+  width: 50%;
+  height: 65%;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.3), rgba(139, 92, 246, 0));
+  animation-duration: 32s;
+  animation-direction: alternate-reverse;
+}
+
+.bcta-stars-BottomCTAMoonHomePage {
+  position: absolute;
+  inset: -40px;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.bcta-stars-canvas-BottomCTAMoonHomePage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bcta-moon-glow-BottomCTAMoonHomePage {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  z-index: 2;
+  width: min(1600px, 110%);
+  aspect-ratio: 2.4 / 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.15;
+  transform: translate3d(-50%, 60%, 0) scale(0.78);
+  will-change: transform, opacity;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(57, 137, 226, 0.36) 0%,
+    rgba(57, 137, 226, 0.13) 40%,
+    rgba(57, 137, 226, 0) 70%
+  );
+}
+
+.bcta-moon-BottomCTAMoonHomePage {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  z-index: 3;
+  width: min(1480px, 92%);
+  pointer-events: none;
+  transform: translate3d(-50%, 78%, 0) scale(0.84);
+  transform-origin: 50% 100%;
+  will-change: transform;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, #000 72%, rgba(0, 0, 0, 0) 100%);
+}
+
+.bcta-moon-backdrop-BottomCTAMoonHomePage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(60% 90% at 50% 100%, #030716 0%, #06102a 60%, #0a1838 100%);
+  -webkit-clip-path: ellipse(52.2% 155.5% at 50% 158.5%);
+  clip-path: ellipse(52.2% 155.5% at 50% 158.5%);
+}
+
+.bcta-moon-image-BottomCTAMoonHomePage {
+  position: relative;
+  z-index: 1;
+}
+
+.bcta-moon-image-BottomCTAMoonHomePage,
+.bcta-surface-image-BottomCTAMoonHomePage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.bcta-surface-BottomCTAMoonHomePage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 4;
+  width: 104%;
+  margin-left: -52%;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.bcta-surface-BottomCTAMoonHomePage::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 46%;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 55% at 50% 72%, rgba(96, 170, 255, 0.3) 0%, rgba(57, 137, 226, 0.12) 45%, rgba(57, 137, 226, 0) 75%),
+    radial-gradient(30% 50% at 12% 55%, rgba(86, 180, 255, 0.18) 0%, rgba(86, 180, 255, 0) 70%),
+    radial-gradient(30% 50% at 88% 50%, rgba(139, 120, 255, 0.18) 0%, rgba(139, 120, 255, 0) 70%);
+}
+
+.bcta-surface-image-BottomCTAMoonHomePage {
+  position: relative;
+  -webkit-filter:
+    drop-shadow(0 -1px 1.5px rgba(170, 215, 255, 0.9))
+    drop-shadow(0 -4px 12px rgba(86, 180, 255, 0.55))
+    drop-shadow(0 -14px 38px rgba(57, 137, 226, 0.38));
+  filter:
+    drop-shadow(0 -1px 1.5px rgba(170, 215, 255, 0.9))
+    drop-shadow(0 -4px 12px rgba(86, 180, 255, 0.55))
+    drop-shadow(0 -14px 38px rgba(57, 137, 226, 0.38));
+}
+
+.bcta-surface-BottomCTAMoonHomePage::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  right: 0;
+  height: 40vh;
+  background: #040918;
+}
+
+.bcta-fog-BottomCTAMoonHomePage {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  z-index: 5;
+  height: 30%;
+  pointer-events: none;
+  opacity: 0.35;
+  will-change: opacity;
+}
+
+.bcta-fog-layer-BottomCTAMoonHomePage {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.bcta-fog-layer-one-BottomCTAMoonHomePage {
+  background:
+    radial-gradient(40% 50% at 30% 60%, rgba(86, 140, 230, 0.16) 0%, rgba(86, 140, 230, 0) 70%),
+    radial-gradient(35% 45% at 75% 55%, rgba(110, 120, 230, 0.13) 0%, rgba(110, 120, 230, 0) 70%);
+  animation: bctaFogDrift-BottomCTAMoonHomePage 18s ease-in-out infinite alternate;
+}
+
+.bcta-fog-layer-two-BottomCTAMoonHomePage {
+  background:
+    radial-gradient(45% 40% at 55% 70%, rgba(57, 137, 226, 0.14) 0%, rgba(57, 137, 226, 0) 70%),
+    radial-gradient(30% 35% at 15% 65%, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0) 70%);
+  animation: bctaFogDrift-BottomCTAMoonHomePage 24s ease-in-out infinite alternate-reverse;
+}
+
+.bcta-ground-glow-BottomCTAMoonHomePage {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  z-index: 6;
+  width: 38%;
+  height: 16%;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(139, 92, 246, 0.24) 0%,
+    rgba(57, 137, 226, 0.1) 45%,
+    rgba(57, 137, 226, 0) 75%
+  );
+}
+
+.bcta-vignette-BottomCTAMoonHomePage {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(2, 7, 19, 0.5) 0%, rgba(2, 7, 19, 0) 6%, rgba(2, 7, 19, 0) 94%, rgba(2, 7, 19, 0.5) 100%),
+    linear-gradient(180deg, rgba(2, 7, 19, 0) 0%, rgba(2, 7, 19, 0) 78%, rgba(2, 7, 19, 0.6) 100%);
+}
+
+.bcta-vignette-BottomCTAMoonHomePage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(86, 180, 255, 0) 0%, rgba(86, 180, 255, 0.5) 50%, rgba(86, 180, 255, 0) 100%);
+}
+
+.bcta-content-BottomCTAMoonHomePage {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.bcta-eyebrow-BottomCTAMoonHomePage {
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  font-family: var(--zescloud-font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.85);
+  text-shadow: 0 2px 12px rgba(2, 8, 20, 0.8);
+}
+
+.bcta-title-BottomCTAMoonHomePage {
+  margin: 0 0 1.25rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(1.85rem, 3.6vw, 3.6rem);
+  font-weight: var(--fw-extrabold);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-white);
+  text-shadow:
+    0 2px 6px rgba(2, 8, 20, 0.55),
+    0 6px 32px rgba(2, 8, 20, 0.7),
+    0 0 40px rgba(57, 137, 226, 0.25);
+}
+
+.bcta-title-line-BottomCTAMoonHomePage {
+  display: block;
+  overflow: hidden;
+  padding: 0.04em 0.1em 0.08em;
+}
+
+.bcta-title-text-BottomCTAMoonHomePage {
+  display: inline-block;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate3d(0, 110%, 0);
+  transition:
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1) var(--bcta-delay, 0s),
+    opacity 0.8s ease var(--bcta-delay, 0s);
+}
+
+.bcta-subtitle-BottomCTAMoonHomePage {
+  margin: 0 0 2rem;
+  font-size: clamp(15px, 1.25vw, 19px);
+  font-weight: var(--fw-regular);
+  color: rgba(226, 232, 240, 0.9);
+  text-shadow: 0 2px 14px rgba(2, 8, 20, 0.85);
+}
+
+.bcta-brand-BottomCTAMoonHomePage {
+  font-weight: var(--fw-semibold);
+  background: var(--zescloud-text-gradient-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bcta-reveal-BottomCTAMoonHomePage {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s ease var(--bcta-delay, 0s),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--bcta-delay, 0s),
+    filter 0.9s ease var(--bcta-delay, 0s);
+}
+
+.is-visible-BottomCTAMoonHomePage .bcta-title-text-BottomCTAMoonHomePage,
+.is-visible-BottomCTAMoonHomePage .bcta-reveal-BottomCTAMoonHomePage {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.bcta-actions-BottomCTAMoonHomePage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.bcta-btn-BottomCTAMoonHomePage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 54px;
+  padding: 0.95rem 1.9rem;
+  border-radius: 10px;
+  font-family: var(--zescloud-font-family);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.bcta-btn-BottomCTAMoonHomePage:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 3px;
+}
+
+.bcta-btn-label-BottomCTAMoonHomePage {
+  position: relative;
+  z-index: 1;
+}
+
+.bcta-btn-primary-BottomCTAMoonHomePage {
+  background: var(--zescloud-btn-gradient);
+  border: 1px solid rgba(120, 180, 255, 0.35);
+  box-shadow:
+    0 10px 30px -6px rgba(24, 72, 217, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.bcta-btn-primary-BottomCTAMoonHomePage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.35) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-20deg);
+  animation: bctaShine-BottomCTAMoonHomePage 4.5s ease-in-out 2s infinite;
+}
+
+.bcta-btn-primary-BottomCTAMoonHomePage:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 40px -6px rgba(57, 137, 226, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.bcta-btn-arrow-BottomCTAMoonHomePage {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.bcta-btn-primary-BottomCTAMoonHomePage:hover .bcta-btn-arrow-BottomCTAMoonHomePage {
+  transform: translateX(4px);
+}
+
+.bcta-btn-secondary-BottomCTAMoonHomePage {
+  background: rgba(7, 21, 39, 0.6);
+  border: 1px solid var(--zescloud-border-highlight);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.bcta-btn-secondary-BottomCTAMoonHomePage:hover {
+  background: rgba(57, 137, 226, 0.12);
+  border-color: var(--zescloud-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(57, 137, 226, 0.45);
+}
+
+.bcta-play-BottomCTAMoonHomePage {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  padding-left: 2px;
+  color: #071527;
+  background: linear-gradient(135deg, #a9d6ff 0%, var(--zescloud-accent-cyan) 100%);
+  box-shadow: 0 0 14px rgba(86, 180, 255, 0.55);
+  transition: transform var(--transition-base);
+}
+
+.bcta-play-BottomCTAMoonHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(86, 180, 255, 0.6);
+  animation: bctaRing-BottomCTAMoonHomePage 2.2s ease-out infinite;
+}
+
+.bcta-btn-secondary-BottomCTAMoonHomePage:hover .bcta-play-BottomCTAMoonHomePage {
+  transform: scale(1.08);
+}
+
+@keyframes bctaNebulaDrift-BottomCTAMoonHomePage {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(6%, 4%, 0) scale(1.12);
+  }
+}
+
+@keyframes bctaFogDrift-BottomCTAMoonHomePage {
+  0% {
+    transform: translate3d(-6%, 0, 0);
+  }
+  100% {
+    transform: translate3d(6%, 0, 0);
+  }
+}
+
+@keyframes bctaShine-BottomCTAMoonHomePage {
+  0% {
+    left: -120%;
+  }
+  45%,
+  100% {
+    left: 160%;
+  }
+}
+
+@keyframes bctaRing-BottomCTAMoonHomePage {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@media (max-width: 1024px) {
+  .bcta-stage-BottomCTAMoonHomePage {
+    min-height: clamp(540px, 70vw, 680px);
+  }
+
+  .bcta-moon-BottomCTAMoonHomePage {
+    top: 6%;
+    width: 125%;
+  }
+
+  .bcta-surface-BottomCTAMoonHomePage {
+    width: 150%;
+    margin-left: -75%;
+  }
+}
+
+@media (max-width: 768px) {
+  .bcta-container-BottomCTAMoonHomePage {
+    padding: 0 1rem;
+  }
+
+  .bcta-stage-BottomCTAMoonHomePage {
+    min-height: 600px;
+    border-radius: var(--zescloud-radius-md);
+  }
+
+  .bcta-moon-BottomCTAMoonHomePage {
+    top: 12%;
+    width: 200%;
+  }
+
+  .bcta-moon-glow-BottomCTAMoonHomePage {
+    top: 12%;
+    width: 220%;
+  }
+
+  .bcta-surface-BottomCTAMoonHomePage {
+    width: 300%;
+    margin-left: -150%;
+  }
+
+  .bcta-ground-glow-BottomCTAMoonHomePage {
+    width: 80%;
+  }
+
+  .bcta-content-BottomCTAMoonHomePage {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .bcta-eyebrow-BottomCTAMoonHomePage {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.26em;
+  }
+
+  .bcta-title-text-BottomCTAMoonHomePage {
+    white-space: normal;
+  }
+
+  .bcta-actions-BottomCTAMoonHomePage {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .bcta-btn-BottomCTAMoonHomePage {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bcta-stage-BottomCTAMoonHomePage {
+    min-height: 580px;
+  }
+
+  .bcta-title-BottomCTAMoonHomePage {
+    font-size: clamp(1.55rem, 7.4vw, 2rem);
+  }
+
+  .bcta-moon-BottomCTAMoonHomePage {
+    width: 220%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bcta-nebula-BottomCTAMoonHomePage,
+  .bcta-fog-layer-BottomCTAMoonHomePage,
+  .bcta-btn-primary-BottomCTAMoonHomePage::before,
+  .bcta-play-BottomCTAMoonHomePage::after {
+    animation: none;
+  }
+
+  .bcta-title-text-BottomCTAMoonHomePage,
+  .bcta-reveal-BottomCTAMoonHomePage {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}

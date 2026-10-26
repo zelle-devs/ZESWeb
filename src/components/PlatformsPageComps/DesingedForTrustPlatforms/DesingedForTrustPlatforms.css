@@ -1,0 +1,528 @@
+/* =====================================================================
+   DesingedForTrustPlatforms
+   All classes, keyframes & local variables end with
+   "-DesingedForTrustPlatforms" so nothing merges with other components.
+===================================================================== */
+
+.section-DesingedForTrustPlatforms {
+  --bg-image-DesingedForTrustPlatforms: none;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: clamp(640px, 44vw, 880px);
+  padding: clamp(4.5rem, 7vw, 7rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* =========================== SCENE (image + lights) =========================== */
+.scene-wrap-DesingedForTrustPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  container-type: size;
+  pointer-events: none;
+}
+
+.scene-enter-DesingedForTrustPlatforms {
+  position: absolute;
+  inset: 0;
+  transform-origin: 72% 50%;
+}
+
+/* Behaves like background-size: cover, anchored to the right & bottom,
+   so the SVG lights always sit exactly on top of the image */
+.stage-DesingedForTrustPlatforms {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  width: max(100cqw, calc(100cqh * 2.4396));
+  height: max(100cqh, calc(100cqw * 0.4099));
+  background-image: var(--bg-image-DesingedForTrustPlatforms);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transform-origin: 73% 47%;
+  animation: drift-DesingedForTrustPlatforms 24s ease-in-out infinite alternate;
+}
+
+.fx-DesingedForTrustPlatforms {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  mix-blend-mode: screen;
+}
+
+/* stars */
+.star-DesingedForTrustPlatforms {
+  fill: #CFE8FF;
+  opacity: 0.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle-DesingedForTrustPlatforms 4s ease-in-out infinite;
+}
+
+/* globe atmosphere */
+.halo-DesingedForTrustPlatforms {
+  fill: none;
+  stroke-width: 34;
+  stroke-linecap: round;
+  opacity: 0.35;
+  animation: haloPulse-DesingedForTrustPlatforms 6s ease-in-out infinite;
+}
+
+.rim-DesingedForTrustPlatforms {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0.55;
+  animation: rimPulse-DesingedForTrustPlatforms 4s ease-in-out infinite;
+}
+
+/* globe surface */
+.lat-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: rgba(86, 180, 255, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 5 14;
+  animation: latFlow-DesingedForTrustPlatforms 6s linear infinite;
+}
+
+.lat-rev-DesingedForTrustPlatforms {
+  animation-direction: reverse;
+  animation-duration: 8s;
+}
+
+.globe-sweep-DesingedForTrustPlatforms {
+  animation: globeSweep-DesingedForTrustPlatforms 12s ease-in-out infinite;
+}
+
+.city-arc-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: rgba(255, 213, 138, 0.45);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 7;
+  animation: latFlow-DesingedForTrustPlatforms 3s linear infinite;
+}
+
+.city-pulse-DesingedForTrustPlatforms {
+  fill: #FFE7B8;
+}
+
+.city-DesingedForTrustPlatforms {
+  fill: #FFD58A;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cityTwinkle-DesingedForTrustPlatforms 2.6s ease-in-out infinite;
+}
+
+/* orbit + rays */
+.orbit-base-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: rgba(86, 180, 255, 0.22);
+  stroke-width: 1.2;
+}
+
+.ray-base-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: rgba(86, 180, 255, 0.18);
+  stroke-width: 1.4;
+}
+
+.comet-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: #CFEAFF;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 70 930;
+  stroke-dashoffset: 1000;
+  animation: comet-DesingedForTrustPlatforms 8s linear infinite;
+}
+
+/* uplinks */
+.uplink-DesingedForTrustPlatforms {
+  fill: none;
+  stroke: rgba(86, 180, 255, 0.4);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 9;
+  animation: latFlow-DesingedForTrustPlatforms 2s linear infinite reverse;
+}
+
+.uplink-dot-DesingedForTrustPlatforms {
+  fill: #E3F3FF;
+}
+
+/* rack beams */
+.beam-DesingedForTrustPlatforms {
+  stroke-width: 2;
+  opacity: 0.55;
+  animation: beamFlicker-DesingedForTrustPlatforms 5s ease-in-out infinite;
+}
+
+.beam-spark-DesingedForTrustPlatforms {
+  stroke: #E3F3FF;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 60 940;
+  stroke-dashoffset: 1000;
+  animation: comet-DesingedForTrustPlatforms 4.5s linear infinite;
+}
+
+.beam-pool-DesingedForTrustPlatforms {
+  opacity: 0.6;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: poolPulse-DesingedForTrustPlatforms 5s ease-in-out infinite;
+}
+
+/* server LEDs */
+.led-DesingedForTrustPlatforms {
+  fill: #8CCBFF;
+  opacity: 0.3;
+  animation: ledBlink-DesingedForTrustPlatforms 2s steps(1) infinite;
+}
+
+/* floor */
+.floor-sweep-DesingedForTrustPlatforms {
+  animation: floorSweep-DesingedForTrustPlatforms 9s ease-in-out infinite alternate;
+}
+
+/* readability overlay + top/bottom blending into other sections */
+.overlay-DesingedForTrustPlatforms {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      rgba(2, 10, 19, 0.96) 0%,
+      rgba(2, 10, 19, 0.85) 28%,
+      rgba(2, 10, 19, 0.35) 48%,
+      rgba(2, 10, 19, 0) 62%),
+    linear-gradient(180deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0) 14%,
+      rgba(2, 10, 19, 0) 84%,
+      var(--zescloud-bg-base) 100%);
+}
+
+/* =========================== CONTENT =========================== */
+.container-DesingedForTrustPlatforms {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+.content-DesingedForTrustPlatforms {
+  max-width: 560px;
+}
+
+.eyebrow-DesingedForTrustPlatforms {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.heading-DesingedForTrustPlatforms {
+  margin-bottom: 1.1rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.2rem, 3.7vw, var(--font-size-7xl));
+  font-weight: var(--fw-bold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--zescloud-text-white);
+}
+
+.heading-line-DesingedForTrustPlatforms,
+.heading-accent-DesingedForTrustPlatforms {
+  display: block;
+}
+
+.heading-accent-DesingedForTrustPlatforms {
+  width: fit-content;
+  max-width: 100%;
+  background: linear-gradient(90deg,
+      var(--zescloud-primary) 0%,
+      var(--zescloud-accent-cyan) 25%,
+      var(--zescloud-primary) 50%,
+      var(--zescloud-primary-hover) 75%,
+      var(--zescloud-primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(57, 137, 226, 0.35));
+  animation: textShimmer-DesingedForTrustPlatforms 6s linear infinite;
+}
+
+.lead-DesingedForTrustPlatforms {
+  max-width: 520px;
+  margin-bottom: 2rem;
+  font-size: clamp(1rem, 1.2vw, var(--font-size-lg));
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-100);
+}
+
+/* tones */
+.tone-blue-DesingedForTrustPlatforms {
+  --tone-DesingedForTrustPlatforms: var(--zescloud-accent-cyan);
+  --tone-bg-DesingedForTrustPlatforms: rgba(57, 137, 226, 0.16);
+  --tone-border-DesingedForTrustPlatforms: rgba(86, 180, 255, 0.45);
+  --tone-glow-DesingedForTrustPlatforms: rgba(57, 137, 226, 0.4);
+}
+
+.tone-purple-DesingedForTrustPlatforms {
+  --tone-DesingedForTrustPlatforms: #A78BFA;
+  --tone-bg-DesingedForTrustPlatforms: var(--zescloud-status-purple-bg);
+  --tone-border-DesingedForTrustPlatforms: rgba(167, 139, 250, 0.45);
+  --tone-glow-DesingedForTrustPlatforms: rgba(139, 92, 246, 0.4);
+}
+
+/* features */
+.features-DesingedForTrustPlatforms {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin-bottom: 2.25rem;
+}
+
+.feature-DesingedForTrustPlatforms {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  align-items: start;
+  gap: 1rem;
+  cursor: default;
+}
+
+.feature-icon-DesingedForTrustPlatforms {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  color: var(--tone-DesingedForTrustPlatforms);
+  background: var(--tone-bg-DesingedForTrustPlatforms);
+  border: 1px solid var(--tone-border-DesingedForTrustPlatforms);
+  box-shadow: 0 0 14px var(--tone-glow-DesingedForTrustPlatforms);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.feature-icon-DesingedForTrustPlatforms svg {
+  filter: drop-shadow(0 0 5px var(--tone-DesingedForTrustPlatforms));
+}
+
+/* glow that runs down the list one icon at a time */
+.feature-icon-DesingedForTrustPlatforms::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--tone-DesingedForTrustPlatforms);
+  box-shadow: 0 0 22px var(--tone-glow-DesingedForTrustPlatforms);
+  opacity: 0;
+  animation: iconScan-DesingedForTrustPlatforms 4s ease-in-out infinite;
+  animation-delay: calc(var(--i-DesingedForTrustPlatforms) * 1s + 1.5s);
+  pointer-events: none;
+}
+
+.feature-text-DesingedForTrustPlatforms {
+  transition: transform var(--transition-base);
+}
+
+.feature-title-DesingedForTrustPlatforms {
+  margin-bottom: 0.2rem;
+  font-family: var(--zescloud-font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+  color: var(--zescloud-text-white);
+  transition: color var(--transition-base);
+}
+
+.feature-desc-DesingedForTrustPlatforms {
+  max-width: 420px;
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-300);
+}
+
+.feature-DesingedForTrustPlatforms:hover .feature-icon-DesingedForTrustPlatforms {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 0 26px var(--tone-glow-DesingedForTrustPlatforms);
+}
+
+.feature-DesingedForTrustPlatforms:hover .feature-text-DesingedForTrustPlatforms {
+  transform: translateX(4px);
+}
+
+.feature-DesingedForTrustPlatforms:hover .feature-title-DesingedForTrustPlatforms {
+  color: var(--tone-DesingedForTrustPlatforms);
+}
+
+/* link */
+.link-DesingedForTrustPlatforms {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-accent-cyan);
+}
+
+.link-text-DesingedForTrustPlatforms {
+  position: relative;
+}
+
+.link-text-DesingedForTrustPlatforms::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px var(--zescloud-accent-cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-arrow-DesingedForTrustPlatforms {
+  transition: transform var(--transition-base);
+}
+
+.link-DesingedForTrustPlatforms:hover .link-text-DesingedForTrustPlatforms::after {
+  transform: scaleX(1);
+}
+
+.link-DesingedForTrustPlatforms:hover .link-arrow-DesingedForTrustPlatforms {
+  transform: translateX(5px);
+}
+
+/* =========================== KEYFRAMES =========================== */
+@keyframes drift-DesingedForTrustPlatforms {
+  from { transform: scale(1); }
+  to { transform: scale(1.035); }
+}
+
+@keyframes twinkle-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes haloPulse-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes rimPulse-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes latFlow-DesingedForTrustPlatforms {
+  to { stroke-dashoffset: -38; }
+}
+
+/* @keyframes globeSweep-DesingedForTrustPlatforms {
+  0% { transform: translateX(0); }
+  60%, 100% { transform: translateX(1240px); }
+} */
+
+@keyframes cityTwinkle-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.35); }
+}
+
+@keyframes comet-DesingedForTrustPlatforms {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes beamFlicker-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes poolPulse-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.35; transform: scaleX(0.85); }
+  50% { opacity: 0.8; transform: scaleX(1.15); }
+}
+
+@keyframes ledBlink-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+  70% { opacity: 0.55; }
+}
+
+@keyframes floorSweep-DesingedForTrustPlatforms {
+  from { transform: translateX(0); }
+  to { transform: translateX(1400px); }
+}
+
+@keyframes textShimmer-DesingedForTrustPlatforms {
+  from { background-position: 0% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes iconScan-DesingedForTrustPlatforms {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  10% { opacity: 1; transform: scale(1.06); }
+  25% { opacity: 0; transform: scale(1.25); }
+}
+
+/* =========================== RESPONSIVE =========================== */
+@media (max-width: 1100px) {
+  .section-DesingedForTrustPlatforms {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .overlay-DesingedForTrustPlatforms {
+    background:
+      linear-gradient(90deg,
+        rgba(2, 10, 19, 0.92) 0%,
+        rgba(2, 10, 19, 0.7) 55%,
+        rgba(2, 10, 19, 0.35) 100%),
+      linear-gradient(180deg,
+        var(--zescloud-bg-base) 0%,
+        rgba(2, 10, 19, 0) 14%,
+        rgba(2, 10, 19, 0) 84%,
+        var(--zescloud-bg-base) 100%);
+  }
+}
+
+@media (max-width: 680px) {
+  .overlay-DesingedForTrustPlatforms {
+    background:
+      linear-gradient(180deg,
+        var(--zescloud-bg-base) 0%,
+        rgba(2, 10, 19, 0.82) 15%,
+        rgba(2, 10, 19, 0.75) 70%,
+        var(--zescloud-bg-base) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-DesingedForTrustPlatforms *,
+  .section-DesingedForTrustPlatforms *::before,
+  .section-DesingedForTrustPlatforms *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

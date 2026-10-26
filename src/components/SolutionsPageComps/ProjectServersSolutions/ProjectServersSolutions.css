@@ -1,0 +1,1284 @@
+/* =========================================================
+   ProjectServersSolutions
+   Uses the global --zescloud-* variables, with fallbacks so the
+   section still renders correctly if one is missing.
+   ========================================================= */
+
+/* Animatable custom properties (also registered from JS) */
+@property --pss-tilt {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 58deg;
+}
+
+@property --pss-sway {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --pss-o {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+.section-ProjectServersSolutions {
+  --pss-bg: var(--zescloud-bg-base, #050a16);
+  --pss-primary: var(--zescloud-primary, #3989e2);
+  --pss-cyan: var(--zescloud-accent-cyan, #56b4ff);
+  --pss-white: var(--zescloud-text-white, #ffffff);
+  --pss-gray-100: var(--zescloud-text-gray-100, #e2e8f0);
+  --pss-gray-300: var(--zescloud-text-gray-300, #94a3b8);
+  --pss-radius-sm: var(--zescloud-radius-sm, 10px);
+  --pss-heading-font: var(--zescloud-heading-font, inherit);
+
+  --pss-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pss-ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  position: relative;
+  width: 100%;
+  padding: clamp(4rem, 8vw, 6.5rem) 0;
+  background-color: var(--pss-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section-ProjectServersSolutions,
+.section-ProjectServersSolutions *,
+.section-ProjectServersSolutions *::before,
+.section-ProjectServersSolutions *::after {
+  box-sizing: border-box;
+}
+
+.container-ProjectServersSolutions {
+  max-width: var(--zescloud-container-width, 1240px);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x, 1.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4.5vw, 4rem);
+  align-items: center;
+}
+
+/* =========================================================
+   Entrance system (content column)
+   ========================================================= */
+
+.reveal-ProjectServersSolutions {
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .reveal-ProjectServersSolutions {
+  animation: fadeUp-ProjectServersSolutions 0.8s var(--pss-ease) var(--d, 0s) both;
+}
+
+/* =========================================================
+   Right content
+   ========================================================= */
+
+.content-ProjectServersSolutions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 580px;
+}
+
+.label-ProjectServersSolutions {
+  display: inline-block;
+  margin-bottom: 0.85rem;
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--fw-medium, 500);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pss-gray-300);
+}
+
+.heading-ProjectServersSolutions {
+  margin: 0;
+  font-family: var(--pss-heading-font);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: var(--fw-bold, 700);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--pss-white);
+}
+
+.headingLine-ProjectServersSolutions {
+  display: block;
+}
+
+.headingAccent-ProjectServersSolutions {
+  color: var(--pss-cyan);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .headingAccent-ProjectServersSolutions {
+    background-image: linear-gradient(
+      90deg,
+      #1fb2ff 0%,
+      var(--pss-primary) 30%,
+      #a5ddff 50%,
+      var(--pss-primary) 70%,
+      #1fb2ff 100%
+    );
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: shimmer-ProjectServersSolutions 8s linear infinite;
+  }
+}
+
+.description-ProjectServersSolutions {
+  margin: 1.1rem 0 0;
+  max-width: 540px;
+  font-size: var(--font-size-base, 1rem);
+  line-height: 1.6;
+  color: var(--pss-gray-300);
+}
+/* ---------- Feature list ---------- */
+
+.list-ProjectServersSolutions {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.is-revealed-ProjectServersSolutions .item-ProjectServersSolutions.reveal-ProjectServersSolutions {
+  animation-name: itemIn-ProjectServersSolutions;
+}
+
+/* Row color comes from the tone of the icon inside each row */
+.item-ProjectServersSolutions { --row-tone: #94a3b8; }
+.item-ProjectServersSolutions:has(.tone-green-ProjectServersSolutions) { --row-tone: #34d399; }
+.item-ProjectServersSolutions:has(.tone-cyan-ProjectServersSolutions) { --row-tone: #38bdf8; }
+.item-ProjectServersSolutions:has(.tone-indigo-ProjectServersSolutions) { --row-tone: #8b9cff; }
+.item-ProjectServersSolutions:has(.tone-orange-ProjectServersSolutions) { --row-tone: #ff7a59; }
+.item-ProjectServersSolutions:has(.tone-gray-ProjectServersSolutions) { --row-tone: #d4dceb; }
+
+.itemInner-ProjectServersSolutions {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 0.8rem 1rem 0.8rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--zescloud-radius-md, 12px);
+  overflow: hidden;
+  transition: border-color 0.35s ease;
+}
+
+/* Hover background (on a pseudo-element so the reveal delay does not slow it) */
+.itemInner-ProjectServersSolutions::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: color-mix(in srgb, var(--row-tone) 6%, transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Progress rail on the left edge */
+.itemInner-ProjectServersSolutions::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 2px;
+  border-radius: 2px;
+  background-color: var(--row-tone);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+.itemInner-ProjectServersSolutions:hover {
+  border-color: color-mix(in srgb, var(--row-tone) 16%, transparent);
+}
+.itemInner-ProjectServersSolutions:hover::before { opacity: 1; }
+.itemInner-ProjectServersSolutions:hover::after { transform: scaleY(1); }
+
+.itemIcon-ProjectServersSolutions {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tone-color);
+  background-color: var(--tone-bg-strong);
+  border: 1px solid color-mix(in srgb, var(--tone-color) 22%, transparent);
+  box-shadow: none;
+  transition: color 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.itemIcon-ProjectServersSolutions svg {
+  width: 18px;
+  height: 18px;
+  filter: none;
+}
+
+.itemInner-ProjectServersSolutions:hover .itemIcon-ProjectServersSolutions {
+  transform: none;
+  color: #ffffff;
+  background-color: var(--tone-color);
+  border-color: var(--tone-color);
+  box-shadow: none;
+}
+
+.itemBody-ProjectServersSolutions {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.itemTitle-ProjectServersSolutions {
+  margin: 0;
+  font-family: var(--pss-heading-font);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--fw-semibold, 600);
+  line-height: 1.3;
+  color: var(--pss-gray-100);
+  transition: color 0.35s ease;
+}
+
+.itemText-ProjectServersSolutions {
+  margin: 0.2rem 0 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-500, #64748b);
+  transition: color 0.35s ease;
+}
+
+.itemInner-ProjectServersSolutions:hover .itemTitle-ProjectServersSolutions {
+  color: var(--pss-white);
+}
+.itemInner-ProjectServersSolutions:hover .itemText-ProjectServersSolutions {
+  color: var(--pss-gray-300);
+}
+/* ---------- Tones ---------- */
+
+.tone-green-ProjectServersSolutions {
+  --tone-color: #34d399;
+  --tone-bg: rgba(16, 185, 129, 0.1);
+  --tone-bg-strong: rgba(16, 185, 129, 0.3);
+  --tone-border: rgba(16, 185, 129, 0.5);
+  --tone-glow: rgba(16, 185, 129, 0.35);
+}
+.tone-cyan-ProjectServersSolutions {
+  --tone-color: #38bdf8;
+  --tone-bg: rgba(56, 189, 248, 0.1);
+  --tone-bg-strong: rgba(56, 189, 248, 0.3);
+  --tone-border: rgba(56, 189, 248, 0.5);
+  --tone-glow: rgba(56, 189, 248, 0.35);
+}
+.tone-indigo-ProjectServersSolutions {
+  --tone-color: #8b9cff;
+  --tone-bg: rgba(99, 102, 241, 0.12);
+  --tone-bg-strong: rgba(99, 102, 241, 0.34);
+  --tone-border: rgba(129, 140, 248, 0.55);
+  --tone-glow: rgba(99, 102, 241, 0.4);
+}
+.tone-orange-ProjectServersSolutions {
+  --tone-color: #ff7a59;
+  --tone-bg: rgba(244, 96, 60, 0.12);
+  --tone-bg-strong: rgba(244, 96, 60, 0.34);
+  --tone-border: rgba(244, 96, 60, 0.55);
+  --tone-glow: rgba(244, 96, 60, 0.38);
+}
+.tone-gray-ProjectServersSolutions {
+  --tone-color: #d4dceb;
+  --tone-bg: rgba(148, 163, 184, 0.08);
+  --tone-bg-strong: rgba(148, 163, 184, 0.24);
+  --tone-border: rgba(148, 163, 184, 0.4);
+  --tone-glow: rgba(148, 163, 184, 0.25);
+}
+
+/* ---------- Button ---------- */
+
+.actions-ProjectServersSolutions {
+  margin-top: 1.9rem;
+}
+
+.button-ProjectServersSolutions {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--pss-white);
+  background: var(--zescloud-btn-gradient, linear-gradient(135deg, #1848d9 0%, #3989e2 100%));
+  border: none;
+  border-radius: var(--pss-radius-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(24, 72, 217, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 0.3s var(--pss-ease), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.button-ProjectServersSolutions::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: none;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.7s var(--pss-ease);
+  pointer-events: none;
+}
+
+.button-ProjectServersSolutions:hover {
+  background: var(--zescloud-btn-gradient-hover, linear-gradient(135deg, #2457ea 0%, #4a98ee 100%));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(57, 137, 226, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.button-ProjectServersSolutions:hover::after {
+  left: 120%;
+}
+
+.button-ProjectServersSolutions:active {
+  transform: translateY(0);
+}
+
+.button-ProjectServersSolutions:focus-visible {
+  outline: 2px solid var(--pss-cyan);
+  outline-offset: 3px;
+}
+
+.button-ProjectServersSolutions svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s var(--pss-ease);
+}
+
+.button-ProjectServersSolutions:hover svg {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   Left visual — 3D scene
+   1u = 1/560 of the visual width (max 1px).
+   ========================================================= */
+
+.visual-ProjectServersSolutions {
+  --u: 0.9px;
+  position: relative;
+  width: 100%;
+  container-type: inline-size;
+}
+
+@supports (width: 1cqw) {
+  .visual-ProjectServersSolutions {
+    --u: min(1px, calc(100cqw / 560));
+  }
+}
+
+.aura-ProjectServersSolutions {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 22%;
+  bottom: 2%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 58%, rgba(47, 123, 255, 0.4), rgba(47, 123, 255, 0.08) 45%, transparent 70%);
+  filter: blur(40px);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .aura-ProjectServersSolutions {
+  animation: fadeIn-ProjectServersSolutions 1.6s ease 0.1s both,
+    auraPulse-ProjectServersSolutions 6s ease-in-out 2s infinite;
+}
+
+.stage-ProjectServersSolutions {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 560 / 430;
+  perspective: calc(var(--u) * 1800);
+  perspective-origin: 50% 35%;
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .stage-ProjectServersSolutions {
+  animation: stageIn-ProjectServersSolutions 1s var(--pss-ease) both;
+}
+
+.scene-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: calc(var(--u) * 560);
+  height: calc(var(--u) * 560);
+  margin-left: calc(var(--u) * -280);
+  margin-top: calc(var(--u) * -280);
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--pss-tilt, 58deg) + var(--px, 0deg)))
+    rotateZ(calc(var(--pz, 0deg) + var(--pss-sway, 0deg)));
+}
+
+/* camera settles + gentle idle sway (only when the custom properties can animate) */
+.has-props-ProjectServersSolutions.is-revealed-ProjectServersSolutions .scene-ProjectServersSolutions {
+  animation: tiltIn-ProjectServersSolutions 1.8s var(--pss-ease) 0.05s both,
+    sway-ProjectServersSolutions 18s ease-in-out 2.2s infinite;
+}
+
+/* ---------- Floor (single flat plane) ---------- */
+
+.floor-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+}
+
+.floorIn-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .floorIn-ProjectServersSolutions {
+  animation: floorIn-ProjectServersSolutions 1.3s var(--pss-ease) 0.12s both;
+}
+
+.circle-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * var(--s));
+  height: calc(var(--u) * var(--s));
+  margin-left: calc(var(--u) * var(--s) * -0.5);
+  margin-top: calc(var(--u) * var(--s) * -0.5);
+  border-radius: 50%;
+}
+
+.ringOuter-ProjectServersSolutions {
+  --s: 540;
+  border: 1px solid rgba(110, 190, 255, 0.22);
+  box-shadow: 0 0 calc(var(--u) * 30) rgba(56, 140, 255, 0.2), inset 0 0 calc(var(--u) * 30) rgba(56, 140, 255, 0.12);
+}
+
+.disc-ProjectServersSolutions {
+  --s: 480;
+  border: calc(var(--u) * 1.6) solid rgba(100, 180, 255, 0.6);
+  background: radial-gradient(
+    circle,
+    rgba(50, 125, 245, 0.36) 0%,
+    rgba(28, 80, 190, 0.2) 42%,
+    rgba(12, 36, 96, 0.12) 68%,
+    rgba(12, 36, 96, 0.04) 100%
+  );
+  box-shadow: 0 0 calc(var(--u) * 46) rgba(56, 140, 255, 0.42), inset 0 0 calc(var(--u) * 56) rgba(56, 140, 255, 0.3);
+}
+
+.grid-ProjectServersSolutions {
+  --s: 480;
+  background-image: linear-gradient(rgba(110, 190, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110, 190, 255, 0.16) 1px, transparent 1px);
+  background-size: calc(var(--u) * 30) calc(var(--u) * 30);
+  background-position: center;
+  -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+}
+
+.ringDashed-ProjectServersSolutions {
+  --s: 440;
+  border: calc(var(--u) * 1.5) dashed rgba(120, 195, 255, 0.38);
+}
+
+.ringTicks-ProjectServersSolutions {
+  --s: 290;
+  border: calc(var(--u) * 2) dotted rgba(120, 195, 255, 0.5);
+}
+
+.orbit-ProjectServersSolutions {
+  --s: 390;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 240deg,
+    rgba(86, 180, 255, 0.05) 250deg,
+    rgba(160, 220, 255, 0.95) 350deg,
+    transparent 352deg
+  );
+  -webkit-mask-image: radial-gradient(
+    farthest-side,
+    transparent calc(100% - var(--u) * 3.5),
+    #000 calc(100% - var(--u) * 3),
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    farthest-side,
+    transparent calc(100% - var(--u) * 3.5),
+    #000 calc(100% - var(--u) * 3),
+    #000 100%
+  );
+}
+
+.is-revealed-ProjectServersSolutions .ringDashed-ProjectServersSolutions {
+  animation: spin-ProjectServersSolutions 60s linear infinite;
+}
+.is-revealed-ProjectServersSolutions .ringTicks-ProjectServersSolutions {
+  animation: spin-ProjectServersSolutions 40s linear infinite reverse;
+}
+.is-revealed-ProjectServersSolutions .orbit-ProjectServersSolutions {
+  animation: spin-ProjectServersSolutions 7s linear infinite;
+}
+
+.ripple-ProjectServersSolutions {
+  --s: 470;
+  border: calc(var(--u) * 1.5) solid rgba(130, 200, 255, 0.6);
+  box-shadow: 0 0 calc(var(--u) * 14) rgba(86, 180, 255, 0.4);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .ripple-ProjectServersSolutions {
+  animation: ripple-ProjectServersSolutions 4.4s ease-out 1.7s infinite;
+}
+
+.is-revealed-ProjectServersSolutions .rippleLate-ProjectServersSolutions {
+  animation-delay: 3.9s;
+}
+
+/* glowing base tiles under every server */
+.foot-ProjectServersSolutions {
+  position: absolute;
+  width: calc(var(--u) * 86);
+  height: calc(var(--u) * 86);
+  margin-left: calc(var(--u) * -43);
+  margin-top: calc(var(--u) * -43);
+  border-radius: calc(var(--u) * 6);
+  transform: rotate(45deg);
+  border: 1px solid rgba(120, 195, 255, 0.5);
+  background: radial-gradient(rgba(70, 150, 255, 0.45), rgba(56, 140, 255, 0.05) 72%);
+  box-shadow: 0 0 calc(var(--u) * 26) rgba(56, 140, 255, 0.5);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .foot-ProjectServersSolutions {
+  animation: fadeIn-ProjectServersSolutions 0.8s ease calc(var(--d, 0s) + 0.25s) both;
+}
+
+/* data beams flowing from every server into the protected core */
+.beam-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 84);
+  height: calc(var(--u) * 2.4);
+  margin-top: calc(var(--u) * -1.2);
+  transform-origin: 0 50%;
+  transform: rotate(var(--a)) translateX(calc(var(--u) * 66));
+}
+
+.beamLine-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 99px;
+  background: linear-gradient(90deg, rgba(120, 200, 255, 0.7), rgba(86, 180, 255, 0.2));
+  box-shadow: 0 0 calc(var(--u) * 8) rgba(86, 180, 255, 0.55);
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
+}
+
+.is-revealed-ProjectServersSolutions .beamLine-ProjectServersSolutions {
+  animation: beamGrow-ProjectServersSolutions 0.7s var(--pss-ease) var(--d, 0s) both;
+}
+
+.beamPulse-ProjectServersSolutions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #e6f6ff, transparent);
+  transform: translateX(320%);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .beamPulse-ProjectServersSolutions {
+  animation: beamPulse-ProjectServersSolutions 2.6s linear var(--pd, 2s) infinite;
+}
+
+.padWrap-ProjectServersSolutions {
+  --s: 132;
+  border-radius: 0;
+}
+
+.pad-ProjectServersSolutions {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 calc(var(--u) * 12) rgba(86, 180, 255, 0.8));
+}
+
+.padInner-ProjectServersSolutions {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.is-revealed-ProjectServersSolutions .padInner-ProjectServersSolutions {
+  animation: spin-ProjectServersSolutions 22s linear infinite;
+}
+
+.is-revealed-ProjectServersSolutions .padWrap-ProjectServersSolutions {
+  animation: padGlow-ProjectServersSolutions 3.2s ease-in-out 1.6s infinite;
+}
+
+/* ---------- Glass servers (true 3D boxes) ---------- */
+
+.server-ProjectServersSolutions {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: rotateZ(45deg);
+}
+
+.serverDrop-ProjectServersSolutions,
+.serverFloat-ProjectServersSolutions {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.is-revealed-ProjectServersSolutions .serverDrop-ProjectServersSolutions {
+  animation: serverDrop-ProjectServersSolutions 1s var(--pss-ease) var(--d, 0s) both;
+}
+
+.is-revealed-ProjectServersSolutions .serverFloat-ProjectServersSolutions {
+  animation: serverBob-ProjectServersSolutions 6s ease-in-out var(--fd, 2s) infinite;
+}
+
+.face-ProjectServersSolutions {
+  position: absolute;
+  opacity: var(--pss-o, 1);
+  border: 1px solid rgba(130, 200, 255, 0.6);
+}
+
+.faceSide-ProjectServersSolutions {
+  left: calc(var(--u) * -32);
+  top: calc(var(--u) * var(--h) * -0.5);
+  width: calc(var(--u) * 64);
+  height: calc(var(--u) * var(--h));
+  transform: rotateZ(var(--a)) rotateX(-90deg)
+    translate3d(0, calc(var(--u) * var(--h) * -0.5), calc(var(--u) * 32));
+}
+
+.faceFront-ProjectServersSolutions {
+  background: linear-gradient(180deg, rgba(70, 150, 255, 0.3), rgba(24, 64, 170, 0.14));
+  box-shadow: inset 0 0 calc(var(--u) * 16) rgba(80, 165, 255, 0.35), 0 0 calc(var(--u) * 10) rgba(56, 140, 255, 0.25);
+}
+
+.faceBack-ProjectServersSolutions {
+  background: rgba(30, 80, 200, 0.08);
+  border-color: rgba(110, 180, 255, 0.28);
+}
+
+.faceTop-ProjectServersSolutions {
+  left: calc(var(--u) * -32);
+  top: calc(var(--u) * -32);
+  width: calc(var(--u) * 64);
+  height: calc(var(--u) * 64);
+  transform: translateZ(calc(var(--u) * var(--h)));
+  border-color: rgba(185, 228, 255, 0.85);
+  background: linear-gradient(135deg, rgba(175, 222, 255, 0.5), rgba(70, 150, 255, 0.22) 60%, rgba(40, 100, 230, 0.3));
+  box-shadow: 0 0 calc(var(--u) * 18) rgba(86, 180, 255, 0.5), inset 0 0 calc(var(--u) * 12) rgba(170, 220, 255, 0.45);
+}
+
+.topLight-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 10);
+  margin: calc(var(--u) * -5) 0 0 calc(var(--u) * -5);
+  border-radius: 50%;
+  background: #e6f6ff;
+  box-shadow: 0 0 calc(var(--u) * 10) 2px rgba(120, 200, 255, 0.9);
+}
+
+.is-revealed-ProjectServersSolutions .topLight-ProjectServersSolutions {
+  animation: topLight-ProjectServersSolutions 2.8s ease-in-out var(--fd, 2s) infinite;
+}
+
+/* rack units on the two visible faces */
+.rack-ProjectServersSolutions {
+  position: absolute;
+  inset: calc(var(--u) * 7) calc(var(--u) * 6);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 5);
+}
+
+.slot-ProjectServersSolutions {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 4);
+  padding: 0 calc(var(--u) * 5);
+  border: 1px solid rgba(140, 205, 255, 0.38);
+  border-radius: calc(var(--u) * 2);
+  background: linear-gradient(90deg, rgba(10, 30, 80, 0.6), rgba(30, 80, 180, 0.28));
+}
+
+.slotBar-ProjectServersSolutions {
+  flex: 1 1 auto;
+  height: calc(var(--u) * 2);
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(150, 215, 255, 0.75), rgba(150, 215, 255, 0.1));
+}
+
+.led-ProjectServersSolutions {
+  flex: none;
+  width: calc(var(--u) * 4);
+  height: calc(var(--u) * 4);
+  border-radius: 50%;
+  background: #7dd3fc;
+  box-shadow: 0 0 calc(var(--u) * 5) #38bdf8;
+}
+
+.ledGreen-ProjectServersSolutions {
+  background: #6ee7b7;
+  box-shadow: 0 0 calc(var(--u) * 5) #10b981;
+}
+
+.is-revealed-ProjectServersSolutions .led-ProjectServersSolutions {
+  animation: led-ProjectServersSolutions 2.2s steps(1, end) var(--ld, 0s) infinite;
+}
+
+.is-revealed-ProjectServersSolutions .ledGreen-ProjectServersSolutions {
+  animation-duration: 2.6s;
+}
+
+/* ---------- Shield (billboard: always faces the camera) ---------- */
+
+.shieldAnchor-ProjectServersSolutions {
+  /* box is larger than the shield so its glow, halo and burst never get clipped */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 320);
+  height: calc(var(--u) * 340);
+  margin-left: calc(var(--u) * -160);
+  margin-top: calc(var(--u) * -340);
+  transform-origin: 50% 100%;
+  transform: rotateZ(calc(-1 * (var(--pz, 0deg) + var(--pss-sway, 0deg))))
+    rotateX(calc(-1 * (var(--pss-tilt, 58deg) + var(--px, 0deg))));
+  pointer-events: none;
+}
+
+.shieldRise-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .shieldRise-ProjectServersSolutions {
+  animation: shieldRise-ProjectServersSolutions 1s var(--pss-ease-back) 0.75s both;
+}
+
+.shieldFloat-ProjectServersSolutions {
+  position: absolute;
+  left: calc(var(--u) * 85);
+  top: calc(var(--u) * 118);
+  width: calc(var(--u) * 150);
+  height: calc(var(--u) * 172);
+}
+
+.is-revealed-ProjectServersSolutions .shieldFloat-ProjectServersSolutions {
+  animation: shieldFloat-ProjectServersSolutions 5.5s ease-in-out 1.9s infinite;
+}
+
+.shieldSvg-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none ;
+  overflow: visible;
+  filter: drop-shadow(0 0 calc(var(--u) * 12) rgba(86, 180, 255, 0.75))
+    drop-shadow(0 0 calc(var(--u) * 30) rgba(47, 123, 255, 0.45));
+}
+
+.shieldHalo-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: calc(var(--u) * 240);
+  height: calc(var(--u) * 240);
+  margin: calc(var(--u) * -120) 0 0 calc(var(--u) * -120);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(86, 180, 255, 0.5), rgba(47, 123, 255, 0.16) 45%, transparent 70%);
+}
+
+.is-revealed-ProjectServersSolutions .shieldHalo-ProjectServersSolutions {
+  animation: halo-ProjectServersSolutions 3.2s ease-in-out 1.6s infinite;
+}
+
+.shieldBurst-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  display: none;
+  top: 50%;
+  width: calc(var(--u) * 150);
+  height: calc(var(--u) * 150);
+  margin: calc(var(--u) * -75) 0 0 calc(var(--u) * -75);
+  border-radius: 50%;
+  border: calc(var(--u) * 2) solid rgba(175, 228, 255, 0.9);
+  box-shadow: 0 0 calc(var(--u) * 20) rgba(86, 180, 255, 0.7), inset 0 0 calc(var(--u) * 14) rgba(86, 180, 255, 0.5);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .shieldBurst-ProjectServersSolutions {
+  animation: burst-ProjectServersSolutions 4.8s ease-out 1.8s infinite;
+}
+
+.shieldBeam-ProjectServersSolutions {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: none;
+  width: calc(var(--u) * 54);
+  height: calc(var(--u) * 84);
+  margin-left: calc(var(--u) * -27);
+  border-radius: 50% 50% 0 0 / 22% 22% 0 0;
+  background: linear-gradient(0deg, rgba(130, 205, 255, 0.65), rgba(86, 180, 255, 0.18) 60%, transparent);
+  filter: blur(calc(var(--u) * 3));
+  
+}
+
+.is-revealed-ProjectServersSolutions .shieldBeam-ProjectServersSolutions {
+  animation: beamFlicker-ProjectServersSolutions 3s ease-in-out 2s infinite;
+}
+
+.check-ProjectServersSolutions {
+  fill: none;
+  stroke: #f2fbff;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 1.2;
+  stroke-dashoffset: 1.1;
+}
+
+.is-revealed-ProjectServersSolutions .check-ProjectServersSolutions {
+  animation: checkDraw-ProjectServersSolutions 0.7s var(--pss-ease) 1.4s both;
+}
+
+.shieldShine-ProjectServersSolutions {
+  transform: translateX(0);
+}
+
+.is-revealed-ProjectServersSolutions .shieldShine-ProjectServersSolutions {
+  animation: shine-ProjectServersSolutions 5s ease-in-out 2.4s infinite;
+    display: none;
+}
+
+/* ---------- Floating sparks (2D overlay) ---------- */
+
+.sparks-ProjectServersSolutions {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spark-ProjectServersSolutions {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: 50%;
+  background: #c4e8ff;
+  box-shadow: 0 0 6px 1px rgba(86, 180, 255, 0.85);
+  opacity: 0;
+}
+
+.is-revealed-ProjectServersSolutions .spark-ProjectServersSolutions {
+  animation: spark-ProjectServersSolutions var(--dur, 5s) ease-in-out var(--dl, 1.5s) infinite;
+}
+
+/* pause every loop while the visual is off-screen */
+.is-paused-ProjectServersSolutions *,
+.is-paused-ProjectServersSolutions *::before,
+.is-paused-ProjectServersSolutions *::after {
+  animation-play-state: paused !important;
+}
+
+.is-paused-ProjectServersSolutions.has-props-ProjectServersSolutions .scene-ProjectServersSolutions {
+  animation-play-state: paused;
+}
+
+/* =========================================================
+   Keyframes
+   ========================================================= */
+
+@keyframes fadeUp-ProjectServersSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes itemIn-ProjectServersSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes iconPop-ProjectServersSolutions {
+  0% {
+    transform: scale(0.4) rotate(-12deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes fadeIn-ProjectServersSolutions {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes stageIn-ProjectServersSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes tiltIn-ProjectServersSolutions {
+  from {
+    --pss-tilt: 74deg;
+  }
+  to {
+    --pss-tilt: 58deg;
+  }
+}
+
+@keyframes sway-ProjectServersSolutions {
+  0%,
+  100% {
+    --pss-sway: 0deg;
+  }
+  25% {
+    --pss-sway: 5deg;
+  }
+  75% {
+    --pss-sway: -5deg;
+  }
+}
+
+@keyframes floorIn-ProjectServersSolutions {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-30deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes serverDrop-ProjectServersSolutions {
+  0% {
+    --pss-o: 0;
+    transform: translateZ(calc(var(--u) * 190));
+  }
+  55% {
+    --pss-o: 1;
+  }
+  100% {
+    --pss-o: 1;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes serverBob-ProjectServersSolutions {
+  0%,
+  100% {
+    transform: translateZ(0);
+  }
+  50% {
+    transform: translateZ(calc(var(--u) * 7));
+  }
+}
+
+@keyframes topLight-ProjectServersSolutions {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes led-ProjectServersSolutions {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.25;
+  }
+  55% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes spin-ProjectServersSolutions {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ripple-ProjectServersSolutions {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.28);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes beamGrow-ProjectServersSolutions {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes beamPulse-ProjectServersSolutions {
+  0% {
+    opacity: 0;
+    transform: translateX(320%);
+  }
+  10%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes padGlow-ProjectServersSolutions {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes shieldRise-ProjectServersSolutions {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, calc(var(--u) * 50), 0) scale(0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shieldFloat-ProjectServersSolutions {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, calc(var(--u) * -9), 0);
+  }
+}
+
+@keyframes halo-ProjectServersSolutions {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes burst-ProjectServersSolutions {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.55);
+  }
+  40%,
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes beamFlicker-ProjectServersSolutions {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes checkDraw-ProjectServersSolutions {
+  from {
+    stroke-dashoffset: 1.1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes shine-ProjectServersSolutions {
+  0% {
+    transform: translateX(0);
+  }
+  40%,
+  100% {
+    transform: translateX(330px);
+  }
+}
+
+@keyframes spark-ProjectServersSolutions {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -70px, 0) scale(1);
+  }
+}
+
+@keyframes auraPulse-ProjectServersSolutions {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes shimmer-ProjectServersSolutions {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -200% 50%;
+  }
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .container-ProjectServersSolutions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .visual-ProjectServersSolutions {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .content-ProjectServersSolutions {
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .itemInner-ProjectServersSolutions {
+    align-items: flex-start;
+  }
+
+  .itemIcon-ProjectServersSolutions {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================================
+   Reduced motion: the scene appears in its final state, still.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-ProjectServersSolutions *,
+  .section-ProjectServersSolutions *::before,
+  .section-ProjectServersSolutions *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

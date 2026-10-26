@@ -1,0 +1,900 @@
+.headerWrapperzescloudHeaderMain {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid var(--zescloud-border-subtle, #1E293B);
+  border-radius: 0px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  transform-origin: bottom center;
+  transition:
+    top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.headerWrapperzescloudHeaderMain.isScrolledzescloudHeaderMain {
+  top: 0px;
+  width: clamp(320px, 92vw, 1280px);
+  border-radius: 28px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  /* border: 1px solid var(--zescloud-border-highlight, #334155); */
+  /* border-bottom: 1px solid var(--zescloud-border-highlight, #334155); */
+  background-color: transparent;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.058);
+}
+
+/* ===== Liquid Glass Background ===== */
+.headerWrapperzescloudHeaderMain::before,
+.headerWrapperzescloudHeaderMain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Tint + inner highlight */
+.headerWrapperzescloudHeaderMain::before {
+  z-index: 0;
+  background-color: transparent;
+  box-shadow: inset 0 0 12px -4px rgba(255, 255, 255, 0.4);
+  transition:
+    background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.headerWrapperzescloudHeaderMain.isScrolledzescloudHeaderMain::before {
+  background-color: #06080c8e; /* original scrolled tint; lower the alpha (8e) for more see-through glass */
+}
+
+/* Backdrop blur + liquid distortion */
+.headerWrapperzescloudHeaderMain::after {
+  z-index: -1;
+  /* fallback for browsers that don't support url() inside backdrop-filter */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* liquid effect (Chromium) */
+  backdrop-filter: blur(3px) url(#zescloud-glass-distortion);
+}
+
+.headerWrapperzescloudHeaderMain.isScrolledzescloudHeaderMain::after {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(5px) url(#zescloud-glass-distortion);
+}
+.containerzescloudHeaderMain {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--zescloud-container-width, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x, 2rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoAreazescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.logoImgzescloudHeaderMain {
+  width: 150px;
+  object-fit: contain;
+}
+
+.brandDividerzescloudHeaderMain {
+  width: 1px;
+  height: 32px;
+  background-color: var(--zescloud-border-highlight, #334155);
+}
+
+.taglineTextzescloudHeaderMain {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.centerNavzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+}
+
+.navListzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItemzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+}
+
+/* Nav Link Hover & Active Animation */
+.navLinkzescloudHeaderMain {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--zescloud-text-gray-100, #94A3B8);
+  text-decoration: none;
+  font-family: var(--font-poppins), sans-serif;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLinkIndicator {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 100%;
+  height: 2.5px;
+  border-radius: 4px;
+  background: var(--zescloud-primary, #00E699);
+  box-shadow: 0 0 10px rgba(0, 230, 153, 0.65);
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+  opacity: 0;
+}
+
+/* Hover state */
+.navLinkzescloudHeaderMain:hover {
+  color: var(--zescloud-text-white, #FFFFFF);
+}
+
+.navLinkzescloudHeaderMain:hover .navLinkIndicator {
+  transform: translateX(-50%) scaleX(0.7);
+  opacity: 1;
+}
+
+/* Active state */
+.navLinkzescloudHeaderMain.activeNavLinkzescloud {
+  color: var(--zescloud-text-white, #FFFFFF);
+  font-weight: 600;
+}
+
+.navLinkzescloudHeaderMain.activeNavLinkzescloud .navLinkIndicator {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+.rightActionszescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.searchBtnzescloudHeaderMain {
+  background: none;
+  border: none;
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0;
+}
+
+.searchBtnzescloudHeaderMain:hover {
+  color: var(--zescloud-text-white, #FFFFFF);
+  transform: scale(1.1);
+}
+
+.loginBtnzescloudHeaderMain {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.loginBtnzescloudHeaderMain:hover {
+  color: var(--zescloud-text-white, #FFFFFF);
+}
+
+.ctaBtnzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--zescloud-primary, #00E699);
+  color: var(--zescloud-bg-base, #06080C);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--zescloud-radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.ctaBtnzescloudHeaderMain:hover {
+  background-color: var(--zescloud-primary-hover, #00C782);
+}
+
+.arrowIconzescloudHeaderMain {
+  transition: transform 0.3s ease;
+}
+
+.ctaBtnzescloudHeaderMain:hover .arrowIconzescloudHeaderMain {
+  transform: translateX(4px);
+}
+
+.menuBtnzescloudHeaderMain {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--zescloud-text-white, #FFFFFF);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.menuBtnzescloudHeaderMain:hover {
+  color: var(--zescloud-primary, #00E699);
+}
+
+.drawerOverlayzescloudHeaderMain {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(6, 8, 12, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawerOverlayzescloudHeaderMain.isOpenzescloudHeaderMain {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawerPanelzescloudHeaderMain {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(85vw, 360px);
+  background-color: var(--zescloud-bg-surface, #0E1218);
+  border-left: 1px solid var(--zescloud-border-subtle, #1E293B);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.drawerPanelzescloudHeaderMain.isOpenzescloudHeaderMain {
+  transform: translateX(0);
+}
+
+.drawerHeaderzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--zescloud-border-subtle, #1E293B);
+}
+
+.drawerLogozescloudHeaderMain {
+  width: 130px;
+  object-fit: contain;
+}
+
+.drawerCloseBtnzescloudHeaderMain {
+  background: none;
+  border: 1px solid var(--zescloud-border-highlight, #334155);
+  border-radius: var(--zescloud-radius-sm, 8px);
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drawerCloseBtnzescloudHeaderMain:hover {
+  color: var(--zescloud-text-white, #FFFFFF);
+  border-color: var(--zescloud-primary, #00E699);
+}
+
+.drawerNavzescloudHeaderMain {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.drawerNavListzescloudHeaderMain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.drawerNavItemzescloudHeaderMain a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  text-decoration: none;
+  border-bottom: 1px solid var(--zescloud-border-subtle, #1E293B);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 6px;
+}
+
+.drawerNavItemzescloudHeaderMain a:hover {
+  color: var(--zescloud-primary, #00E699);
+  padding-left: 0.85rem;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.drawerActiveBadge {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zescloud-primary, #00E699);
+  box-shadow: 0 0 8px var(--zescloud-primary, #00E699);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+/* Active Link inside Drawer */
+.drawerNavItemzescloudHeaderMain a.activeDrawerNavLinkzescloud {
+  color: var(--zescloud-primary, #00E699);
+  font-weight: 600;
+  padding-left: 0.85rem;
+  background-color: rgba(0, 230, 153, 0.08);
+  border-bottom-color: rgba(0, 230, 153, 0.25);
+}
+
+.drawerNavItemzescloudHeaderMain a.activeDrawerNavLinkzescloud .drawerActiveBadge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.drawerFooterzescloudHeaderMain {
+  padding: 1.5rem;
+  border-top: 1px solid var(--zescloud-border-subtle, #1E293B);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.drawerLoginBtnzescloudHeaderMain {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  text-decoration: none;
+  padding: 0.75rem;
+  border: 1px solid var(--zescloud-border-highlight, #334155);
+  border-radius: var(--zescloud-radius-sm, 8px);
+  transition: all 0.3s ease;
+}
+
+.drawerLoginBtnzescloudHeaderMain:hover {
+  color: var(--zescloud-text-white, #FFFFFF);
+  border-color: var(--zescloud-primary, #00E699);
+}
+
+.drawerCtaBtnzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--zescloud-primary, #00E699);
+  color: var(--zescloud-bg-base, #06080C);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.8rem 1.25rem;
+  border-radius: var(--zescloud-radius-sm, 8px);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.drawerCtaBtnzescloudHeaderMain:hover {
+  background-color: var(--zescloud-primary-hover, #00C782);
+}
+
+@media (max-width: 1024px) {
+  .centerNavzescloudHeaderMain,
+  .rightActionszescloudHeaderMain {
+    display: none;
+  }
+  .menuBtnzescloudHeaderMain {
+    display: flex;
+  }
+  .taglineTextzescloudHeaderMain {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerzescloudHeaderMain {
+    padding: 0 1.25rem;
+  }
+  .logoImgzescloudHeaderMain {
+    width: 120px;
+  }
+}
+
+.hideOnScrollzescloudHeaderMain {
+  opacity: 1;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  transform: translateX(0);
+  transition:
+    opacity 0.3s ease,
+    max-width 0.4s ease,
+    margin 0.4s ease,
+    padding 0.4s ease,
+    transform 0.3s ease;
+}
+
+.isScrolledzescloudHeaderMain .hideOnScrollzescloudHeaderMain {
+  opacity: 0;
+  max-width: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+}
+
+/* =====================================================
+   DESKTOP DROPDOWN  (modern glass panel)
+   ===================================================== */
+.navItemzescloudHeaderMain {
+  position: relative;
+}
+
+/* --- chevron --- */
+.navChevronzescloudHeaderMain {
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s ease;
+}
+
+.hasDropdownzescloudHeaderMain:hover .navChevronzescloudHeaderMain,
+.hasDropdownzescloudHeaderMain:focus-within .navChevronzescloudHeaderMain {
+  transform: rotate(180deg);
+  color: var(--zescloud-primary, #00E699);
+}
+
+/* --- hover bridge / panel wrapper --- */
+/* top padding keeps the cursor able to travel from link -> panel without closing */
+.dropdownWrapzescloudHeaderMain {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding-top: 16px;
+  z-index: 300;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px) scale(0.96);
+  transform-origin: top center;
+  will-change: opacity, transform;
+  transition:
+    opacity 0.26s ease,
+    transform 0.34s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.34s;
+}
+
+.hasDropdownzescloudHeaderMain:hover .dropdownWrapzescloudHeaderMain,
+.hasDropdownzescloudHeaderMain:focus-within .dropdownWrapzescloudHeaderMain {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition:
+    opacity 0.3s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0s;
+}
+
+/* --- little caret/notch pointing at the parent link --- */
+.dropdownWrapzescloudHeaderMain::before {
+  content: '';
+  position: absolute;
+  top: 9px; /* panel top is at 16px -> diamond center sits exactly on the border */
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px 0 0 0;
+  background: rgba(16, 21, 28, 0.96);
+  border-left: 1px solid rgba(148, 163, 184, 0.16);
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.hasDropdownzescloudHeaderMain:hover .dropdownWrapzescloudHeaderMain::before,
+.hasDropdownzescloudHeaderMain:focus-within .dropdownWrapzescloudHeaderMain::before {
+  opacity: 1;
+}
+
+/* --- top glow line (sits above the panel border) --- */
+.dropdownWrapzescloudHeaderMain::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 26px;
+  right: 26px;
+  height: 1px;
+  border-radius: 2px;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--zescloud-primary, #00E699) 55%, transparent),
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.08s;
+}
+
+.hasDropdownzescloudHeaderMain:hover .dropdownWrapzescloudHeaderMain::after,
+.hasDropdownzescloudHeaderMain:focus-within .dropdownWrapzescloudHeaderMain::after {
+  opacity: 1;
+}
+
+/* --- the glass panel --- */
+.dropdownListzescloudHeaderMain {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  min-width: 232px;
+  max-height: min(320px, 60vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 22, 30, 0.9) 0%,
+    rgba(10, 13, 18, 0.94) 100%
+  );
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 16px;
+  box-shadow:
+    0 24px 48px -16px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ===== Dropdown option ===== */
+.dropdownOptionzescloudHeaderMain {
+  position: relative;
+  display: block;
+  padding: 9px 12px 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 500;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1.25;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+/* staggered reveal — delay only applies while opening */
+.hasDropdownzescloudHeaderMain:hover .dropdownOptionzescloudHeaderMain,
+.hasDropdownzescloudHeaderMain:focus-within .dropdownOptionzescloudHeaderMain {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: var(--dd-stagger, 0ms), var(--dd-stagger, 0ms), 0s, 0s;
+}
+
+.dropdownListzescloudHeaderMain > li:nth-child(1) .dropdownOptionzescloudHeaderMain { --dd-stagger: 0ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(2) .dropdownOptionzescloudHeaderMain { --dd-stagger: 35ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(3) .dropdownOptionzescloudHeaderMain { --dd-stagger: 70ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(4) .dropdownOptionzescloudHeaderMain { --dd-stagger: 105ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(5) .dropdownOptionzescloudHeaderMain { --dd-stagger: 140ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(6) .dropdownOptionzescloudHeaderMain { --dd-stagger: 175ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(7) .dropdownOptionzescloudHeaderMain { --dd-stagger: 210ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(8) .dropdownOptionzescloudHeaderMain { --dd-stagger: 245ms; }
+.dropdownListzescloudHeaderMain > li:nth-child(n + 9) .dropdownOptionzescloudHeaderMain { --dd-stagger: 280ms; }
+
+/* left accent bar */
+.dropdownOptionzescloudHeaderMain::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2.5px;
+  height: 0;
+  border-radius: 0 3px 3px 0;
+  background: var(--zescloud-primary, #00E699);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--zescloud-primary, #00E699) 70%, transparent);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition:
+    height 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+}
+
+.dropdownOptionzescloudHeaderMain:hover::before,
+.activeDropdownOptionzescloudHeaderMain::before {
+  height: 58%;
+  opacity: 1;
+}
+
+.dropdownOptionzescloudHeaderMain:hover,
+.activeDropdownOptionzescloudHeaderMain {
+  background: color-mix(in srgb, var(--zescloud-primary, #00E699) 10%, transparent);
+  color: var(--zescloud-primary, #00E699);
+}
+
+/* ===== Dropdown scrollbar ===== */
+.dropdownListzescloudHeaderMain::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropdownListzescloudHeaderMain::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 10px 0;
+}
+
+.dropdownListzescloudHeaderMain::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--zescloud-primary, #00E699),
+    var(--zescloud-gradient-end, #00C782)
+  );
+  border-radius: 10px;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--zescloud-primary, #00E699) 35%, transparent);
+}
+
+.dropdownListzescloudHeaderMain::-webkit-scrollbar-thumb:hover {
+  background: var(--zescloud-primary, #00E699);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--zescloud-primary, #00E699) 50%, transparent);
+}
+
+/* =====================================================
+   DRAWER (SIDEBAR) DROPDOWN
+   ===================================================== */
+.drawerRowzescloudHeaderMain {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-bottom: 1px solid var(--zescloud-border-subtle, #1E293B);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.drawerRowzescloudHeaderMain > a {
+  flex: 1;
+  min-width: 0;
+  border-bottom: none;
+}
+
+/* --- round toggle button --- */
+.drawerSubTogglezescloudHeaderMain {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(148, 163, 184, 0.07);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--zescloud-text-gray-100, #E2E8F0);
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.drawerSubTogglezescloudHeaderMain:hover {
+  color: var(--zescloud-primary, #00E699);
+  background: color-mix(in srgb, var(--zescloud-primary, #00E699) 12%, transparent);
+  border-color: color-mix(in srgb, var(--zescloud-primary, #00E699) 28%, transparent);
+}
+
+.drawerSubTogglezescloudHeaderMain.isOpenzescloudHeaderMain {
+  color: var(--zescloud-primary, #00E699);
+  background: color-mix(in srgb, var(--zescloud-primary, #00E699) 14%, transparent);
+  border-color: color-mix(in srgb, var(--zescloud-primary, #00E699) 32%, transparent);
+  box-shadow: 0 0 16px -4px color-mix(in srgb, var(--zescloud-primary, #00E699) 55%, transparent);
+}
+
+.drawerSubTogglezescloudHeaderMain svg {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawerSubTogglezescloudHeaderMain.isOpenzescloudHeaderMain svg {
+  transform: rotate(180deg);
+}
+
+/* --- collapsible sub list --- */
+.drawerSubListzescloudHeaderMain {
+  position: relative;
+  list-style: none;
+  margin: 0 0 0 0.5rem;
+  padding: 0 0 0 0.9rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition:
+    max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* vertical accent rail */
+.drawerSubListzescloudHeaderMain::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--zescloud-primary, #00E699) 55%, transparent),
+    color-mix(in srgb, var(--zescloud-primary, #00E699) 5%, transparent)
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.drawerSubListzescloudHeaderMain.isOpenzescloudHeaderMain {
+  max-height: 320px;
+  opacity: 1;
+  padding: 0.35rem 0 0.5rem 0.9rem;
+  overflow-y: auto;
+}
+
+.drawerSubListzescloudHeaderMain.isOpenzescloudHeaderMain::before {
+  opacity: 1;
+}
+
+/* higher specificity so it overrides ".drawerNavItem a" rules */
+.drawerNavItemzescloudHeaderMain a.drawerSubLinkzescloudHeaderMain {
+  display: block;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--font-poppins), sans-serif;
+  line-height: 1.25;
+  color: var(--zescloud-text-gray-300, #94A3B8);
+  border-bottom: none;
+  border-radius: 10px;
+  background: transparent;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.drawerSubListzescloudHeaderMain.isOpenzescloudHeaderMain a.drawerSubLinkzescloudHeaderMain {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: var(--dd-stagger, 0ms), var(--dd-stagger, 0ms), 0s, 0s;
+}
+
+.drawerSubListzescloudHeaderMain > li:nth-child(1) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 40ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(2) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 75ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(3) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 110ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(4) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 145ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(5) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 180ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(6) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 215ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(7) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 250ms; }
+.drawerSubListzescloudHeaderMain > li:nth-child(n + 8) a.drawerSubLinkzescloudHeaderMain { --dd-stagger: 285ms; }
+
+.drawerNavItemzescloudHeaderMain a.drawerSubLinkzescloudHeaderMain:hover,
+.drawerNavItemzescloudHeaderMain a.activeDrawerSubLinkzescloudHeaderMain {
+  padding-left: 10px;
+  color: var(--zescloud-primary, #00E699);
+  background: color-mix(in srgb, var(--zescloud-primary, #00E699) 10%, transparent);
+}
+
+.drawerSubListzescloudHeaderMain::-webkit-scrollbar {
+  width: 4px;
+}
+
+.drawerSubListzescloudHeaderMain::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0;
+}
+
+.drawerSubListzescloudHeaderMain::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--zescloud-primary, #00E699),
+    var(--zescloud-gradient-end, #00C782)
+  );
+  border-radius: 10px;
+}
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .dropdownWrapzescloudHeaderMain,
+  .dropdownOptionzescloudHeaderMain,
+  .dropdownWrapzescloudHeaderMain::before,
+  .dropdownWrapzescloudHeaderMain::after,
+  .navChevronzescloudHeaderMain,
+  .drawerSubListzescloudHeaderMain,
+  .drawerSubListzescloudHeaderMain::before,
+  .drawerSubTogglezescloudHeaderMain,
+  .drawerSubTogglezescloudHeaderMain svg,
+  .drawerNavItemzescloudHeaderMain a.drawerSubLinkzescloudHeaderMain {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+
+.hasDropdownzescloudHeaderMain:hover .dropdownWrapzescloudHeaderMain {
+  display: block; /* ya opacity: 1 jo bhi aapne lagaya ho */
+}

@@ -1,0 +1,707 @@
+/* =====================================================================
+   HomePageSliderZescloud
+   Every class ends with "HomePageSliderZescloud" so nothing conflicts.
+   Colours, fonts, weights, transitions come from the global :root.
+
+   ZOOM-LOCKED LAYOUT
+   ------------------
+   The hero is designed on a 1440 x 720 canvas. Every size below is
+   written in "design px":   calc(N * var(--px-HomePageSliderZescloud))
+   where 1 design px = section width / 1440.
+
+   So when the browser zooms in or out (Ctrl + / Ctrl -), or the screen
+   gets wider/narrower, the WHOLE hero scales together and nothing ever
+   moves out of its position. Pure CSS - no JS, no jump on page load.
+
+   Phones (touch screen under 768px) get their own stacked layout on a
+   390px-wide design canvas, which is zoom-locked the same way.
+
+   Stacking (all inside the section):
+     stars 0 · overlay 1 · globe 5 · surface 20 · scroll 25 · text 30
+   ===================================================================== */
+
+.section-HomePageSliderZescloud {
+  --px-HomePageSliderZescloud: calc(100vw / 1440); /* fallback for very old browsers */
+  --ease-HomePageSliderZescloud: cubic-bezier(0.22, 1, 0.36, 1);
+
+  container-type: inline-size;
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1440 / 720;
+  overflow: hidden;
+  background-color: var(--zescloud-bg-base);
+  isolation: isolate;
+}
+
+@supports (width: 1cqw) {
+  .section-HomePageSliderZescloud {
+    --px-HomePageSliderZescloud: calc(100cqw / 1440); /* exact section width, no scrollbar error */
+  }
+}
+
+/* ----------------------------- BACKGROUND ------------------------- */
+/* Extra sky above the hero so the slow parallax drift never shows an
+   empty strip. The JS reads this size from the canvas automatically. */
+.stars-HomePageSliderZescloud {
+  position: absolute;
+  top: calc(-220 * var(--px-HomePageSliderZescloud));
+  left: 0;
+  width: 100%;
+  height: calc(100% + 220 * var(--px-HomePageSliderZescloud));
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.overlay-HomePageSliderZescloud {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 70% at 72% 50%, var(--zescloud-bg-badge) 0%, transparent 70%),
+    linear-gradient(90deg, color-mix(in srgb, var(--zescloud-bg-base) 60%, transparent) 0%, transparent 55%);
+}
+
+/* ----------------------------- FOREGROUND ------------------------- */
+/* Surface image (1671 x 286) spans the full width, sits ABOVE the globe
+   and rises on scroll. ::after fills the space under it while it moves. */
+.foreground-HomePageSliderZescloud {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 1671 / 286;
+  min-height: calc(250 * var(--px-HomePageSliderZescloud));
+  z-index: 20;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.foregroundImg-HomePageSliderZescloud {
+  object-fit: cover;
+  object-position: center bottom;
+  animation: surfaceIn-HomePageSliderZescloud 1.1s var(--ease-HomePageSliderZescloud) both;
+}
+
+.foreground-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(100% - 1px);
+  width: 100%;
+  /* must stay taller than SURFACE_SPEED (0.22) * hero height (720) = 158 */
+  height: calc(260 * var(--px-HomePageSliderZescloud));
+  background: #020A13; /* match the bottom colour of your surface PNG */
+}
+
+/* ---------------------- BOTTOM FADE OVERLAY ----------------------- */
+/* Smooth dark gradient at the very bottom of the hero so the section
+   never looks like it's hard-cut from the rest of the page.
+   z-index 40 → sits above the surface (20) and the scroll button (25). */
+.section-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: calc(450 * var(--px-HomePageSliderZescloud));
+  background: linear-gradient(to top, var(--zescloud-bg-base) 10%, transparent 50%);
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* ----------------------------- LAYOUT ----------------------------- */
+/* No z-index here on purpose: the text and globe layers stack directly
+   against the surface, so the text stays ABOVE it and the globe BELOW. */
+.container-HomePageSliderZescloud {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: calc(64 * var(--px-HomePageSliderZescloud)) calc(32 * var(--px-HomePageSliderZescloud));
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: calc(32 * var(--px-HomePageSliderZescloud));
+}
+
+/* ------------------------------ LEFT ------------------------------ */
+/* Outer layer: receives the scroll parallax transform + fade from JS. */
+.contentLayer-HomePageSliderZescloud {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  min-width: 0;
+  will-change: transform, opacity;
+}
+
+.content-HomePageSliderZescloud {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: calc(640 * var(--px-HomePageSliderZescloud));
+}
+
+/* Entrance: every element starts at 0s with a tiny stagger.
+   Pure CSS, so it runs on the very first paint (before JS loads). */
+.eyebrow-HomePageSliderZescloud,
+.titleRow-HomePageSliderZescloud,
+.description-HomePageSliderZescloud,
+.actions-HomePageSliderZescloud {
+  animation: revealUp-HomePageSliderZescloud 0.8s var(--ease-HomePageSliderZescloud) both;
+}
+.eyebrow-HomePageSliderZescloud { animation-delay: 0s; }
+.titleRow-HomePageSliderZescloud:nth-child(1) { animation-delay: 0.08s; }
+.titleRow-HomePageSliderZescloud:nth-child(2) { animation-delay: 0.16s; }
+.description-HomePageSliderZescloud { animation-delay: 0.26s; }
+.actions-HomePageSliderZescloud { animation-delay: 0.36s; }
+
+.eyebrow-HomePageSliderZescloud {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(10 * var(--px-HomePageSliderZescloud));
+  font-family: var(--zescloud-font-family);
+  font-size: calc(13 * var(--px-HomePageSliderZescloud));
+  font-weight: var(--fw-medium);
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--zescloud-accent-cyan);
+  margin-bottom: calc(20 * var(--px-HomePageSliderZescloud));
+}
+
+.eyebrowDot-HomePageSliderZescloud {
+  position: relative;
+  width: calc(7 * var(--px-HomePageSliderZescloud));
+  height: calc(7 * var(--px-HomePageSliderZescloud));
+  flex-shrink: 0;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 calc(10 * var(--px-HomePageSliderZescloud)) var(--zescloud-accent-cyan);
+}
+
+.eyebrowDot-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: dotPing-HomePageSliderZescloud 2s ease-out infinite;
+}
+
+.title-HomePageSliderZescloud {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--zescloud-heading-font);
+  font-size: calc(54 * var(--px-HomePageSliderZescloud));
+  font-weight: var(--fw-bold);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-white);
+  margin-bottom: calc(24 * var(--px-HomePageSliderZescloud));
+}
+
+.titleRow-HomePageSliderZescloud {
+  display: block;
+}
+
+.titleLine-HomePageSliderZescloud {
+  display: block;
+  color: var(--zescloud-text-white);
+}
+
+/* Gradient text with a slow, continuous light sweep */
+.titleAccent-HomePageSliderZescloud {
+  display: inline-block;
+  width: fit-content;
+  background: linear-gradient(
+    90deg,
+    var(--zescloud-accent-cyan) 0%,
+    var(--zescloud-primary) 30%,
+    #A9DCFF 50%,
+    var(--zescloud-primary) 70%,
+    var(--zescloud-accent-cyan) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 calc(24 * var(--px-HomePageSliderZescloud)) var(--zescloud-border-glow));
+  animation: accentShimmer-HomePageSliderZescloud 6s linear infinite;
+}
+
+.description-HomePageSliderZescloud {
+  font-family: var(--zescloud-font-family);
+  font-size: calc(19 * var(--px-HomePageSliderZescloud));
+  font-weight: var(--fw-regular);
+  line-height: 1.6;
+  color: var(--zescloud-text-gray-100);
+  max-width: calc(520 * var(--px-HomePageSliderZescloud));
+  margin-bottom: calc(36 * var(--px-HomePageSliderZescloud));
+}
+
+.actions-HomePageSliderZescloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(16 * var(--px-HomePageSliderZescloud));
+}
+
+.btnPrimary-HomePageSliderZescloud,
+.btnOutline-HomePageSliderZescloud {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--px-HomePageSliderZescloud));
+  padding: calc(15 * var(--px-HomePageSliderZescloud)) calc(28 * var(--px-HomePageSliderZescloud));
+  font-family: var(--zescloud-font-family);
+  font-size: calc(15 * var(--px-HomePageSliderZescloud));
+  font-weight: var(--fw-semibold);
+  line-height: 1.6;
+  color: var(--zescloud-text-white);
+  border-radius: calc(8 * var(--px-HomePageSliderZescloud));
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base), background var(--transition-base);
+}
+
+.btnPrimary-HomePageSliderZescloud {
+  background: var(--zescloud-btn-gradient);
+  border: 1px solid var(--zescloud-border-glow);
+  box-shadow: 0 calc(4 * var(--px-HomePageSliderZescloud)) calc(20 * var(--px-HomePageSliderZescloud)) var(--zescloud-border-glow);
+}
+
+/* Light sweep that repeats on its own every few seconds */
+.btnPrimary-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.22) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: btnShine-HomePageSliderZescloud 4.5s var(--ease-HomePageSliderZescloud) 0.6s infinite;
+}
+
+.btnPrimary-HomePageSliderZescloud:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(calc(-2 * var(--px-HomePageSliderZescloud)));
+  box-shadow: 0 calc(8 * var(--px-HomePageSliderZescloud)) calc(30 * var(--px-HomePageSliderZescloud)) var(--zescloud-border-glow);
+}
+
+.btnArrow-HomePageSliderZescloud {
+  width: calc(18 * var(--px-HomePageSliderZescloud));
+  height: calc(18 * var(--px-HomePageSliderZescloud));
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.btnPrimary-HomePageSliderZescloud:hover .btnArrow-HomePageSliderZescloud {
+  transform: translateX(calc(4 * var(--px-HomePageSliderZescloud)));
+}
+
+.btnOutline-HomePageSliderZescloud {
+  background: var(--zescloud-bg-panel);
+  border: 1px solid var(--zescloud-border-highlight);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btnOutline-HomePageSliderZescloud:hover {
+  border-color: var(--zescloud-primary);
+  background: var(--zescloud-bg-badge);
+  transform: translateY(calc(-2 * var(--px-HomePageSliderZescloud)));
+}
+
+.btnPlay-HomePageSliderZescloud {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(26 * var(--px-HomePageSliderZescloud));
+  height: calc(26 * var(--px-HomePageSliderZescloud));
+  flex-shrink: 0;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--zescloud-btn-gradient);
+  box-shadow: 0 0 calc(14 * var(--px-HomePageSliderZescloud)) var(--zescloud-border-glow);
+}
+
+.btnPlay-HomePageSliderZescloud::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  animation: playPulse-HomePageSliderZescloud 2.2s ease-out infinite;
+}
+
+.btnPlay-HomePageSliderZescloud svg {
+  position: relative;
+  width: calc(13 * var(--px-HomePageSliderZescloud));
+  height: calc(13 * var(--px-HomePageSliderZescloud));
+  margin-left: calc(2 * var(--px-HomePageSliderZescloud));
+}
+
+.btnPrimary-HomePageSliderZescloud:focus-visible,
+.btnOutline-HomePageSliderZescloud:focus-visible,
+.scroll-HomePageSliderZescloud:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 3px;
+}
+
+.powered-HomePageSliderZescloud {
+  font-size: calc(13 * var(--px-HomePageSliderZescloud));
+  color: var(--zescloud-text-gray-300);
+}
+
+/* ------------------------------ RIGHT ----------------------------- */
+/* Outer layer: receives the scroll parallax transform from JS. */
+.visualLayer-HomePageSliderZescloud {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  will-change: transform;
+}
+
+/* Inner: entrance animation (separate so it never fights the parallax). */
+.visual-HomePageSliderZescloud {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  animation: visualIn-HomePageSliderZescloud 1.1s var(--ease-HomePageSliderZescloud) both;
+}
+
+.globeWrap-HomePageSliderZescloud {
+  position: relative;
+  top: calc(-30 * var(--px-HomePageSliderZescloud));
+  width: calc(452 * var(--px-HomePageSliderZescloud));
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+.globeHalo-HomePageSliderZescloud {
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--zescloud-primary) 38%, transparent) 0%, transparent 70%);
+  filter: blur(calc(30 * var(--px-HomePageSliderZescloud)));
+  pointer-events: none;
+  animation: haloBreath-HomePageSliderZescloud 5s ease-in-out infinite;
+}
+
+.canvas-HomePageSliderZescloud {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+/* Added by JS right after the first globe frame is drawn */
+.isReady-HomePageSliderZescloud .canvas-HomePageSliderZescloud {
+  opacity: 1;
+}
+
+/* ----------------------------- STATUS CARDS ----------------------- */
+/* Everything inside a card is in "em", so the whole card scales from
+   this one font-size (11 design px). */
+.card-HomePageSliderZescloud {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.16em;
+  padding: 1.02em 1.67em 1.02em 1.09em;
+  font-size: calc(11 * var(--px-HomePageSliderZescloud));
+  white-space: nowrap;
+  background: var(--zescloud-bg-panel);
+  border: 1px solid var(--zescloud-border-highlight);
+  border-radius: 1.09em;
+  backdrop-filter: blur(calc(14 * var(--px-HomePageSliderZescloud)));
+  -webkit-backdrop-filter: blur(calc(14 * var(--px-HomePageSliderZescloud)));
+  box-shadow: 0 0.9em 2.7em var(--zescloud-bg-base), inset 0 0 0 1px var(--zescloud-bg-badge);
+  animation:
+    cardIn-HomePageSliderZescloud 0.7s var(--ease-HomePageSliderZescloud) var(--in-HomePageSliderZescloud, 0s) both,
+    floatCard-HomePageSliderZescloud 6s ease-in-out var(--float-HomePageSliderZescloud, 0s) infinite;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-HomePageSliderZescloud:hover {
+  border-color: var(--accent-HomePageSliderZescloud);
+  box-shadow: 0 0.9em 2.7em var(--zescloud-bg-base), 0 0 2em color-mix(in srgb, var(--accent-HomePageSliderZescloud) 45%, transparent);
+}
+
+.cardIcon-HomePageSliderZescloud {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.18em;
+  height: 2.18em;
+  border-radius: 0.73em;
+  color: var(--accent-HomePageSliderZescloud);
+  background: color-mix(in srgb, var(--accent-HomePageSliderZescloud) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-HomePageSliderZescloud) 35%, transparent);
+}
+
+.cardIcon-HomePageSliderZescloud svg {
+  width: 1.89em;
+  height: 1.89em;
+}
+
+.cardIcon-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  top: -0.27em;
+  right: -0.27em;
+  width: 0.73em;
+  height: 0.73em;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--accent-HomePageSliderZescloud);
+  animation: statusPulse-HomePageSliderZescloud 2s ease-out infinite;
+  animation-delay: var(--delay-HomePageSliderZescloud);
+}
+
+.cardText-HomePageSliderZescloud {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.cardLabel-HomePageSliderZescloud {
+  font-size: 1em;
+  font-weight: var(--fw-regular);
+  color: var(--zescloud-text-gray-300);
+}
+
+.cardStatus-HomePageSliderZescloud {
+  font-size: 1em;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+}
+
+.card_infra-HomePageSliderZescloud { top: 9%; left: -2%; }
+.card_apps-HomePageSliderZescloud { top: 5%; right: 0; }
+.card_security-HomePageSliderZescloud { top: 44%; right: -4%; }
+.card_websites-HomePageSliderZescloud { top: 62%; left: 0; }
+.card_cloud-HomePageSliderZescloud { bottom: 8%; right: 12%; }
+
+/* ------------------------------ SCROLL ---------------------------- */
+.scroll-HomePageSliderZescloud {
+  position: absolute;
+  left: calc(32 * var(--px-HomePageSliderZescloud));
+  bottom: calc(28 * var(--px-HomePageSliderZescloud));
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(12 * var(--px-HomePageSliderZescloud));
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--zescloud-font-family);
+  font-size: calc(11 * var(--px-HomePageSliderZescloud));
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+  transition: color var(--transition-fast);
+  animation: fadeIn-HomePageSliderZescloud 0.8s ease-out 0.5s both;
+}
+
+.scroll-HomePageSliderZescloud:hover {
+  color: var(--zescloud-text-white);
+}
+
+.scrollLine-HomePageSliderZescloud {
+  position: relative;
+  width: 1px;
+  height: calc(32 * var(--px-HomePageSliderZescloud));
+  background: var(--zescloud-border-highlight);
+  overflow: hidden;
+}
+
+.scrollLine-HomePageSliderZescloud::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--zescloud-accent-cyan);
+  animation: scrollDrop-HomePageSliderZescloud 1.8s ease-in-out infinite;
+}
+
+/* ---------------------------- KEYFRAMES --------------------------- */
+@keyframes revealUp-HomePageSliderZescloud {
+  from { opacity: 0; transform: translateY(calc(18 * var(--px-HomePageSliderZescloud))); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes visualIn-HomePageSliderZescloud {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes surfaceIn-HomePageSliderZescloud {
+  from { translate: 0 calc(40 * var(--px-HomePageSliderZescloud)); }
+  to { translate: 0 0; }
+}
+
+@keyframes fadeIn-HomePageSliderZescloud {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* uses "scale" (not transform) so it can run together with floatCard */
+@keyframes cardIn-HomePageSliderZescloud {
+  from { opacity: 0; scale: 0.8; }
+  to { opacity: 1; scale: 1; }
+}
+
+@keyframes floatCard-HomePageSliderZescloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.73em); } /* 8 design px */
+}
+
+@keyframes statusPulse-HomePageSliderZescloud {
+  0% { box-shadow: 0 0 0 0 var(--accent-HomePageSliderZescloud); }
+  70% { box-shadow: 0 0 0 0.73em transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@keyframes dotPing-HomePageSliderZescloud {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes playPulse-HomePageSliderZescloud {
+  0% { box-shadow: 0 0 0 0 var(--zescloud-border-glow); }
+  70% { box-shadow: 0 0 0 calc(9 * var(--px-HomePageSliderZescloud)) transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@keyframes btnShine-HomePageSliderZescloud {
+  0% { transform: translateX(-120%); }
+  35%, 100% { transform: translateX(120%); }
+}
+
+@keyframes accentShimmer-HomePageSliderZescloud {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@keyframes haloBreath-HomePageSliderZescloud {
+  0%, 100% { opacity: 0.55; transform: scale(0.95); }
+  50% { opacity: 0.9; transform: scale(1.06); }
+}
+
+@keyframes scrollDrop-HomePageSliderZescloud {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* ------------------------- PHONES (touch only) ---------------------
+   Only real touch phones get this. A desktop browser zoomed in stays on
+   the desktop design above (zoom never switches the layout).
+   Design canvas here is 390px wide, zoom-locked the same way.
+   ----------------------------------------------------------------- */
+@media (max-width: 767px) and (pointer: coarse) {
+  .section-HomePageSliderZescloud {
+    --px-HomePageSliderZescloud: calc(100vw / 390);
+    aspect-ratio: auto;
+    min-height: calc(720 * var(--px-HomePageSliderZescloud));
+  }
+
+  @supports (width: 1cqw) {
+    .section-HomePageSliderZescloud {
+      --px-HomePageSliderZescloud: calc(100cqw / 390);
+    }
+  }
+
+  .container-HomePageSliderZescloud {
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: calc(28 * var(--px-HomePageSliderZescloud));
+    padding:
+      calc(48 * var(--px-HomePageSliderZescloud))
+      calc(20 * var(--px-HomePageSliderZescloud))
+      calc(150 * var(--px-HomePageSliderZescloud));
+  }
+
+  .content-HomePageSliderZescloud {
+    max-width: none;
+  }
+
+  .eyebrow-HomePageSliderZescloud {
+    font-size: calc(11 * var(--px-HomePageSliderZescloud));
+    margin-bottom: calc(14 * var(--px-HomePageSliderZescloud));
+  }
+
+  .title-HomePageSliderZescloud {
+    font-size: calc(33 * var(--px-HomePageSliderZescloud));
+    margin-bottom: calc(18 * var(--px-HomePageSliderZescloud));
+  }
+
+  .description-HomePageSliderZescloud {
+    font-size: calc(16 * var(--px-HomePageSliderZescloud));
+    max-width: none;
+    margin-bottom: calc(26 * var(--px-HomePageSliderZescloud));
+  }
+
+  .actions-HomePageSliderZescloud {
+    width: 100%;
+    gap: calc(12 * var(--px-HomePageSliderZescloud));
+  }
+
+  .btnPrimary-HomePageSliderZescloud,
+  .btnOutline-HomePageSliderZescloud {
+    flex: 1 1 100%;
+    padding: calc(14 * var(--px-HomePageSliderZescloud)) calc(20 * var(--px-HomePageSliderZescloud));
+  }
+
+  .globeWrap-HomePageSliderZescloud {
+    top: 0;
+    width: calc(340 * var(--px-HomePageSliderZescloud));
+  }
+
+  .card-HomePageSliderZescloud {
+    font-size: calc(9.5 * var(--px-HomePageSliderZescloud));
+  }
+
+  .card_infra-HomePageSliderZescloud { left: 0; }
+  .card_security-HomePageSliderZescloud { right: 0; }
+
+  .foreground-HomePageSliderZescloud {
+    min-height: calc(150 * var(--px-HomePageSliderZescloud));
+  }
+
+  .foreground-HomePageSliderZescloud::after {
+    height: calc(320 * var(--px-HomePageSliderZescloud));
+  }
+
+  .scroll-HomePageSliderZescloud {
+    display: none;
+  }
+}
+
+/* Users who turned motion off in their OS: everything static */
+@media (prefers-reduced-motion: reduce) {
+  .section-HomePageSliderZescloud *,
+  .section-HomePageSliderZescloud *::before,
+  .section-HomePageSliderZescloud *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

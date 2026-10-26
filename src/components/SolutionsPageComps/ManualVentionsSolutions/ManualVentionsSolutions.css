@@ -1,0 +1,1231 @@
+/* =========================================================
+   ManualVentionsSolutions
+   Uses the global --zescloud-* variables, with fallbacks so the
+   section still renders correctly if one is missing.
+   ========================================================= */
+
+.section-ManualVentionsSolutions {
+  --mvs-bg: var(--zescloud-bg-base, #060b17);
+  --mvs-elevated: var(--zescloud-bg-elevated, #0c1527);
+  --mvs-primary: var(--zescloud-primary, #3989e2);
+  --mvs-cyan: var(--zescloud-accent-cyan, #56b4ff);
+  --mvs-white: var(--zescloud-text-white, #ffffff);
+  --mvs-gray-100: var(--zescloud-text-gray-100, #e2e8f0);
+  --mvs-gray-300: var(--zescloud-text-gray-300, #94a3b8);
+  --mvs-border: var(--zescloud-border-highlight, rgba(148, 163, 184, 0.28));
+  --mvs-green: var(--zescloud-status-healthy, #10b981);
+  --mvs-green-bg: var(--zescloud-status-healthy-bg, rgba(16, 185, 129, 0.12));
+  --mvs-purple: var(--zescloud-status-purple, #8b5cf6);
+  --mvs-purple-bg: var(--zescloud-status-purple-bg, rgba(139, 92, 246, 0.12));
+  --mvs-red: var(--zescloud-status-danger, #ef4444);
+  --mvs-red-bg: var(--zescloud-status-danger-bg, rgba(239, 68, 68, 0.12));
+  --mvs-badge-bg: var(--zescloud-bg-badge, rgba(57, 137, 226, 0.14));
+  --mvs-radius-sm: var(--zescloud-radius-sm, 10px);
+  --mvs-heading-font: var(--zescloud-heading-font, inherit);
+
+  --mvs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --mvs-ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  position: relative;
+  width: 100%;
+  padding: clamp(4rem, 8vw, 6.5rem) 0;
+  background-color: var(--mvs-bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.section-ManualVentionsSolutions,
+.section-ManualVentionsSolutions *,
+.section-ManualVentionsSolutions *::before,
+.section-ManualVentionsSolutions *::after {
+  box-sizing: border-box;
+}
+
+.container-ManualVentionsSolutions {
+  max-width: var(--zescloud-container-width, 1240px);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x, 1.5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* =========================================================
+   Entrance system
+   Elements with .reveal stay hidden until their column gets
+   .is-revealed (set by IntersectionObserver), then play with
+   their own --d delay.
+   ========================================================= */
+
+.reveal-ManualVentionsSolutions {
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .reveal-ManualVentionsSolutions {
+  animation: fadeUp-ManualVentionsSolutions 0.8s var(--mvs-ease) var(--d, 0s) both;
+}
+
+/* =========================================================
+   Left content
+   ========================================================= */
+
+.content-ManualVentionsSolutions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 560px;
+}
+
+.label-ManualVentionsSolutions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem;
+  margin-bottom: 1.15rem;
+  border-radius: 999px;
+  border: 1px solid rgba(57, 137, 226, 0.3);
+  background-color: rgba(57, 137, 226, 0.08);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--fw-medium, 500);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--mvs-gray-100);
+}
+
+.labelDot-ManualVentionsSolutions {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--mvs-cyan);
+  box-shadow: 0 0 10px var(--mvs-cyan);
+}
+
+.heading-ManualVentionsSolutions {
+  margin: 0;
+  font-family: var(--mvs-heading-font);
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: var(--fw-bold, 700);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--mvs-white);
+}
+
+.headingLine-ManualVentionsSolutions {
+  display: block;
+}
+
+.headingAccent-ManualVentionsSolutions {
+  color: var(--mvs-cyan);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .headingAccent-ManualVentionsSolutions {
+    background-image: linear-gradient(
+      90deg,
+      var(--mvs-cyan) 0%,
+      var(--mvs-primary) 30%,
+      #9fd8ff 50%,
+      var(--mvs-primary) 70%,
+      var(--mvs-cyan) 100%
+    );
+    background-size: 200% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: shimmer-ManualVentionsSolutions 8s linear infinite;
+  }
+}
+
+.description-ManualVentionsSolutions {
+  margin: 1.1rem 0 0;
+  font-size: var(--font-size-base, 1rem);
+  line-height: 1.6;
+  color: var(--mvs-gray-300);
+  max-width: 460px;
+}
+/* ---------- Feature list ---------- */
+
+.list-ManualVentionsSolutions {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.is-revealed-ManualVentionsSolutions .item-ManualVentionsSolutions.reveal-ManualVentionsSolutions {
+  animation-name: itemIn-ManualVentionsSolutions;
+}
+
+/* Row color comes from the tone of the icon inside each row */
+.item-ManualVentionsSolutions { --row-tone: #94a3b8; }
+.item-ManualVentionsSolutions:has(.tone-green-ManualVentionsSolutions) { --row-tone: #10b981; }
+.item-ManualVentionsSolutions:has(.tone-blue-ManualVentionsSolutions) { --row-tone: #3989e2; }
+.item-ManualVentionsSolutions:has(.tone-cyan-ManualVentionsSolutions) { --row-tone: #56b4ff; }
+.item-ManualVentionsSolutions:has(.tone-purple-ManualVentionsSolutions) { --row-tone: #8b5cf6; }
+.item-ManualVentionsSolutions:has(.tone-gray-ManualVentionsSolutions) { --row-tone: #94a3b8; }
+
+.itemInner-ManualVentionsSolutions {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 0.8rem 1rem 0.8rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--zescloud-radius-md, 12px);
+  overflow: hidden;
+  transition: border-color 0.35s ease;
+}
+
+/* Hover background (on a pseudo-element so the reveal delay does not slow it) */
+.itemInner-ManualVentionsSolutions::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: color-mix(in srgb, var(--row-tone) 6%, transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Progress rail on the left edge */
+.itemInner-ManualVentionsSolutions::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16%;
+  bottom: 16%;
+  width: 2px;
+  border-radius: 2px;
+  background-color: var(--row-tone);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s ease;
+  pointer-events: none;
+}
+
+.itemInner-ManualVentionsSolutions:hover {
+  border-color: color-mix(in srgb, var(--row-tone) 16%, transparent);
+}
+.itemInner-ManualVentionsSolutions:hover::before { opacity: 1; }
+.itemInner-ManualVentionsSolutions:hover::after { transform: scaleY(1); }
+
+.itemIcon-ManualVentionsSolutions {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tone-color);
+  background-color: var(--tone-bg);
+  border: 1px solid color-mix(in srgb, var(--tone-color) 22%, transparent);
+  transition: color 0.35s ease, background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.itemIcon-ManualVentionsSolutions svg {
+  width: 18px;
+  height: 18px;
+}
+
+.itemInner-ManualVentionsSolutions:hover .itemIcon-ManualVentionsSolutions {
+  color: #ffffff;
+  background-color: var(--tone-color);
+  border-color: var(--tone-color);
+}
+
+.itemBody-ManualVentionsSolutions {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.itemTitle-ManualVentionsSolutions {
+  margin: 0;
+  font-family: var(--mvs-heading-font);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--mvs-gray-100);
+  line-height: 1.3;
+  transition: color 0.35s ease;
+}
+
+.itemText-ManualVentionsSolutions {
+  margin: 0.2rem 0 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-500, #64748b);
+  transition: color 0.35s ease;
+}
+
+.itemInner-ManualVentionsSolutions:hover .itemTitle-ManualVentionsSolutions {
+  color: var(--mvs-white);
+}
+.itemInner-ManualVentionsSolutions:hover .itemText-ManualVentionsSolutions {
+  color: var(--mvs-gray-300);
+}
+/* ---------- Tones ---------- */
+
+.tone-green-ManualVentionsSolutions {
+  --tone-color: var(--mvs-green);
+  --tone-bg: var(--mvs-green-bg);
+  --tone-border: rgba(16, 185, 129, 0.45);
+  --tone-glow: rgba(16, 185, 129, 0.45);
+}
+.tone-blue-ManualVentionsSolutions {
+  --tone-color: var(--mvs-primary);
+  --tone-bg: var(--mvs-badge-bg);
+  --tone-border: rgba(57, 137, 226, 0.5);
+  --tone-glow: rgba(57, 137, 226, 0.5);
+}
+.tone-cyan-ManualVentionsSolutions {
+  --tone-color: var(--mvs-cyan);
+  --tone-bg: rgba(86, 180, 255, 0.12);
+  --tone-border: rgba(86, 180, 255, 0.5);
+  --tone-glow: rgba(86, 180, 255, 0.45);
+}
+.tone-purple-ManualVentionsSolutions {
+  --tone-color: var(--mvs-purple);
+  --tone-bg: var(--mvs-purple-bg);
+  --tone-border: rgba(139, 92, 246, 0.5);
+  --tone-glow: rgba(139, 92, 246, 0.5);
+}
+.tone-red-ManualVentionsSolutions {
+  --tone-color: var(--mvs-red);
+  --tone-bg: var(--mvs-red-bg);
+  --tone-border: rgba(239, 68, 68, 0.5);
+  --tone-glow: rgba(239, 68, 68, 0.5);
+}
+.tone-gray-ManualVentionsSolutions {
+  --tone-color: var(--mvs-gray-100);
+  --tone-bg: rgba(148, 163, 184, 0.1);
+  --tone-border: var(--mvs-border);
+  --tone-glow: rgba(148, 163, 184, 0.35);
+}
+
+/* ---------- Button ---------- */
+
+.actions-ManualVentionsSolutions {
+  margin-top: 2rem;
+}
+
+.button-ManualVentionsSolutions {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--mvs-white);
+  background: var(--zescloud-btn-gradient, linear-gradient(135deg, #1848d9 0%, #3989e2 100%));
+  border: none;
+  border-radius: var(--mvs-radius-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(24, 72, 217, 0.35);
+  transition: transform 0.3s var(--mvs-ease), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.button-ManualVentionsSolutions::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.7s var(--mvs-ease);
+  pointer-events: none;
+}
+
+.button-ManualVentionsSolutions:hover {
+  background: var(--zescloud-btn-gradient-hover, linear-gradient(135deg, #2457ea 0%, #4a98ee 100%));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(57, 137, 226, 0.5);
+}
+
+.button-ManualVentionsSolutions:hover::after {
+  left: 120%;
+}
+
+.button-ManualVentionsSolutions:active {
+  transform: translateY(0);
+}
+
+.button-ManualVentionsSolutions:focus-visible {
+  outline: 2px solid var(--mvs-cyan);
+  outline-offset: 3px;
+}
+
+.button-ManualVentionsSolutions svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s var(--mvs-ease);
+}
+
+.button-ManualVentionsSolutions:hover svg {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   Right visual
+   ========================================================= */
+
+.visual-ManualVentionsSolutions {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.glow-ManualVentionsSolutions {
+  position: absolute;
+  inset: 6% 4%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(closest-side at 35% 40%, rgba(57, 137, 226, 0.32), transparent 75%),
+    radial-gradient(closest-side at 70% 65%, rgba(86, 180, 255, 0.2), transparent 75%);
+  filter: blur(40px);
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .glow-ManualVentionsSolutions {
+  animation: fadeIn-ManualVentionsSolutions 1.4s ease 0.1s both,
+    glowFloat-ManualVentionsSolutions 12s ease-in-out 1.5s infinite;
+}
+
+.panel-ManualVentionsSolutions {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 660px;
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+  border-radius: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background-color: rgba(10, 18, 34, 0.6);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  opacity: 0;
+}
+
+.panel-ManualVentionsSolutions::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(86, 180, 255, 0.7), transparent);
+  pointer-events: none;
+}
+
+.is-revealed-ManualVentionsSolutions .panel-ManualVentionsSolutions {
+  animation: panelIn-ManualVentionsSolutions 0.9s var(--mvs-ease) 0.05s both;
+}
+
+/* ---------- Panel header ---------- */
+
+.panelHeader-ManualVentionsSolutions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.1rem 0.2rem 0.9rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.panelTitle-ManualVentionsSolutions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.panelDots-ManualVentionsSolutions {
+  display: inline-flex;
+  gap: 5px;
+  flex: none;
+}
+
+.panelDots-ManualVentionsSolutions span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgba(148, 163, 184, 0.28);
+}
+
+.workflowName-ManualVentionsSolutions {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  color: var(--mvs-gray-100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panelTag-ManualVentionsSolutions {
+  flex: none;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--mvs-gray-300);
+}
+
+.status-ManualVentionsSolutions {
+  --st-color: var(--mvs-gray-300);
+  --st-bg: rgba(148, 163, 184, 0.08);
+  --st-border: rgba(148, 163, 184, 0.22);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 8.9rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--st-border);
+  background-color: var(--st-bg);
+  color: var(--st-color);
+  font-size: 0.72rem;
+  font-weight: var(--fw-semibold, 600);
+  white-space: nowrap;
+  transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.status-danger-ManualVentionsSolutions {
+  --st-color: #ff8a8a;
+  --st-bg: rgba(239, 68, 68, 0.12);
+  --st-border: rgba(239, 68, 68, 0.4);
+}
+.status-info-ManualVentionsSolutions {
+  --st-color: var(--mvs-cyan);
+  --st-bg: rgba(57, 137, 226, 0.12);
+  --st-border: rgba(57, 137, 226, 0.4);
+}
+.status-success-ManualVentionsSolutions {
+  --st-color: #34d399;
+  --st-bg: rgba(16, 185, 129, 0.12);
+  --st-border: rgba(16, 185, 129, 0.42);
+}
+
+.statusDot-ManualVentionsSolutions {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+  flex: none;
+}
+
+.statusDot-ManualVentionsSolutions::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: ping-ManualVentionsSolutions 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.statusText-ManualVentionsSolutions {
+  display: inline-block;
+  animation: statusIn-ManualVentionsSolutions 0.35s var(--mvs-ease) both;
+}
+
+/* ---------- Stage ---------- */
+
+.stage-ManualVentionsSolutions {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2; /* matches the 600 x 400 viewBox */
+  container-type: inline-size;
+  container-name: mvs-stage;
+}
+
+/* Dotted grid — masked on its own layer so nodes are never faded */
+.stage-ManualVentionsSolutions::before {
+  content: '';
+  position: absolute;
+  inset: -3% -2%;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(57, 137, 226, 0.26) 1px, transparent 1.3px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 75%);
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .stage-ManualVentionsSolutions::before {
+  animation: fadeIn-ManualVentionsSolutions 1.2s ease 0.25s both;
+}
+
+.svg-ManualVentionsSolutions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.svgWires-ManualVentionsSolutions {
+  z-index: 1;
+}
+
+.svgOverlay-ManualVentionsSolutions {
+  z-index: 3;
+}
+
+/* ---------- Wires ---------- */
+
+.wireBase-ManualVentionsSolutions {
+  fill: none;
+  stroke: var(--mvs-primary);
+  stroke-opacity: 0.45;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-dasharray: 4 6;
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .wireBase-ManualVentionsSolutions {
+  animation: fadeIn-ManualVentionsSolutions 0.6s ease calc(var(--d, 0s) + 0.5s) both,
+    march-ManualVentionsSolutions 1.1s linear infinite;
+}
+
+/* Entrance "power-up" stroke that draws each wire once */
+.wireDraw-ManualVentionsSolutions {
+  fill: none;
+  stroke: var(--mvs-cyan);
+  stroke-width: 1.6;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .wireDraw-ManualVentionsSolutions {
+  animation: wireDraw-ManualVentionsSolutions 1.1s var(--mvs-ease) var(--d, 0s) both;
+}
+
+/* Live stroke that fills as the pulse travels */
+.wireLive-ManualVentionsSolutions {
+  fill: none;
+  stroke: var(--mvs-cyan);
+  stroke-width: 2;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease, stroke-dashoffset 0s linear 0.5s;
+}
+
+.wireLiveGlow-ManualVentionsSolutions {
+  stroke-width: 6;
+  stroke-opacity: 0.22;
+}
+
+.wireLive-ManualVentionsSolutions.is-flow-ManualVentionsSolutions {
+  opacity: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--flow-dur, 0.75s) linear, opacity 0.15s ease;
+}
+
+.wireLive-ManualVentionsSolutions.is-done-ManualVentionsSolutions {
+  opacity: 0.8;
+  stroke-dashoffset: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* ---------- Ports & pulses ---------- */
+
+.endpoint-ManualVentionsSolutions {
+  fill: var(--mvs-bg);
+  stroke: var(--mvs-primary);
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transition: fill 0.35s ease, stroke 0.35s ease;
+}
+
+.is-revealed-ManualVentionsSolutions .endpoint-ManualVentionsSolutions {
+  animation: pop-ManualVentionsSolutions 0.5s var(--mvs-ease) var(--ed, 0s) both;
+}
+
+.endpoint-ManualVentionsSolutions.is-lit-ManualVentionsSolutions {
+  fill: var(--mvs-cyan);
+  stroke: var(--mvs-cyan);
+}
+
+.pulseHalo-ManualVentionsSolutions {
+  fill: var(--mvs-cyan);
+  fill-opacity: 0.25;
+}
+
+.pulseCore-ManualVentionsSolutions {
+  fill: #e6f4ff;
+}
+
+/* ---------- Nodes ---------- */
+
+.nodeWrap-ManualVentionsSolutions {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+}
+
+.is-revealed-ManualVentionsSolutions .nodeWrap-ManualVentionsSolutions {
+  animation: nodeIn-ManualVentionsSolutions 0.75s var(--mvs-ease) var(--d, 0s) both;
+}
+
+.node-ManualVentionsSolutions {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  gap: 2cqw;
+  padding: 0 14px;
+  padding: 0 2.6cqw;
+  border-radius: 12px;
+  border-radius: 2.2cqw;
+  border: 1px solid var(--tone-border);
+  background-color: var(--mvs-elevated);
+  background-image: linear-gradient(var(--tone-bg), var(--tone-bg));
+  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.75);
+  transition: border-color 0.4s ease, transform 0.5s var(--mvs-ease);
+}
+
+/* glow layer — fades smoothly between states */
+.node-ManualVentionsSolutions::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px var(--tone-color), 0 0 28px 0 var(--tone-glow), inset 0 0 18px 0 var(--tone-bg);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions {
+  border-color: var(--tone-color);
+  transform: translateY(-2px) scale(1.025);
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions::before {
+  opacity: 1;
+}
+
+.node-ManualVentionsSolutions.is-done-ManualVentionsSolutions::before {
+  opacity: 0.3;
+}
+
+.nodeIcon-ManualVentionsSolutions {
+  position: relative;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  width: 6.4cqw;
+  height: 6.4cqw;
+  border-radius: 10px;
+  border-radius: 1.6cqw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--tone-bg);
+  border: 1px solid var(--tone-border);
+  color: var(--tone-color);
+}
+
+.nodeIcon-ManualVentionsSolutions svg {
+  width: 56%;
+  height: 56%;
+}
+
+.nodeIcon-ManualVentionsSolutions::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--tone-color);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions .nodeIcon-ManualVentionsSolutions::after {
+  animation: iconPing-ManualVentionsSolutions 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* per-node icon motion while active */
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions[data-anim='flicker'] .nodeIcon-ManualVentionsSolutions svg {
+  animation: flicker-ManualVentionsSolutions 0.9s steps(1, end) infinite;
+}
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions[data-anim='spin-slow'] .nodeIcon-ManualVentionsSolutions svg {
+  animation: spin-ManualVentionsSolutions 2.4s linear infinite;
+}
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions[data-anim='spin'] .nodeIcon-ManualVentionsSolutions svg {
+  animation: spin-ManualVentionsSolutions 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions[data-anim='ring'] .nodeIcon-ManualVentionsSolutions svg {
+  transform-origin: 50% 15%;
+  animation: ring-ManualVentionsSolutions 1s ease-in-out infinite;
+}
+
+.nodeText-ManualVentionsSolutions {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nodeTitle-ManualVentionsSolutions {
+  font-family: var(--mvs-heading-font);
+  font-size: 13px;
+  font-size: clamp(10px, 2.15cqw, 14.5px);
+  font-weight: var(--fw-semibold, 600);
+  color: var(--mvs-white);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nodeSub-ManualVentionsSolutions {
+  font-size: 11px;
+  font-size: clamp(9px, 1.75cqw, 12px);
+  line-height: 1.35;
+  color: var(--mvs-gray-300);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.4s ease;
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions .nodeSub-ManualVentionsSolutions,
+.node-ManualVentionsSolutions.is-done-ManualVentionsSolutions .nodeSub-ManualVentionsSolutions {
+  color: var(--tone-color);
+}
+
+/* status badge (spinner → check) on the top-right corner */
+.nodeBadge-ManualVentionsSolutions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  width: clamp(14px, 3.6cqw, 22px);
+  height: clamp(14px, 3.6cqw, 22px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mvs-elevated);
+  border: 1px solid var(--tone-border);
+  color: var(--tone-color);
+  opacity: 0;
+  transform: translate(40%, -40%) scale(0.4);
+  transition: opacity 0.3s ease, transform 0.45s var(--mvs-ease-back), background-color 0.3s ease,
+    color 0.3s ease, border-color 0.3s ease;
+}
+
+.nodeBadge-ManualVentionsSolutions svg {
+  width: 62%;
+  height: 62%;
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions .nodeBadge-ManualVentionsSolutions,
+.node-ManualVentionsSolutions.is-done-ManualVentionsSolutions .nodeBadge-ManualVentionsSolutions {
+  opacity: 1;
+  transform: translate(40%, -40%) scale(1);
+}
+
+.node-ManualVentionsSolutions.is-done-ManualVentionsSolutions .nodeBadge-ManualVentionsSolutions {
+  background-color: var(--tone-color);
+  border-color: var(--tone-color);
+  color: var(--mvs-bg);
+}
+
+.nodeSpinner-ManualVentionsSolutions {
+  width: 58%;
+  height: 58%;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  animation: spin-ManualVentionsSolutions 0.8s linear infinite;
+}
+
+/* progress bar while a node is processing */
+.nodeProgress-ManualVentionsSolutions {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--tone-color);
+  box-shadow: 0 0 8px var(--tone-glow);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.node-ManualVentionsSolutions.is-active-ManualVentionsSolutions .nodeProgress-ManualVentionsSolutions {
+  opacity: 1;
+  animation: progress-ManualVentionsSolutions var(--active-dur, 1s) linear forwards;
+}
+
+.node-ManualVentionsSolutions.is-done-ManualVentionsSolutions .nodeProgress-ManualVentionsSolutions {
+  opacity: 0;
+  transform: scaleX(1);
+}
+
+/* Compact nodes on narrow stages */
+@container mvs-stage (max-width: 520px) {
+  .node-ManualVentionsSolutions {
+    gap: 1.6cqw;
+    padding: 0 2cqw;
+  }
+
+  .nodeSub-ManualVentionsSolutions {
+    display: none;
+  }
+
+  .nodeTitle-ManualVentionsSolutions {
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+
+/* ---------- Footer metrics ---------- */
+
+.panelFooter-ManualVentionsSolutions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.9rem 0.2rem 0.1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.metric-ManualVentionsSolutions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.metricLabel-ManualVentionsSolutions {
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--mvs-gray-300);
+}
+
+.metricValue-ManualVentionsSolutions {
+  font-family: var(--mvs-heading-font);
+  font-size: 1.05rem;
+  font-weight: var(--fw-semibold, 600);
+  color: var(--mvs-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.metricValueGood-ManualVentionsSolutions {
+  color: #34d399;
+}
+
+.metricNumber-ManualVentionsSolutions {
+  display: inline-block;
+  animation: countPop-ManualVentionsSolutions 0.5s var(--mvs-ease-back) both;
+}
+
+/* =========================================================
+   Keyframes
+   ========================================================= */
+
+@keyframes fadeUp-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes itemIn-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeIn-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panelIn-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nodeIn-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wireDraw-ManualVentionsSolutions {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  65% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.15;
+  }
+}
+
+@keyframes march-ManualVentionsSolutions {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@keyframes pop-ManualVentionsSolutions {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowFloat-ManualVentionsSolutions {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.06);
+  }
+}
+
+@keyframes shimmer-ManualVentionsSolutions {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: -200% 50%;
+  }
+}
+
+@keyframes ping-ManualVentionsSolutions {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+@keyframes iconPing-ManualVentionsSolutions {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes statusIn-ManualVentionsSolutions {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spin-ManualVentionsSolutions {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ring-ManualVentionsSolutions {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-12deg);
+  }
+  60% {
+    transform: rotate(8deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+}
+
+@keyframes flicker-ManualVentionsSolutions {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  25% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes progress-ManualVentionsSolutions {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes countPop-ManualVentionsSolutions {
+  0% {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 1024px) {
+  .container-ManualVentionsSolutions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .content-ManualVentionsSolutions {
+    max-width: 640px;
+  }
+
+  .panel-ManualVentionsSolutions {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .panelTag-ManualVentionsSolutions {
+    display: none;
+  }
+
+  .status-ManualVentionsSolutions {
+    min-width: 0;
+    padding: 0.28rem 0.6rem;
+    font-size: 0.68rem;
+  }
+
+  .panel-ManualVentionsSolutions {
+    border-radius: 18px;
+  }
+
+  .metricLabel-ManualVentionsSolutions {
+    font-size: 0.64rem;
+  }
+
+  .metricValue-ManualVentionsSolutions {
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================================================
+   Reduced motion: everything appears instantly in its final
+   "resolved" state, with no looping motion.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-ManualVentionsSolutions *,
+  .section-ManualVentionsSolutions *::before,
+  .section-ManualVentionsSolutions *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

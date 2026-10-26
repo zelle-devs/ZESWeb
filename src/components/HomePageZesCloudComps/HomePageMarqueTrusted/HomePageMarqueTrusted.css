@@ -1,0 +1,228 @@
+/* Container & Title */
+.section-HomePageMarqueTrusted {
+  background-color: var(--zescloud-bg-base);
+  overflow: hidden;
+  display: flex;
+  padding: 0;
+  margin-bottom: 3rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-HomePageMarqueTrusted {
+  text-align: center;
+  font-family: var(--zescloud-font-family);
+  font-size: 0.85rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 2px;
+  color: var(--zescloud-text-gray-300);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+/* Marquee Wrapper */
+.marquee-wrapper-HomePageMarqueTrusted {
+  position: relative;
+  width: 100%;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.HomePageMarqueTrustedMArqueSliderWidth{
+    width: 100%;
+}
+
+/* Gaussian Blur Fade Effects (Left & Right) */
+.blur-left-HomePageMarqueTrusted,
+.blur-right-HomePageMarqueTrusted {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 180px;
+  z-index: 10;
+  pointer-events: none; /* Mouse interactions block na kare */
+}
+
+.blur-left-HomePageMarqueTrusted {
+  left: 0;
+  background: linear-gradient(to right, var(--zescloud-bg-base) 0%, transparent 100%);
+}
+
+.blur-right-HomePageMarqueTrusted {
+  right: 0;
+  background: linear-gradient(to left, var(--zescloud-bg-base) 0%, transparent 100%);
+}
+
+/* Motion Track */
+.track-HomePageMarqueTrusted {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4rem; /* Items ke darmiyan space */
+  align-items: center;
+  width: max-content;
+}
+
+/* Individual Item */
+.item-HomePageMarqueTrusted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-width: 120px;
+  color: var(--zescloud-text-gray-300);
+  transition: color var(--transition-fast);
+  cursor: default;
+}
+
+.item-HomePageMarqueTrusted:hover {
+  color: var(--zescloud-text-white);
+}
+
+.icon-HomePageMarqueTrusted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.label-HomePageMarqueTrusted {
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  font-family: var(--zescloud-font-family);
+  color: currentColor;
+}
+
+/* ---------- Responsive: HomePage Marque Trusted ---------- */
+
+/* ---------- Laptops and small desktops ---------- */
+@media (max-width: 1200px) {
+  .section-HomePageMarqueTrusted {
+    width: 100%;
+  }
+
+  .title-HomePageMarqueTrusted {
+    margin-bottom: 2.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .marquee-wrapper-HomePageMarqueTrusted {
+    max-width: 100%;
+  }
+
+  .track-HomePageMarqueTrusted {
+    gap: 3.25rem;
+  }
+
+  .blur-left-HomePageMarqueTrusted,
+  .blur-right-HomePageMarqueTrusted {
+    width: 120px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 1024px) {
+  .title-HomePageMarqueTrusted {
+    margin-bottom: 2.25rem;
+    font-size: 0.8rem;
+    letter-spacing: 1.8px;
+  }
+
+  .track-HomePageMarqueTrusted {
+    gap: 2.75rem;
+  }
+
+  .item-HomePageMarqueTrusted {
+    min-width: 105px;
+    gap: 0.65rem;
+  }
+
+  .icon-HomePageMarqueTrusted {
+    flex-shrink: 0;
+  }
+
+  .label-HomePageMarqueTrusted {
+    font-size: var(--font-size-sm);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .blur-left-HomePageMarqueTrusted,
+  .blur-right-HomePageMarqueTrusted {
+    width: 95px;
+  }
+}
+
+/* ---------- Small tablets and large phones ---------- */
+@media (max-width: 749px) {
+  .title-HomePageMarqueTrusted {
+    margin-bottom: 2rem;
+    padding: 0 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+  }
+
+  .marquee-wrapper-HomePageMarqueTrusted {
+    width: 100%;
+  }
+
+  .track-HomePageMarqueTrusted {
+    gap: 2.25rem;
+  }
+
+  .item-HomePageMarqueTrusted {
+    min-width: 95px;
+    gap: 0.6rem;
+  }
+
+  .label-HomePageMarqueTrusted {
+    font-size: 0.8rem;
+  }
+
+  .blur-left-HomePageMarqueTrusted,
+  .blur-right-HomePageMarqueTrusted {
+    width: 65px;
+  }
+}
+
+/* ---------- Mobile phones ---------- */
+@media (max-width: 480px) {
+  .title-HomePageMarqueTrusted {
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 1.2px;
+  }
+
+  .marquee-wrapper-HomePageMarqueTrusted {
+    width: 100%;
+  }
+
+  .track-HomePageMarqueTrusted {
+    gap: 1.75rem;
+  }
+
+  .item-HomePageMarqueTrusted {
+    min-width: 82px;
+    gap: 0.5rem;
+  }
+
+  .label-HomePageMarqueTrusted {
+    font-size: 0.75rem;
+  }
+
+  .blur-left-HomePageMarqueTrusted,
+  .blur-right-HomePageMarqueTrusted {
+    width: 40px;
+  }
+}
+
+/* ---------- Touchscreen devices ---------- */
+@media (hover: none) {
+  .item-HomePageMarqueTrusted:hover {
+    color: var(--zescloud-text-gray-300);
+  }
+}

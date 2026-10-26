@@ -1,0 +1,206 @@
+/* =========================================================
+   GroundHexLogo
+   Flat 2D logo laid on the floor of the background image's
+   hexagon platform, turning slowly in place.
+   Position / size / tilt / speed come from CSS variables that
+   the component sets from its props.
+   ========================================================= */
+
+.root-GroundHexLogo {
+  --ghl-x: 48.7%;
+  --ghl-y: 59.3%;
+  --ghl-size: 34%;
+  --ghl-tilt: 56deg;
+  --ghl-spin: 24s;
+  --ghl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: absolute;
+  left: var(--ghl-x);
+  top: var(--ghl-y);
+  width: var(--ghl-size);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* the floor: everything inside lies flat on the ground */
+.plane-GroundHexLogo {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(var(--ghl-tilt));
+  transform-style: preserve-3d;
+  animation: planeIn-GroundHexLogo 1.1s var(--ghl-ease) 0.2s both;
+}
+
+/* ---------- Light pool ---------- */
+
+.halo-GroundHexLogo {
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 158, 255, 0.55),
+    rgba(0, 102, 240, 0.25) 45%,
+    rgba(88, 0, 228, 0.12) 65%,
+    transparent 100%
+  );
+  filter: blur(14px);
+  animation: haloPulse-GroundHexLogo 3.6s ease-in-out infinite;
+}
+
+/* ---------- Floor rings ---------- */
+
+.rings-GroundHexLogo {
+  position: absolute;
+  inset: -12%;
+  width: 124%;
+  height: 124%;
+  overflow: visible;
+}
+
+.ringReverse-GroundHexLogo,
+.ringForward-GroundHexLogo,
+.ripple-GroundHexLogo {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.ringReverse-GroundHexLogo {
+  animation: spinReverse-GroundHexLogo calc(var(--ghl-spin) * 1.5) linear infinite;
+}
+
+.ringForward-GroundHexLogo {
+  animation: spin-GroundHexLogo calc(var(--ghl-spin) * 2) linear infinite;
+}
+
+.ringHex-GroundHexLogo {
+  fill: none;
+  stroke: #56b4ff;
+  stroke-opacity: 0.55;
+  stroke-width: 3;
+  stroke-dasharray: 26 18;
+  stroke-linejoin: round;
+}
+
+.ringCircle-GroundHexLogo {
+  fill: none;
+  stroke: #3989e2;
+  stroke-opacity: 0.4;
+  stroke-width: 2;
+  stroke-dasharray: 3 14;
+  stroke-linecap: round;
+}
+
+.ripple-GroundHexLogo {
+  fill: none;
+  stroke: #56b4ff;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  opacity: 0;
+  animation: ripple-GroundHexLogo 3.6s ease-out infinite;
+}
+
+.rippleLate-GroundHexLogo {
+  animation-delay: 1.8s;
+}
+
+/* ---------- Logo ---------- */
+
+.spin-GroundHexLogo {
+  position: absolute;
+  inset: 0;
+  animation: spin-GroundHexLogo var(--ghl-spin) linear infinite;
+}
+
+.logo-GroundHexLogo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(0, 158, 255, 0.55)) drop-shadow(0 0 26px rgba(88, 0, 228, 0.35));
+}
+
+.sweep-GroundHexLogo {
+  transform-box: view-box;
+  animation: sweep-GroundHexLogo 5.5s ease-in-out 1.4s infinite;
+}
+
+/* =========================================================
+   Keyframes
+   ========================================================= */
+
+@keyframes planeIn-GroundHexLogo {
+  from {
+    opacity: 0;
+    transform: rotateX(var(--ghl-tilt)) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(var(--ghl-tilt)) scale(1);
+  }
+}
+
+/* @keyframes spin-GroundHexLogo {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinReverse-GroundHexLogo {
+  to {
+    transform: rotate(-360deg);
+  }
+} */
+
+@keyframes haloPulse-GroundHexLogo {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* @keyframes ripple-GroundHexLogo {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
+} */
+
+/* @keyframes sweep-GroundHexLogo {
+  0% {
+    transform: translateX(0);
+  }
+  45%,
+  100% {
+    transform: translateX(1700px);
+  }
+} */
+
+/* =========================================================
+   Reduced motion: logo stays flat on the floor, no movement
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .root-GroundHexLogo *,
+  .root-GroundHexLogo *::before,
+  .root-GroundHexLogo *::after {
+    animation: none !important;
+  }
+
+  .ripple-GroundHexLogo {
+    opacity: 0;
+  }
+}

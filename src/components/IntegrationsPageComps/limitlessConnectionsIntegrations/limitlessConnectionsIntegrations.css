@@ -1,0 +1,1198 @@
+/* =====================================================================
+   limitlessConnectionsIntegrations
+   - Every class ends in -limitlessConnectionsIntegrations (no collisions).
+   - Entry animations live on wrappers (.cell / .logo), hover transforms on
+     the inner elements (.card / .logo-inner), so they never fight.
+   - Only transform / opacity are animated on repeat; reduced motion respected.
+   ===================================================================== */
+
+.section-limitlessConnectionsIntegrations {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* dark fade at the top and bottom so the section blends into its neighbours */
+.section-limitlessConnectionsIntegrations::before,
+.section-limitlessConnectionsIntegrations::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  height: clamp(90px, 14vh, 160px);
+  pointer-events: none;
+}
+
+.section-limitlessConnectionsIntegrations::before {
+  top: 0;
+  background: linear-gradient(180deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0.85) 35%,
+      rgba(2, 10, 19, 0.4) 70%,
+      rgba(2, 10, 19, 0) 100%);
+}
+
+.section-limitlessConnectionsIntegrations::after {
+  bottom: 0;
+  background: linear-gradient(0deg,
+      var(--zescloud-bg-base) 0%,
+      rgba(2, 10, 19, 0.85) 35%,
+      rgba(2, 10, 19, 0.4) 70%,
+      rgba(2, 10, 19, 0) 100%);
+}
+
+.sr-only-limitlessConnectionsIntegrations {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================ BACKGROUND ============================ */
+
+.bg-limitlessConnectionsIntegrations {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-glow-limitlessConnectionsIntegrations {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.bg-glow-a-limitlessConnectionsIntegrations {
+  left: -12%;
+  top: -18%;
+  width: 52vw;
+  height: 34vw;
+  background: radial-gradient(ellipse closest-side, rgba(24, 72, 217, 0.16), transparent);
+  animation: glowDrift-limitlessConnectionsIntegrations 22s ease-in-out infinite alternate;
+}
+
+.bg-glow-b-limitlessConnectionsIntegrations {
+  right: -14%;
+  bottom: -20%;
+  width: 48vw;
+  height: 34vw;
+  background: radial-gradient(ellipse closest-side, rgba(57, 137, 226, 0.12), transparent);
+  animation: glowDrift-limitlessConnectionsIntegrations 26s ease-in-out -9s infinite alternate-reverse;
+}
+
+.bg-grid-limitlessConnectionsIntegrations {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(57, 137, 226, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 137, 226, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 25% 10%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 55% at 25% 10%, #000 0%, transparent 75%);
+}
+
+.container-limitlessConnectionsIntegrations {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+/* ============================== HEADER ============================== */
+
+.head-limitlessConnectionsIntegrations {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.intro-limitlessConnectionsIntegrations {
+  max-width: 640px;
+}
+
+/* elements hidden until the section is in view, then animated in */
+.reveal-limitlessConnectionsIntegrations,
+.title-text-limitlessConnectionsIntegrations,
+.chip-limitlessConnectionsIntegrations,
+.cell-limitlessConnectionsIntegrations,
+.empty-limitlessConnectionsIntegrations {
+  opacity: 0;
+}
+
+.is-inview-limitlessConnectionsIntegrations .reveal-limitlessConnectionsIntegrations {
+  animation: fadeUp-limitlessConnectionsIntegrations 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-limitlessConnectionsIntegrations, 0s) both;
+}
+
+.eyebrow-limitlessConnectionsIntegrations {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.85rem;
+  font-size: var(--font-size-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.eyebrow-dot-limitlessConnectionsIntegrations {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 10px var(--zescloud-accent-cyan);
+}
+
+.eyebrow-dot-limitlessConnectionsIntegrations::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: ping-limitlessConnectionsIntegrations 2.4s ease-out infinite;
+}
+
+.title-limitlessConnectionsIntegrations {
+  margin: 0 0 1.15rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.1rem, 3.7vw, var(--font-size-special));
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-limitlessConnectionsIntegrations {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.06em 0.1em 0;
+  margin-bottom: -0.1em;
+}
+
+.title-text-limitlessConnectionsIntegrations {
+  display: inline-block;
+}
+
+.is-inview-limitlessConnectionsIntegrations .title-text-limitlessConnectionsIntegrations {
+  animation: lineUp-limitlessConnectionsIntegrations 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-limitlessConnectionsIntegrations, 0s) both;
+}
+
+.title-accent-limitlessConnectionsIntegrations {
+  background: linear-gradient(90deg,
+      var(--zescloud-primary) 0%,
+      var(--zescloud-accent-cyan) 25%,
+      var(--zescloud-primary) 50%,
+      #1FA6E8 75%,
+      var(--zescloud-primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.is-inview-limitlessConnectionsIntegrations .title-accent-limitlessConnectionsIntegrations {
+  animation:
+    lineUp-limitlessConnectionsIntegrations 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-limitlessConnectionsIntegrations, 0s) both,
+    textShimmer-limitlessConnectionsIntegrations 7s linear 1.2s infinite;
+}
+
+.lead-limitlessConnectionsIntegrations {
+  max-width: 600px;
+  margin: 0;
+  font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.86);
+}
+
+/* ------------------------------ tools ------------------------------- */
+
+.tools-limitlessConnectionsIntegrations {
+  justify-self: end;
+  width: min(100%, 600px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.35rem;
+}
+
+/* search */
+.search-limitlessConnectionsIntegrations {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-radius: var(--zescloud-radius-md);
+  border: 1px solid var(--zescloud-border-highlight);
+  background: linear-gradient(180deg, rgba(10, 28, 52, 0.75), rgba(5, 16, 31, 0.85));
+  box-shadow: inset 0 1px 0 rgba(150, 200, 255, 0.05);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+}
+
+.search-limitlessConnectionsIntegrations:hover {
+  border-color: rgba(57, 137, 226, 0.55);
+}
+
+.search-limitlessConnectionsIntegrations:focus-within {
+  border-color: var(--zescloud-primary);
+  background: linear-gradient(180deg, rgba(12, 34, 64, 0.85), rgba(5, 16, 31, 0.9));
+  box-shadow:
+    0 0 0 4px rgba(57, 137, 226, 0.14),
+    0 10px 30px rgba(24, 72, 217, 0.18);
+}
+
+/* light that runs along the bottom edge while focused */
+.search-ring-limitlessConnectionsIntegrations {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.search-ring-limitlessConnectionsIntegrations::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--zescloud-accent-cyan), transparent);
+  animation: ringRun-limitlessConnectionsIntegrations 2.4s ease-in-out infinite;
+}
+
+.search-limitlessConnectionsIntegrations:focus-within .search-ring-limitlessConnectionsIntegrations {
+  opacity: 1;
+}
+
+.search-icon-limitlessConnectionsIntegrations {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0 0.75rem 0 1rem;
+  color: var(--zescloud-text-gray-300);
+  transition: color var(--transition-base), transform var(--transition-base);
+}
+
+.search-icon-limitlessConnectionsIntegrations svg {
+  width: 100%;
+  height: 100%;
+}
+
+.search-limitlessConnectionsIntegrations:focus-within .search-icon-limitlessConnectionsIntegrations {
+  color: var(--zescloud-accent-cyan);
+  transform: scale(1.08);
+}
+
+.search-input-limitlessConnectionsIntegrations {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: var(--font-size-base);
+  color: var(--zescloud-text-white);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-input-limitlessConnectionsIntegrations::placeholder {
+  color: var(--zescloud-text-gray-500);
+}
+
+.search-input-limitlessConnectionsIntegrations::-webkit-search-cancel-button,
+.search-input-limitlessConnectionsIntegrations::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-kbd-limitlessConnectionsIntegrations {
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  margin-right: 0.8rem;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid var(--zescloud-border-highlight);
+  background: rgba(7, 21, 39, 0.8);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  color: var(--zescloud-text-gray-500);
+  transition: opacity var(--transition-fast);
+}
+
+.search-limitlessConnectionsIntegrations:focus-within .search-kbd-limitlessConnectionsIntegrations {
+  opacity: 0;
+}
+
+.search-clear-limitlessConnectionsIntegrations {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin-right: 0.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(57, 137, 226, 0.14);
+  color: var(--zescloud-text-gray-100);
+  cursor: pointer;
+  animation: popIn-limitlessConnectionsIntegrations 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.search-clear-limitlessConnectionsIntegrations:hover {
+  background: rgba(57, 137, 226, 0.3);
+  color: var(--zescloud-text-white);
+}
+
+.search-clear-limitlessConnectionsIntegrations svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* chips */
+.chips-limitlessConnectionsIntegrations {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip-indicator-limitlessConnectionsIntegrations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  border-radius: var(--zescloud-radius-sm);
+  background: var(--zescloud-btn-gradient);
+  box-shadow:
+    0 6px 18px rgba(24, 72, 217, 0.45),
+    0 0 18px rgba(57, 137, 226, 0.35),
+    inset 0 1px 0 rgba(200, 230, 255, 0.35);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-ready-limitlessConnectionsIntegrations .chip-indicator-limitlessConnectionsIntegrations {
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.chip-limitlessConnectionsIntegrations {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 1.05rem;
+  border-radius: var(--zescloud-radius-sm);
+  border: 1px solid var(--zescloud-border-highlight);
+  background: rgba(7, 21, 39, 0.55);
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-100);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.is-inview-limitlessConnectionsIntegrations .chip-limitlessConnectionsIntegrations {
+  animation: chipIn-limitlessConnectionsIntegrations 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.45s + var(--c-limitlessConnectionsIntegrations) * 0.045s);
+}
+
+.chip-limitlessConnectionsIntegrations:hover {
+  border-color: rgba(86, 180, 255, 0.55);
+  color: var(--zescloud-text-white);
+  background-color: rgba(57, 137, 226, 0.1);
+  box-shadow: 0 0 14px rgba(57, 137, 226, 0.18);
+}
+
+.chip-limitlessConnectionsIntegrations:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 2px;
+}
+
+.chip-limitlessConnectionsIntegrations.is-active-limitlessConnectionsIntegrations {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--zescloud-text-white);
+  box-shadow: none;
+}
+
+/* before the indicator has measured (or without JS): fill the active chip */
+.chips-limitlessConnectionsIntegrations:not(.is-ready-limitlessConnectionsIntegrations) .chip-limitlessConnectionsIntegrations.is-active-limitlessConnectionsIntegrations {
+  background: var(--zescloud-btn-gradient);
+}
+
+/* =============================== GRID =============================== */
+
+.grid-limitlessConnectionsIntegrations {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.4vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* the cell owns the entry/leave animation */
+.cell-limitlessConnectionsIntegrations {
+  --tone-limitlessConnectionsIntegrations: 57, 137, 226;
+  display: flex;
+  min-width: 0;
+}
+
+.is-inview-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations {
+  animation: cardIn-limitlessConnectionsIntegrations 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.55s + var(--i-limitlessConnectionsIntegrations) * 0.085s);
+}
+
+.is-inview-limitlessConnectionsIntegrations .is-refilter-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations {
+  animation-duration: 0.6s;
+  animation-delay: calc(var(--i-limitlessConnectionsIntegrations) * 0.055s);
+}
+
+.is-inview-limitlessConnectionsIntegrations .is-leaving-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations,
+.is-inview-limitlessConnectionsIntegrations .empty-limitlessConnectionsIntegrations.is-leaving-limitlessConnectionsIntegrations {
+  animation: cardOut-limitlessConnectionsIntegrations 0.2s ease-in both;
+  pointer-events: none;
+}
+
+/* the card owns hover */
+.card-limitlessConnectionsIntegrations {
+  --mx-limitlessConnectionsIntegrations: 50%;
+  --my-limitlessConnectionsIntegrations: 0%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(1.1rem, 1.4vw, 1.4rem) clamp(1.05rem, 1.35vw, 1.35rem) clamp(1rem, 1.3vw, 1.25rem);
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(30, 58, 95, 0.6);
+  background:
+    radial-gradient(120% 70% at 0% 0%, rgba(var(--tone-limitlessConnectionsIntegrations), 0.07), transparent 60%),
+    linear-gradient(180deg, rgba(10, 28, 52, 0.72) 0%, rgba(5, 16, 31, 0.82) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(150, 200, 255, 0.05),
+    0 10px 30px rgba(1, 6, 14, 0.35);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.45s ease;
+}
+
+.card-limitlessConnectionsIntegrations:hover,
+.card-limitlessConnectionsIntegrations:focus-within {
+  transform: translateY(-6px);
+  border-color: rgba(var(--tone-limitlessConnectionsIntegrations), 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(150, 200, 255, 0.08),
+    0 18px 40px rgba(1, 6, 14, 0.55),
+    0 0 32px rgba(var(--tone-limitlessConnectionsIntegrations), 0.16);
+}
+
+/* soft light that follows the cursor */
+.card-spot-limitlessConnectionsIntegrations {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(280px circle at var(--mx-limitlessConnectionsIntegrations) var(--my-limitlessConnectionsIntegrations),
+      rgba(var(--tone-limitlessConnectionsIntegrations), 0.14),
+      transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* bright border segment that follows the cursor */
+.card-border-limitlessConnectionsIntegrations {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(220px circle at var(--mx-limitlessConnectionsIntegrations) var(--my-limitlessConnectionsIntegrations),
+      rgba(var(--tone-limitlessConnectionsIntegrations), 0.95),
+      transparent 55%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-limitlessConnectionsIntegrations:hover .card-spot-limitlessConnectionsIntegrations,
+.card-limitlessConnectionsIntegrations:hover .card-border-limitlessConnectionsIntegrations {
+  opacity: 1;
+}
+
+/* light sweep across the card on hover */
+.card-shine-limitlessConnectionsIntegrations {
+  position: absolute;
+  top: 0;
+  display: none;
+  left: 0;
+  z-index: 1;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(190, 228, 255, 0.08), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  pointer-events: none;
+}
+
+.card-limitlessConnectionsIntegrations:hover .card-shine-limitlessConnectionsIntegrations {
+  animation: sweep-limitlessConnectionsIntegrations 1.1s ease-out both;
+}
+
+.card-head-limitlessConnectionsIntegrations {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.85rem;
+}
+
+.card-icon-limitlessConnectionsIntegrations {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  color: rgb(var(--tone-limitlessConnectionsIntegrations));
+  background: linear-gradient(145deg,
+      rgba(var(--tone-limitlessConnectionsIntegrations), 0.22),
+      rgba(var(--tone-limitlessConnectionsIntegrations), 0.07));
+  border: 1px solid rgba(var(--tone-limitlessConnectionsIntegrations), 0.3);
+  box-shadow:
+    0 0 18px rgba(var(--tone-limitlessConnectionsIntegrations), 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.card-icon-limitlessConnectionsIntegrations svg {
+  position: relative;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 6px rgba(var(--tone-limitlessConnectionsIntegrations), 0.55));
+}
+
+/* idle pulse ring, staggered card by card */
+.card-icon-limitlessConnectionsIntegrations::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 1px solid rgba(var(--tone-limitlessConnectionsIntegrations), 0.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.is-inview-limitlessConnectionsIntegrations .card-icon-limitlessConnectionsIntegrations::after {
+  animation: iconPing-limitlessConnectionsIntegrations 4.8s ease-out infinite;
+  animation-delay: calc(1.6s + var(--i-limitlessConnectionsIntegrations) * 0.6s);
+}
+
+.card-limitlessConnectionsIntegrations:hover .card-icon-limitlessConnectionsIntegrations {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow:
+    0 0 26px rgba(var(--tone-limitlessConnectionsIntegrations), 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.glyph-cut-limitlessConnectionsIntegrations {
+  fill: #06121F;
+}
+
+.glyph-line-limitlessConnectionsIntegrations {
+  fill: none;
+  stroke: #06121F;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+}
+
+.card-title-limitlessConnectionsIntegrations {
+  margin: 0;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(1rem, 1.12vw, var(--font-size-lg));
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+}
+
+/* grows to fill the card, so logos + link line up across a row
+   even when descriptions have different lengths */
+.card-desc-limitlessConnectionsIntegrations {
+  flex: 1 0 auto;
+  margin: 0;
+  font-size: clamp(0.9rem, 0.98vw, 0.97rem);
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.8);
+}
+
+.mark-limitlessConnectionsIntegrations {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: rgba(86, 180, 255, 0.24);
+  color: var(--zescloud-text-white);
+}
+
+/* ------------------------------ logos ------------------------------- */
+
+.logos-limitlessConnectionsIntegrations {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 56px;
+  margin: clamp(1.2rem, 1.6vw, 1.6rem) 0 clamp(1.1rem, 1.5vw, 1.4rem);
+  padding: 0 8% 0 0.1rem;
+  list-style: none;
+}
+
+.logo-limitlessConnectionsIntegrations {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.is-inview-limitlessConnectionsIntegrations .logo-limitlessConnectionsIntegrations {
+  animation: logoIn-limitlessConnectionsIntegrations 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.85s + var(--i-limitlessConnectionsIntegrations) * 0.085s + var(--k-limitlessConnectionsIntegrations) * 0.08s);
+}
+
+.is-inview-limitlessConnectionsIntegrations .is-refilter-limitlessConnectionsIntegrations .logo-limitlessConnectionsIntegrations {
+  animation-delay: calc(0.2s + var(--i-limitlessConnectionsIntegrations) * 0.055s + var(--k-limitlessConnectionsIntegrations) * 0.06s);
+}
+
+.logo-inner-limitlessConnectionsIntegrations {
+  display: grid;
+  place-items: center;
+  height: 48px;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    filter 0.35s ease;
+  transition-delay: calc(var(--k-limitlessConnectionsIntegrations) * 0.04s);
+}
+
+/* brand icons (react-icons). Fixed box so every logo has the same visual size */
+.logo-svg-limitlessConnectionsIntegrations {
+  --boost-limitlessConnectionsIntegrations: 1;
+  --size-limitlessConnectionsIntegrations: 40px;
+  display: block;
+  flex-shrink: 0;
+  width: calc(var(--size-limitlessConnectionsIntegrations) * var(--boost-limitlessConnectionsIntegrations));
+  height: calc(var(--size-limitlessConnectionsIntegrations) * var(--boost-limitlessConnectionsIntegrations));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+/* your SVG files: fixed height, natural width (square icons and wide
+   wordmarks both fit), never wider than the slot */
+.logo-img-limitlessConnectionsIntegrations {
+  width: auto;
+  max-width: 96px;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* card hover: logos rise one after another */
+.card-limitlessConnectionsIntegrations:hover .logo-inner-limitlessConnectionsIntegrations {
+  transform: translateY(-4px);
+}
+
+/* single logo hover */
+.logo-limitlessConnectionsIntegrations:hover .logo-inner-limitlessConnectionsIntegrations {
+  transform: translateY(-5px) scale(1.12);
+  transition-delay: 0s;
+}
+
+/* tooltip with the integration name (compact logos only — tiles show the name) */
+.logo-limitlessConnectionsIntegrations:not(.tile-limitlessConnectionsIntegrations)::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  z-index: 3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--zescloud-border-highlight);
+  background: rgba(5, 16, 31, 0.95);
+  font-size: var(--font-size-xs);
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-100);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.logo-limitlessConnectionsIntegrations:not(.tile-limitlessConnectionsIntegrations):hover::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* search results: matching logos glow, others fade back */
+.logo-limitlessConnectionsIntegrations.is-match-limitlessConnectionsIntegrations .logo-inner-limitlessConnectionsIntegrations {
+  filter: drop-shadow(0 0 10px rgba(86, 180, 255, 0.65));
+  transform: scale(1.08);
+}
+
+.logo-limitlessConnectionsIntegrations.is-match-limitlessConnectionsIntegrations::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 18px;
+  height: 2px;
+  margin-left: -9px;
+  border-radius: 2px;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px var(--zescloud-accent-cyan);
+  animation: popIn-limitlessConnectionsIntegrations 0.3s ease both;
+}
+
+.logo-limitlessConnectionsIntegrations.is-dim-limitlessConnectionsIntegrations .logo-inner-limitlessConnectionsIntegrations {
+  opacity: 0.32;
+  filter: grayscale(0.6);
+}
+
+/* ===================== TALL DATABASES CARD (2 x 2) ===================== */
+
+/* placement: last column, spanning both rows (only in the full layout) */
+.is-full-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations.is-tall-limitlessConnectionsIntegrations {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+}
+
+/* description keeps its natural height; the tiles take the free space */
+.is-tall-limitlessConnectionsIntegrations .card-desc-limitlessConnectionsIntegrations {
+  flex: 0 0 auto;
+}
+
+.tiles-limitlessConnectionsIntegrations {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(118px, 1fr);
+  gap: clamp(0.65rem, 0.9vw, 0.85rem);
+  margin: clamp(1.2rem, 1.6vw, 1.5rem) 0 clamp(1.1rem, 1.5vw, 1.4rem);
+  padding: 0;
+  list-style: none;
+}
+
+.tile-limitlessConnectionsIntegrations {
+  position: relative;
+  isolation: isolate;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1rem 0.6rem;
+  overflow: hidden;
+  border-radius: var(--zescloud-radius-md);
+  border: 1px solid rgba(30, 58, 95, 0.65);
+  background:
+    radial-gradient(90% 80% at 50% 0%, rgba(var(--tone-limitlessConnectionsIntegrations), 0.08), transparent 70%),
+    rgba(4, 13, 26, 0.55);
+  box-shadow: inset 0 1px 0 rgba(150, 200, 255, 0.05);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    box-shadow 0.4s ease,
+    opacity 0.35s ease;
+}
+
+.tile-icon-limitlessConnectionsIntegrations {
+  height: auto;
+}
+
+.tile-limitlessConnectionsIntegrations .logo-svg-limitlessConnectionsIntegrations {
+  --size-limitlessConnectionsIntegrations: 56px;
+}
+
+.tile-limitlessConnectionsIntegrations .logo-img-limitlessConnectionsIntegrations {
+  max-width: 110px;
+}
+
+.tile-name-limitlessConnectionsIntegrations {
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  color: var(--zescloud-text-gray-300);
+  text-align: center;
+  transition: color 0.35s ease;
+}
+
+/* soft glow under the icon, lights up on hover */
+.tile-glow-limitlessConnectionsIntegrations {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  z-index: -1;
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, rgba(var(--tone-limitlessConnectionsIntegrations), 0.28), transparent);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+/* idle: a slow glow passes from tile to tile */
+.is-inview-limitlessConnectionsIntegrations .tile-glow-limitlessConnectionsIntegrations {
+  animation: tileGlow-limitlessConnectionsIntegrations 6.4s ease-in-out infinite;
+  animation-delay: calc(2s + var(--k-limitlessConnectionsIntegrations) * 1.6s);
+}
+
+/* card hover: tiles rise one after another (inherited from .logo-inner rule),
+   single tile hover: lift + border + glow */
+.tile-limitlessConnectionsIntegrations:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--tone-limitlessConnectionsIntegrations), 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(150, 200, 255, 0.08),
+    0 10px 24px rgba(1, 6, 14, 0.45),
+    0 0 20px rgba(var(--tone-limitlessConnectionsIntegrations), 0.15);
+}
+
+.tile-limitlessConnectionsIntegrations:hover .tile-glow-limitlessConnectionsIntegrations {
+  animation: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tile-limitlessConnectionsIntegrations:hover .tile-name-limitlessConnectionsIntegrations {
+  color: var(--zescloud-text-white);
+}
+
+/* search states on tiles */
+.tile-limitlessConnectionsIntegrations.is-match-limitlessConnectionsIntegrations {
+  border-color: rgba(86, 180, 255, 0.6);
+  box-shadow: 0 0 22px rgba(86, 180, 255, 0.2);
+}
+
+.tile-limitlessConnectionsIntegrations.is-match-limitlessConnectionsIntegrations .tile-name-limitlessConnectionsIntegrations {
+  color: var(--zescloud-text-white);
+}
+
+.tile-limitlessConnectionsIntegrations.is-match-limitlessConnectionsIntegrations::before {
+  bottom: 8px;
+}
+
+.tile-limitlessConnectionsIntegrations.is-dim-limitlessConnectionsIntegrations {
+  opacity: 0.55;
+}
+
+/* ------------------------------ link -------------------------------- */
+
+.card-link-limitlessConnectionsIntegrations {
+  position: relative;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-bottom: 2px;
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-accent-cyan);
+  transition: color var(--transition-base);
+}
+
+.card-link-limitlessConnectionsIntegrations::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--zescloud-accent-cyan), transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-link-arrow-limitlessConnectionsIntegrations {
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+  transition: transform var(--transition-base);
+}
+
+.card-link-arrow-limitlessConnectionsIntegrations svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-limitlessConnectionsIntegrations:hover .card-link-limitlessConnectionsIntegrations {
+  color: #8FD0FF;
+}
+
+.card-limitlessConnectionsIntegrations:hover .card-link-arrow-limitlessConnectionsIntegrations,
+.card-link-limitlessConnectionsIntegrations:focus-visible .card-link-arrow-limitlessConnectionsIntegrations {
+  transform: translateX(4px);
+}
+
+.card-link-limitlessConnectionsIntegrations:hover::after,
+.card-link-limitlessConnectionsIntegrations:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.card-link-limitlessConnectionsIntegrations:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ============================ EMPTY STATE ============================ */
+
+.empty-limitlessConnectionsIntegrations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: clamp(2.5rem, 5vw, 4rem) 1.5rem;
+  border-radius: 14px;
+  border: 1px dashed var(--zescloud-border-highlight);
+  background: rgba(7, 21, 39, 0.45);
+  text-align: center;
+}
+
+.is-inview-limitlessConnectionsIntegrations .empty-limitlessConnectionsIntegrations {
+  animation: cardIn-limitlessConnectionsIntegrations 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.empty-icon-limitlessConnectionsIntegrations {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.35rem;
+  border-radius: 14px;
+  color: var(--zescloud-accent-cyan);
+  background: var(--zescloud-bg-badge);
+  border: 1px solid rgba(57, 137, 226, 0.3);
+}
+
+.empty-icon-limitlessConnectionsIntegrations svg {
+  width: 24px;
+  height: 24px;
+}
+
+.empty-title-limitlessConnectionsIntegrations {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--fw-semibold);
+}
+
+.empty-text-limitlessConnectionsIntegrations {
+  max-width: 440px;
+  margin: 0 0 0.6rem;
+  font-size: var(--font-size-base);
+  color: var(--zescloud-text-gray-300);
+}
+
+/* =========================== KEYFRAMES =========================== */
+
+@keyframes fadeUp-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineUp-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textShimmer-limitlessConnectionsIntegrations {
+  from { background-position: 0% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes chipIn-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: translateY(10px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardIn-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardOut-limitlessConnectionsIntegrations {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(10px) scale(0.97); }
+}
+
+@keyframes logoIn-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: translateY(12px) scale(0.8); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes iconPing-limitlessConnectionsIntegrations {
+  0% { opacity: 0.85; transform: scale(1); }
+  30%, 100% { opacity: 0; transform: scale(1.35); }
+}
+
+@keyframes ping-limitlessConnectionsIntegrations {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+@keyframes sweep-limitlessConnectionsIntegrations {
+  from { transform: translateX(-160%) skewX(-18deg); }
+  to { transform: translateX(330%) skewX(-18deg); }
+}
+
+@keyframes ringRun-limitlessConnectionsIntegrations {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(340%); }
+}
+
+@keyframes popIn-limitlessConnectionsIntegrations {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes tileGlow-limitlessConnectionsIntegrations {
+  0%, 100% { opacity: 0; transform: scale(0.7); }
+  12% { opacity: 0.85; transform: scale(1); }
+  26% { opacity: 0; transform: scale(1.1); }
+}
+
+@keyframes glowDrift-limitlessConnectionsIntegrations {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
+  100% { transform: translate3d(40px, 24px, 0) scale(1.12); opacity: 1; }
+}
+
+/* =========================== RESPONSIVE =========================== */
+
+/* tall Databases card follows the last column at every grid size:
+   3 columns → column 3, rows 1–2 · 2 columns → column 2, rows 1–2 */
+@media (max-width: 1200px) {
+  .grid-limitlessConnectionsIntegrations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .is-full-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations.is-tall-limitlessConnectionsIntegrations {
+    grid-column: 3;
+  }
+}
+
+@media (max-width: 1024px) {
+  .head-limitlessConnectionsIntegrations {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .tools-limitlessConnectionsIntegrations {
+    justify-self: stretch;
+    width: 100%;
+    max-width: 720px;
+    padding-top: 0;
+  }
+
+  .grid-limitlessConnectionsIntegrations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .is-full-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations.is-tall-limitlessConnectionsIntegrations {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-limitlessConnectionsIntegrations { grid-template-columns: 1fr; }
+
+  /* single column: Databases becomes a normal card, still with its 2 x 2 tiles */
+  .is-full-limitlessConnectionsIntegrations .cell-limitlessConnectionsIntegrations.is-tall-limitlessConnectionsIntegrations {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .tiles-limitlessConnectionsIntegrations { grid-auto-rows: minmax(104px, auto); }
+
+  .chips-limitlessConnectionsIntegrations { gap: 0.5rem; }
+
+  .chip-limitlessConnectionsIntegrations {
+    height: 34px;
+    padding: 0 0.85rem;
+  }
+
+  .search-kbd-limitlessConnectionsIntegrations { display: none; }
+}
+
+/* touch screens: no hover-only effects stuck on after a tap */
+@media (hover: none) {
+  .card-limitlessConnectionsIntegrations:hover { transform: none; }
+  .card-limitlessConnectionsIntegrations:hover .card-spot-limitlessConnectionsIntegrations,
+  .card-limitlessConnectionsIntegrations:hover .card-border-limitlessConnectionsIntegrations { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-limitlessConnectionsIntegrations *,
+  .section-limitlessConnectionsIntegrations *::before,
+  .section-limitlessConnectionsIntegrations *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .reveal-limitlessConnectionsIntegrations,
+  .title-text-limitlessConnectionsIntegrations,
+  .chip-limitlessConnectionsIntegrations,
+  .cell-limitlessConnectionsIntegrations,
+  .empty-limitlessConnectionsIntegrations {
+    opacity: 1;
+  }
+}

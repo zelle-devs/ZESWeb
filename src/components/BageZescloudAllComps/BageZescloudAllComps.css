@@ -1,0 +1,102 @@
+/* =====================================================================
+   BageZescloudAllComps – reusable badge
+   All classes & keyframes end with "-BageZescloudAllComps"
+===================================================================== */
+
+.badge-BageZescloudAllComps {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 1.25rem;
+  padding: 0.4rem 0.95rem;
+  overflow: hidden;
+  border-radius: var(--zescloud-radius-pill);
+  background-color: var(--zescloud-bg-badge);
+  border: 1px solid rgba(57, 137, 226, 0.25);
+  color: var(--zescloud-accent-cyan);
+  font-family: var(--zescloud-font-family);
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* soft light sweep */
+.badge-BageZescloudAllComps::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(86, 180, 255, 0.18), transparent);
+  transform: translateX(-150%);
+  animation: shine-BageZescloudAllComps 5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+
+.badge-BageZescloudAllComps:hover {
+  border-color: var(--zescloud-border-glow);
+  box-shadow: 0 0 18px rgba(57, 137, 226, 0.25);
+}
+
+.text-BageZescloudAllComps {
+  position: relative;
+  z-index: 1;
+}
+
+/* pulsing dot */
+.dot-BageZescloudAllComps {
+  position: relative;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px var(--zescloud-accent-cyan);
+}
+
+/* ripple rings around the dot */
+.ripple-BageZescloudAllComps {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-accent-cyan);
+  background-color: rgba(86, 180, 255, 0.25);
+  animation: ping-BageZescloudAllComps 2s ease-out infinite;
+}
+
+.ripple-delay-BageZescloudAllComps {
+  animation-delay: 1s;
+}
+
+@keyframes ping-BageZescloudAllComps {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes shine-BageZescloudAllComps {
+  0% { transform: translateX(-150%); }
+  45%, 100% { transform: translateX(300%); }
+}
+
+@media (max-width: 480px) {
+  .badge-BageZescloudAllComps {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    padding: 0.35rem 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-BageZescloudAllComps::before,
+  .ripple-BageZescloudAllComps {
+    animation: none;
+  }
+}
