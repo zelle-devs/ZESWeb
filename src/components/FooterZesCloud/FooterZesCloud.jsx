@@ -11,8 +11,15 @@ import { footerLinkGroups } from '@/app/navData'; // shared with Header
 function FooterZesCloud() {
   const [openSectionId, setOpenSectionId] = useState(null);
   const [isInView, setIsInView] = useState(false);
+  // Fallback year for the prerendered HTML; updated to the real year on mount
+  const [year, setYear] = useState(2026);
   const footerRef = useRef(null);
-//   const { navigate } = usePageTransition();
+  // const { navigate } = usePageTransition();
+
+  // Read the current year on the client (avoids the prerender `new Date()` error)
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   // Plays the entrance animation once, when the footer scrolls into view
   useEffect(() => {
@@ -39,16 +46,17 @@ function FooterZesCloud() {
     return () => observer.disconnect();
   }, []);
 
-  // AFTER
   const toggleSection = (id) => {
     setOpenSectionId((prev) => (prev === id ? null : id));
   };
 
-  // Same logic as Header: '#' links behave normally, real routes run the page transition
+  // Page transition is disabled for now, so <Link> handles navigation normally.
+  // When usePageTransition is re-enabled, uncomment the lines below
+  // (plus the import and the `const { navigate }` line above).
   const handleNav = (e, href, label) => {
-    if (href.startsWith('#')) return;
-    e.preventDefault();
-    navigate(href, label);
+    // if (href.startsWith('#')) return;
+    // e.preventDefault();
+    // navigate(href, label);
   };
 
   const scrollToTop = () => {
@@ -167,7 +175,7 @@ function FooterZesCloud() {
       <div className="bottomBarzescloudMainFooter">
         <div className="bottomInnerzescloudMainFooter">
           <p className="copyrightzescloudMainFooter">
-            © {new Date().getFullYear()} zescloud. All rights reserved.
+            © {year} zescloud. All rights reserved.
           </p>
           <button
             type="button"
