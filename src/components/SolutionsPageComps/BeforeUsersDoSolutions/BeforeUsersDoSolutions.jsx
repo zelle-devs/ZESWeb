@@ -354,7 +354,7 @@ function BeforeUsersDoSolutions({ learnMoreHref = '/solutions/server-monitoring'
       <div className="container-BeforeUsersDoSolutions">
         <div className="content-BeforeUsersDoSolutions">
           <div className="eyebrow-BeforeUsersDoSolutions reveal-BeforeUsersDoSolutions" style={{ '--d-BeforeUsersDoSolutions': '0s' }}>
-            <BageZescloudAllComps badge = 'Server Monitoring'/>
+            <BageZescloudAllComps badge='Server Monitoring' />
           </div>
 
           <h2 className="title-BeforeUsersDoSolutions">
@@ -423,10 +423,19 @@ function BeforeUsersDoSolutions({ learnMoreHref = '/solutions/server-monitoring'
               <div className="dash-BeforeUsersDoSolutions">
                 <header className="topbar-BeforeUsersDoSolutions">
                   <div className="brand-BeforeUsersDoSolutions">
-                    <span className="brand-logo-BeforeUsersDoSolutions">
-                      <IconLogoCloud />
+                    <span className="brand-logo-wrap-BeforeUsersDoSolutions">
+                      <img
+                        src="/main_logo.png"
+                        alt="ZesCloud"
+                        className="brand-img-BeforeUsersDoSolutions brand-img-dark-BeforeUsersDoSolutions"
+                      />
+                      <img
+                        src="/main_logo_black_zescloud.png"
+                        alt=""
+                        aria-hidden="true"
+                        className="brand-img-BeforeUsersDoSolutions brand-img-light-BeforeUsersDoSolutions"
+                      />
                     </span>
-                    <span className="brand-name-BeforeUsersDoSolutions">ZesCloud</span>
                   </div>
 
                   <div className="search-BeforeUsersDoSolutions">

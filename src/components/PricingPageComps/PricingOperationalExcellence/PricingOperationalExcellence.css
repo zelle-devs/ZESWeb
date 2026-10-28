@@ -1,0 +1,601 @@
+.section-PricingOperationalExcellence {
+  --node-PricingOperationalExcellence: 58px;
+  --gap-PricingOperationalExcellence: 1.4rem;
+  --cycle-PricingOperationalExcellence: 2.2s;
+
+  position: relative;
+  padding: clamp(0.5rem, 5vw, 0.5rem) 0;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+.container-PricingOperationalExcellence {
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+.panel-PricingOperationalExcellence {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+ grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  padding: clamp(2rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 3rem);
+  overflow: hidden;
+  border-radius: 20px;
+  /* border: 1px solid #10243c; */
+  /* background:
+    linear-gradient(180deg, rgba(8, 22, 40, 0.75) 0%, rgba(3, 11, 21, 0.9) 100%); */
+  /* box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(150, 200, 255, 0.05); */
+}
+
+.ambient-PricingOperationalExcellence {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* background:
+    radial-gradient(ellipse 45% 70% at 0% 50%, rgba(24, 72, 217, 0.14), transparent 70%),
+    radial-gradient(ellipse 40% 90% at 100% 50%, rgba(129, 140, 248, 0.08), transparent 70%); */
+  pointer-events: none;
+}
+
+.intro-PricingOperationalExcellence {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.eyebrow-PricingOperationalExcellence {
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9DBBDA;
+}
+
+.title-PricingOperationalExcellence {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.45rem, 1.6vw, 1.95rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-PricingOperationalExcellence {
+  display: block;
+  white-space: nowrap;
+}
+
+.title-accent-PricingOperationalExcellence {
+  color: #16A6F7;
+}
+
+.progress-PricingOperationalExcellence {
+  display: flex;
+  gap: 6px;
+  margin-top: 0.9rem;
+}
+
+.progress-dot-PricingOperationalExcellence {
+  width: 22px;
+  height: 4px;
+  border-radius: var(--zescloud-radius-pill);
+  background: rgba(57, 137, 226, 0.18);
+  transition: background-color 0.5s ease, width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.progress-dot-PricingOperationalExcellence.is-on-PricingOperationalExcellence {
+  width: 30px;
+  background: #2F8CFF;
+}
+
+.steps-PricingOperationalExcellence {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: var(--gap-PricingOperationalExcellence);
+  row-gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  container-type: inline-size;
+}
+
+.step-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #3B9BFF;
+  --tone-rgb-PricingOperationalExcellence: 59, 155, 255;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  outline: none;
+  cursor: default;
+}
+
+.tone-blue-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #3B9BFF;
+  --tone-rgb-PricingOperationalExcellence: 59, 155, 255;
+}
+
+.tone-purple-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #B794F6;
+  --tone-rgb-PricingOperationalExcellence: 168, 120, 246;
+}
+
+.tone-teal-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #2DD4BF;
+  --tone-rgb-PricingOperationalExcellence: 45, 212, 191;
+}
+
+.tone-violet-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #9D8CFF;
+  --tone-rgb-PricingOperationalExcellence: 139, 124, 255;
+}
+
+.tone-green-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #34D399;
+  --tone-rgb-PricingOperationalExcellence: 52, 211, 153;
+}
+
+.tone-sky-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #38BDF8;
+  --tone-rgb-PricingOperationalExcellence: 56, 189, 248;
+}
+
+.tone-indigo-PricingOperationalExcellence {
+  --tone-PricingOperationalExcellence: #818CF8;
+  --tone-rgb-PricingOperationalExcellence: 129, 140, 248;
+}
+
+.node-wrap-PricingOperationalExcellence {
+  position: relative;
+  width: var(--node-PricingOperationalExcellence);
+  height: var(--node-PricingOperationalExcellence);
+}
+
+.node-PricingOperationalExcellence {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(var(--tone-rgb-PricingOperationalExcellence), 0.2), rgba(var(--tone-rgb-PricingOperationalExcellence), 0.05) 70%),
+    #061426;
+  box-shadow:
+    inset 0 0 18px rgba(var(--tone-rgb-PricingOperationalExcellence), 0.14),
+    0 0 0 rgba(var(--tone-rgb-PricingOperationalExcellence), 0);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s ease;
+}
+
+.ring-PricingOperationalExcellence {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.ring-track-PricingOperationalExcellence {
+  fill: none;
+  stroke: rgba(var(--tone-rgb-PricingOperationalExcellence), 0.4);
+  stroke-width: 1.5;
+  transition: stroke 0.5s ease;
+}
+
+.ring-fill-PricingOperationalExcellence {
+  fill: none;
+  stroke: var(--tone-PricingOperationalExcellence);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.icon-PricingOperationalExcellence {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--tone-PricingOperationalExcellence);
+  filter: drop-shadow(0 0 5px rgba(var(--tone-rgb-PricingOperationalExcellence), 0.45));
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.icon-PricingOperationalExcellence svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.link-PricingOperationalExcellence {
+  position: absolute;
+  top: calc(var(--node-PricingOperationalExcellence) / 2 - 7px);
+  left: calc(var(--node-PricingOperationalExcellence) + 10px);
+  width: calc((100cqw - 6 * var(--gap-PricingOperationalExcellence)) / 7 + var(--gap-PricingOperationalExcellence) - var(--node-PricingOperationalExcellence) - 20px);
+  height: 14px;
+  display: flex;
+  align-items: center;
+  color: #4C6A8E;
+  transition: color 0.4s ease;
+}
+
+.link-line-PricingOperationalExcellence {
+  position: relative;
+  flex: 1;
+  height: 1.5px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(76, 106, 142, 0.45);
+}
+
+.link-line-PricingOperationalExcellence::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--tone-PricingOperationalExcellence);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s ease;
+}
+
+.link-arrow-PricingOperationalExcellence {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+  margin-left: -5px;
+}
+
+.link-arrow-PricingOperationalExcellence svg {
+  width: 100%;
+  height: 100%;
+}
+
+.link-PricingOperationalExcellence.is-lit-PricingOperationalExcellence {
+  color: var(--tone-PricingOperationalExcellence);
+}
+
+.link-PricingOperationalExcellence.is-lit-PricingOperationalExcellence .link-line-PricingOperationalExcellence::after {
+  transform: scaleX(1);
+}
+
+.link-PricingOperationalExcellence.is-flow-PricingOperationalExcellence .link-line-PricingOperationalExcellence::after {
+  transform: scaleX(1);
+  transition: transform var(--cycle-PricingOperationalExcellence) linear;
+}
+
+.copy-PricingOperationalExcellence {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.step-num-PricingOperationalExcellence {
+  font-size: 0.72rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  color: rgba(var(--tone-rgb-PricingOperationalExcellence), 0.75);
+}
+
+.step-title-PricingOperationalExcellence {
+  font-family: var(--zescloud-font-family);
+  font-size: 1.02rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+  transition: color 0.4s ease;
+}
+
+.step-text-PricingOperationalExcellence {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-300);
+  transition: color 0.4s ease;
+}
+
+.is-done-PricingOperationalExcellence .ring-fill-PricingOperationalExcellence {
+  stroke-dashoffset: 0;
+  opacity: 0.55;
+}
+
+.is-active-PricingOperationalExcellence .node-PricingOperationalExcellence {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    inset 0 0 20px rgba(var(--tone-rgb-PricingOperationalExcellence), 0.25),
+    0 0 26px rgba(var(--tone-rgb-PricingOperationalExcellence), 0.35);
+}
+
+.is-active-PricingOperationalExcellence .ring-fill-PricingOperationalExcellence {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--cycle-PricingOperationalExcellence) linear;
+}
+
+.is-active-PricingOperationalExcellence .icon-PricingOperationalExcellence {
+  transform: scale(1.08);
+}
+
+.is-active-PricingOperationalExcellence .step-title-PricingOperationalExcellence {
+  color: var(--tone-PricingOperationalExcellence);
+}
+
+.is-active-PricingOperationalExcellence .step-text-PricingOperationalExcellence {
+  color: var(--zescloud-text-gray-100);
+}
+
+.step-PricingOperationalExcellence:focus-visible .node-PricingOperationalExcellence {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 4px;
+}
+
+.anim-pupil-PricingOperationalExcellence,
+.anim-spin-PricingOperationalExcellence,
+.anim-bolt-PricingOperationalExcellence,
+.anim-spark-PricingOperationalExcellence {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.anim-trend-PricingOperationalExcellence,
+.anim-tick-PricingOperationalExcellence {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.is-active-PricingOperationalExcellence .anim-pupil-PricingOperationalExcellence {
+  animation: pupil-PricingOperationalExcellence 1.6s ease-in-out infinite;
+}
+
+.is-active-PricingOperationalExcellence .anim-spark-PricingOperationalExcellence {
+  animation: blink-PricingOperationalExcellence 1.1s ease-in-out infinite;
+}
+
+.is-active-PricingOperationalExcellence .anim-trend-PricingOperationalExcellence,
+.is-active-PricingOperationalExcellence .anim-tick-PricingOperationalExcellence {
+  animation: draw-PricingOperationalExcellence 1.1s cubic-bezier(0.6, 0, 0.3, 1) both;
+}
+
+.is-active-PricingOperationalExcellence .anim-bolt-PricingOperationalExcellence {
+  animation: blink-PricingOperationalExcellence 0.9s ease-in-out infinite;
+}
+
+.is-active-PricingOperationalExcellence .anim-spin-PricingOperationalExcellence {
+  animation: spinBack-PricingOperationalExcellence 1.6s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+.is-ready-PricingOperationalExcellence .panel-PricingOperationalExcellence,
+.is-ready-PricingOperationalExcellence .eyebrow-PricingOperationalExcellence,
+.is-ready-PricingOperationalExcellence .title-line-PricingOperationalExcellence,
+.is-ready-PricingOperationalExcellence .progress-PricingOperationalExcellence,
+.is-ready-PricingOperationalExcellence .node-wrap-PricingOperationalExcellence,
+.is-ready-PricingOperationalExcellence .copy-PricingOperationalExcellence {
+  opacity: 0;
+}
+
+.is-ready-PricingOperationalExcellence .link-PricingOperationalExcellence {
+  clip-path: inset(0 100% 0 0);
+}
+
+.is-visible-PricingOperationalExcellence .panel-PricingOperationalExcellence {
+  animation: panelIn-PricingOperationalExcellence 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.is-visible-PricingOperationalExcellence .eyebrow-PricingOperationalExcellence {
+  animation: fadeUp-PricingOperationalExcellence 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+
+.is-visible-PricingOperationalExcellence .title-line-PricingOperationalExcellence {
+  animation: fadeUp-PricingOperationalExcellence 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both;
+}
+
+.is-visible-PricingOperationalExcellence .title-accent-PricingOperationalExcellence {
+  animation-delay: 0.42s;
+}
+
+.is-visible-PricingOperationalExcellence .progress-PricingOperationalExcellence {
+  animation: fadeUp-PricingOperationalExcellence 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s both;
+}
+
+.is-visible-PricingOperationalExcellence .node-wrap-PricingOperationalExcellence {
+  animation: nodeIn-PricingOperationalExcellence 0.7s cubic-bezier(0.3, 1.4, 0.5, 1)
+    calc(0.45s + var(--i-PricingOperationalExcellence) * 0.12s) both;
+}
+
+.is-visible-PricingOperationalExcellence .link-PricingOperationalExcellence {
+  animation: linkIn-PricingOperationalExcellence 0.5s ease-out
+    calc(0.7s + var(--i-PricingOperationalExcellence) * 0.12s) both;
+}
+
+.is-visible-PricingOperationalExcellence .copy-PricingOperationalExcellence {
+  animation: fadeUp-PricingOperationalExcellence 0.7s cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(0.6s + var(--i-PricingOperationalExcellence) * 0.12s) both;
+}
+
+@keyframes panelIn-PricingOperationalExcellence {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp-PricingOperationalExcellence {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes nodeIn-PricingOperationalExcellence {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes linkIn-PricingOperationalExcellence {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes pupil-PricingOperationalExcellence {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.7); }
+}
+
+@keyframes blink-PricingOperationalExcellence {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes draw-PricingOperationalExcellence {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes spinBack-PricingOperationalExcellence {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@media (min-width: 1440px) and (max-width: 1599px) {
+  .section-PricingOperationalExcellence {
+    --gap-PricingOperationalExcellence: 1.1rem;
+  }
+
+  .step-title-PricingOperationalExcellence {
+    font-size: 0.96rem;
+  }
+
+  .step-text-PricingOperationalExcellence {
+    font-size: 0.83rem;
+  }
+}
+
+@media (max-width: 1439px) {
+  .panel-PricingOperationalExcellence {
+    grid-template-columns: 1fr;
+  }
+
+  .title-PricingOperationalExcellence {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  }
+
+}
+
+@media (max-width: 1100px) {
+  .section-PricingOperationalExcellence {
+    --gap-PricingOperationalExcellence: 1rem;
+    --node-PricingOperationalExcellence: 52px;
+  }
+
+  .step-title-PricingOperationalExcellence {
+    font-size: 0.95rem;
+  }
+
+  .step-text-PricingOperationalExcellence {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-line-PricingOperationalExcellence {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 960px) {
+  .section-PricingOperationalExcellence {
+    --node-PricingOperationalExcellence: 54px;
+  }
+
+  .step-title-PricingOperationalExcellence {
+    font-size: 1.02rem;
+  }
+
+  .step-text-PricingOperationalExcellence {
+    font-size: 0.88rem;
+  }
+
+  .steps-PricingOperationalExcellence {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .step-PricingOperationalExcellence {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.1rem;
+    padding-bottom: 1.6rem;
+  }
+
+  .step-PricingOperationalExcellence:last-child {
+    padding-bottom: 0;
+  }
+
+  .node-wrap-PricingOperationalExcellence {
+    flex-shrink: 0;
+  }
+
+  .link-PricingOperationalExcellence {
+    top: calc(var(--node-PricingOperationalExcellence) + 6px);
+    bottom: 6px;
+    left: calc(var(--node-PricingOperationalExcellence) / 2 - 7px);
+    width: 14px;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .link-line-PricingOperationalExcellence {
+    flex: 1;
+    width: 1.5px;
+    height: auto;
+  }
+
+  .link-line-PricingOperationalExcellence::after {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+
+  .link-PricingOperationalExcellence.is-lit-PricingOperationalExcellence .link-line-PricingOperationalExcellence::after,
+  .link-PricingOperationalExcellence.is-flow-PricingOperationalExcellence .link-line-PricingOperationalExcellence::after {
+    transform: scaleY(1);
+  }
+
+  .link-arrow-PricingOperationalExcellence {
+    margin: -5px 0 0;
+    transform: rotate(90deg);
+  }
+
+  .copy-PricingOperationalExcellence {
+    padding-top: 0.2rem;
+  }
+
+  .is-ready-PricingOperationalExcellence .link-PricingOperationalExcellence {
+    clip-path: inset(0 0 100% 0);
+  }
+
+  @keyframes linkIn-PricingOperationalExcellence {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-PricingOperationalExcellence *,
+  .section-PricingOperationalExcellence *::before,
+  .section-PricingOperationalExcellence *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

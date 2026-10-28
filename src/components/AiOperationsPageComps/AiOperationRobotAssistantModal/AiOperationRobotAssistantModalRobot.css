@@ -1,0 +1,94 @@
+/* ==========================================================
+   AiOperationRobotAssistantModalRobot — 3D robot wrapper
+   ========================================================== */
+
+.wrapper-AiOperationRobotAssistantModalRobot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* never captures clicks: no drag / click rotation */
+  user-select: none;
+}
+
+.canvasHost-AiOperationRobotAssistantModalRobot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  /* soft edges so the glow / rays never show the canvas boundary */
+  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 62%, transparent 100%);
+  transform: scale(0.97);
+  transition:
+    opacity 0.9s ease,
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isReady-AiOperationRobotAssistantModalRobot .canvasHost-AiOperationRobotAssistantModalRobot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.canvas-AiOperationRobotAssistantModalRobot {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+}
+
+/* Lightweight glow shown while three.js + the model stream in */
+.placeholder-AiOperationRobotAssistantModalRobot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.8s ease;
+}
+
+.isReady-AiOperationRobotAssistantModalRobot .placeholder-AiOperationRobotAssistantModalRobot {
+  opacity: 0;
+}
+
+.placeholderGlow-AiOperationRobotAssistantModalRobot,
+.placeholderRing-AiOperationRobotAssistantModalRobot {
+  grid-area: 1 / 1;
+  border-radius: 50%;
+}
+
+.placeholderGlow-AiOperationRobotAssistantModalRobot {
+  width: min(58%, 340px);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgba(57, 137, 226, 0.32) 0%,
+    rgba(24, 72, 217, 0.14) 45%,
+    transparent 70%
+  );
+  animation: placeholderPulse-AiOperationRobotAssistantModalRobot 2.4s ease-in-out infinite;
+}
+
+.placeholderRing-AiOperationRobotAssistantModalRobot {
+  width: min(48%, 290px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(86, 180, 255, 0.22);
+}
+
+@keyframes placeholderPulse-AiOperationRobotAssistantModalRobot {
+  0%,
+  100% {
+    transform: scale(0.94);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placeholderGlow-AiOperationRobotAssistantModalRobot {
+    animation: none;
+  }
+  .canvasHost-AiOperationRobotAssistantModalRobot {
+    transition: opacity 0.4s ease;
+    transform: none;
+  }
+}

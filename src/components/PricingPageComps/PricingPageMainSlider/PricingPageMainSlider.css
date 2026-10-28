@@ -1,0 +1,771 @@
+/* =====================================================================
+   PricingPageMainSlider
+   All classes, keyframes & local variables end with "-PricingPageMainSlider"
+   so nothing merges with other components.
+
+   ZOOM-LOCK (desktop)
+   The whole hero – background image, lines, dots, LEDs, cards, heading,
+   text, features and the badge – is built on ONE fixed canvas of
+   1671 x 640 px (= the background image width, image rows 200 → 840).
+   That canvas is scaled as one piece to the section width with pure CSS:
+       scale = section width / 1671px   →   tan(atan2(100cqw, 1671px))
+   Browser zoom only changes the section width in CSS px, so the canvas is
+   scaled again as ONE piece → nothing moves relative to anything else.
+
+   Inside the canvas every size is in "design px" (image pixels).
+   Image row 200 sits right under the header (--header-space), so the top
+   lines / dots are never cut and never hidden by the header.
+===================================================================== */
+
+.hero-PricingPageMainSlider {
+  --bg-image-PricingPageMainSlider: none;
+  --line-PricingPageMainSlider: #6CC4FF;
+  --spark-PricingPageMainSlider: #E8F6FF;
+  /* height of your fixed header – change if your header is taller/shorter */
+  --header-space-PricingPageMainSlider: 90px;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  container-type: inline-size;
+  padding-top: var(--header-space-PricingPageMainSlider);
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* top + bottom fades so the section blends with header / next section */
+.hero-PricingPageMainSlider::before,
+.hero-PricingPageMainSlider::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-PricingPageMainSlider::before {
+  top: 0;
+  height: var(--header-space-PricingPageMainSlider);
+  background: linear-gradient(180deg, rgba(2, 10, 19, 0.8) 20%, rgba(2, 10, 19, 0) 100%);
+}
+
+.hero-PricingPageMainSlider::after {
+  bottom: 0;
+  height: 12%;
+  background: linear-gradient(180deg, rgba(2, 10, 19, 0) 30%, rgba(2, 10, 19, 0.7) 60%, var(--zescloud-bg-base) 100%);
+}
+
+/* ===================== Zoom-locked canvas ===================== */
+/* frame keeps the scaled height in the page flow (640 / 1671 of width) */
+.frame-PricingPageMainSlider {
+  position: relative;
+  width: 100%;
+  height: calc(100cqw * 640 / 1671);
+}
+
+/* fixed design canvas, scaled as one piece */
+.canvas-PricingPageMainSlider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1671px;
+  height: 640px;
+  transform-origin: 0 0;
+  transform: scale(tan(atan2(100cqw, 1671px)));
+}
+
+/* ============================ Visual ============================ */
+.visual-PricingPageMainSlider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* full image (1671 x 941) – row 200 sits at the top of the canvas,
+   rows above it continue up behind the header */
+.stage-PricingPageMainSlider {
+  position: absolute;
+  left: 0;
+  top: -200px;
+  width: 1671px;
+  height: 941px;
+  container-type: inline-size;
+  animation: fadeIn-PricingPageMainSlider 1.2s ease-out both;
+}
+
+.bg-PricingPageMainSlider {
+  position: absolute;
+  inset: 0;
+  background-image: var(--bg-image-PricingPageMainSlider);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* darkens the empty left side of the image for text readability */
+.shade-PricingPageMainSlider {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      rgba(2, 10, 19, 0.7) 0%,
+      rgba(2, 10, 19, 0.45) 18%,
+      rgba(2, 10, 19, 0.12) 30%,
+      rgba(2, 10, 19, 0) 37%);
+  pointer-events: none;
+}
+
+.fx-PricingPageMainSlider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---------- Cloud glow ---------- */
+.cloud-glow-PricingPageMainSlider {
+  mix-blend-mode: screen;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cloudBreath-PricingPageMainSlider 5s ease-in-out infinite;
+}
+
+/* ---------- Lines (start / draw animation) ---------- */
+.line-PricingPageMainSlider {
+  fill: none;
+  stroke: var(--line-PricingPageMainSlider);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.6;
+  animation:
+    draw-PricingPageMainSlider 1.4s cubic-bezier(0.65, 0.05, 0.3, 1) var(--d-PricingPageMainSlider, 0s) forwards,
+    lineGlow-PricingPageMainSlider 4s ease-in-out calc(var(--d-PricingPageMainSlider, 0s) + 1.4s) infinite;
+}
+
+/* ---------- Energy pulses running on the lines ---------- */
+.pulse-PricingPageMainSlider {
+  fill: none;
+  stroke: var(--spark-PricingPageMainSlider);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-dasharray: 0.14 1.3;
+  stroke-dashoffset: 0.2;
+  opacity: 0;
+  animation: run-PricingPageMainSlider var(--t-PricingPageMainSlider, 3s) linear var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+.pulse-short-PricingPageMainSlider {
+  stroke-dasharray: 0.4 1.3;
+  stroke-dashoffset: 0.45;
+  animation-name: runShort-PricingPageMainSlider;
+}
+
+/* ---------- Server progress: packets + light bars ---------- */
+.packet-PricingPageMainSlider {
+  fill: none;
+  stroke: #CFEAFF;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 0.08 1.3;
+  stroke-dashoffset: 0.2;
+  opacity: 0;
+  animation: run-PricingPageMainSlider 3.8s linear var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+.bar-PricingPageMainSlider {
+  fill: none;
+  stroke: #EAF7FF;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-dasharray: 0.4 1.3;
+  stroke-dashoffset: 0.45;
+  opacity: 0;
+  animation: runShort-PricingPageMainSlider 2.6s ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ---------- LEDs blinking ---------- */
+.led-off-PricingPageMainSlider {
+  opacity: 0;
+  animation: ledOff-PricingPageMainSlider var(--t-PricingPageMainSlider, 2.5s) linear var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+.led-on-PricingPageMainSlider {
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  animation: ledOn-PricingPageMainSlider var(--t-PricingPageMainSlider, 2.5s) linear var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ---------- Main edge nodes ---------- */
+.node-PricingPageMainSlider {
+  opacity: 0.15;
+  mix-blend-mode: screen;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodeFlash-PricingPageMainSlider 2.8s ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ---------- Junctions on the server ---------- */
+.junction-PricingPageMainSlider {
+  mix-blend-mode: screen;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dotBlink-PricingPageMainSlider 3s ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ---------- End dots ---------- */
+.dot-glow-PricingPageMainSlider {
+  mix-blend-mode: screen;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dotBlink-PricingPageMainSlider 2.6s ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+.dot-ring-PricingPageMainSlider {
+  fill: none;
+  stroke: #9FD6FF;
+  stroke-width: 1.6;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dotPing-PricingPageMainSlider 2.6s ease-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+.card-node-PricingPageMainSlider {
+  fill: #DFF3FF;
+  animation: nodeBlink-PricingPageMainSlider 2.4s ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ---------- Particles ---------- */
+.particle-PricingPageMainSlider {
+  fill: #9FD6FF;
+  opacity: 0;
+  animation: rise-PricingPageMainSlider var(--t-PricingPageMainSlider, 7s) ease-in-out var(--d-PricingPageMainSlider, 0s) infinite;
+}
+
+/* ============================ Cards ============================ */
+.card-PricingPageMainSlider {
+  --tilt-PricingPageMainSlider: 16deg;
+  position: absolute;
+  z-index: 2;
+  translate: 0 -50%;
+  perspective: 900px;
+  pointer-events: auto;
+}
+
+.card-right-PricingPageMainSlider {
+  --tilt-PricingPageMainSlider: -16deg;
+}
+
+/* the tilted glass panel */
+.card-panel-PricingPageMainSlider {
+  display: flex;
+  align-items: center;
+  gap: 0.65cqw;
+  min-height: 4.4cqw;
+  padding: 0.5cqw 0.75cqw;
+  border-radius: 0.6cqw;
+  border: 1px solid rgba(86, 180, 255, 0.4);
+  background: linear-gradient(160deg, rgba(14, 40, 72, 0.9) 0%, rgba(5, 16, 31, 0.94) 100%);
+  box-shadow:
+    0 0 1.6cqw rgba(57, 137, 226, 0.28),
+    inset 0 1px 0 rgba(160, 215, 255, 0.18);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: default;
+  rotate: y var(--tilt-PricingPageMainSlider);
+  /* tilt hinges on the inner edge → that edge stays exactly at its dot */
+  transform-origin: right center;
+  transition: rotate 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color var(--transition-base);
+  animation:
+    cardInLeft-PricingPageMainSlider 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-PricingPageMainSlider, 0s) both,
+    cardGlow-PricingPageMainSlider 4.5s ease-in-out calc(var(--d-PricingPageMainSlider, 0s) + 1s) infinite;
+}
+
+.card-right-PricingPageMainSlider .card-panel-PricingPageMainSlider {
+  transform-origin: left center;
+  animation-name: cardInRight-PricingPageMainSlider, cardGlow-PricingPageMainSlider;
+}
+
+/* hover: card straightens towards the viewer */
+.card-PricingPageMainSlider:hover .card-panel-PricingPageMainSlider {
+  rotate: y 0deg;
+  border-color: var(--zescloud-accent-cyan);
+}
+
+.card-icon-PricingPageMainSlider {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.2cqw;
+  aspect-ratio: 1;
+  border-radius: 0.45cqw;
+  color: var(--zescloud-accent-cyan);
+  background: rgba(57, 137, 226, 0.14);
+  border: 1px solid rgba(86, 180, 255, 0.45);
+  box-shadow:
+    inset 0 0 0.8cqw rgba(86, 180, 255, 0.25),
+    0 0 0.9cqw rgba(57, 137, 226, 0.35);
+}
+
+.card-icon-PricingPageMainSlider svg {
+  width: 56%;
+  height: 56%;
+  filter: drop-shadow(0 0 3px rgba(86, 180, 255, 0.8));
+}
+
+.card-text-PricingPageMainSlider {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card-title-PricingPageMainSlider {
+  font-size: max(10px, 0.88cqw);
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+  white-space: nowrap;
+}
+
+.card-sub-PricingPageMainSlider {
+  font-size: max(8.5px, 0.72cqw);
+  line-height: 1.35;
+  color: var(--zescloud-text-gray-300);
+  white-space: nowrap;
+}
+
+/* ======================== Left content ======================== */
+/* Desktop sizes are design px (scaled with the canvas).
+   Content box: x 40 → 610, left cards start at x 640. */
+.container-PricingPageMainSlider {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  pointer-events: none;
+}
+
+.content-PricingPageMainSlider {
+  width: 570px;
+  pointer-events: auto;
+}
+
+.reveal-PricingPageMainSlider {
+  animation: fadeUp-PricingPageMainSlider 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-PricingPageMainSlider, 0s) both;
+}
+
+/* wrapper of the badge component */
+.eyebrow-PricingPageMainSlider {
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.title-PricingPageMainSlider {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 22px;
+  font-family: var(--zescloud-heading-font);
+  font-size: 66px;
+  font-weight: var(--fw-bold);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-PricingPageMainSlider {
+  display: block;
+}
+
+.title-accent-PricingPageMainSlider {
+  color: #2F8CFF;
+  animation: fadeUp-PricingPageMainSlider 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-PricingPageMainSlider, 0s) both;
+}
+
+.lead-PricingPageMainSlider {
+  margin-bottom: 30px;
+  font-size: 21px;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-100);
+}
+
+/* ---------- the 2 feature points (compact) ---------- */
+.features-PricingPageMainSlider {
+  display: flex;
+  gap: 24px;
+}
+
+.feature-PricingPageMainSlider {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feature-icon-PricingPageMainSlider {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  color: #3B9BFF;
+  background: rgba(7, 21, 39, 0.75);
+  border: 1px solid var(--zescloud-border-highlight);
+  box-shadow: inset 0 0 12px rgba(57, 137, 226, 0.12);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.feature-icon-PricingPageMainSlider svg {
+  width: 18px;
+  height: 18px;
+}
+
+.feature-PricingPageMainSlider:hover .feature-icon-PricingPageMainSlider {
+  border-color: var(--zescloud-primary);
+  box-shadow: inset 0 0 12px rgba(57, 137, 226, 0.25), 0 0 16px rgba(57, 137, 226, 0.3);
+}
+
+.feature-text-PricingPageMainSlider {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  /* as wide as the one-line title, never narrower than 200px */
+  width: min-content;
+  min-width: 200px;
+  padding-top: 1px;
+}
+
+.feature-title-PricingPageMainSlider {
+  font-size: 15.5px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+  color: var(--zescloud-text-white);
+  white-space: nowrap;
+}
+
+.feature-desc-PricingPageMainSlider {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-300);
+}
+
+/* Mobile card grid – hidden on desktop */
+.chips-PricingPageMainSlider {
+  display: none;
+}
+
+/* =========================== Keyframes =========================== */
+@keyframes fadeIn-PricingPageMainSlider {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp-PricingPageMainSlider {
+  from { opacity: 0; transform: translateY(26px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes draw-PricingPageMainSlider {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes lineGlow-PricingPageMainSlider {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+
+@keyframes run-PricingPageMainSlider {
+  0% { stroke-dashoffset: 0.2; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+@keyframes runShort-PricingPageMainSlider {
+  0% { stroke-dashoffset: 0.45; opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+@keyframes ledOff-PricingPageMainSlider {
+  0%, 58% { opacity: 0; }
+  61%, 73% { opacity: 1; }
+  76%, 83% { opacity: 0; }
+  85%, 90% { opacity: 1; }
+  93%, 100% { opacity: 0; }
+}
+
+@keyframes ledOn-PricingPageMainSlider {
+  0% { opacity: 0.7; }
+  25% { opacity: 1; }
+  42% { opacity: 0.75; }
+  58% { opacity: 1; }
+  61%, 73% { opacity: 0; }
+  76%, 83% { opacity: 1; }
+  85%, 90% { opacity: 0; }
+  93%, 100% { opacity: 0.7; }
+}
+
+@keyframes nodeFlash-PricingPageMainSlider {
+  0%, 100% { opacity: 0.15; transform: scale(0.6); }
+  12% { opacity: 1; transform: scale(1.2); }
+  35% { opacity: 0.2; transform: scale(0.7); }
+}
+
+@keyframes dotBlink-PricingPageMainSlider {
+  0%, 100% { opacity: 0.35; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+@keyframes dotPing-PricingPageMainSlider {
+  0% { opacity: 0.9; transform: scale(1); }
+  100% { opacity: 0; transform: scale(3.4); }
+}
+
+@keyframes nodeBlink-PricingPageMainSlider {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes cloudBreath-PricingPageMainSlider {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes rise-PricingPageMainSlider {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translateY(-150px); opacity: 0; }
+}
+
+@keyframes cardInLeft-PricingPageMainSlider {
+  from { opacity: 0; translate: -24px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes cardInRight-PricingPageMainSlider {
+  from { opacity: 0; translate: 24px 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@keyframes cardGlow-PricingPageMainSlider {
+  0%, 100% {
+    box-shadow: 0 0 1.6cqw rgba(57, 137, 226, 0.22), inset 0 1px 0 rgba(160, 215, 255, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 2.4cqw rgba(86, 180, 255, 0.45), inset 0 1px 0 rgba(190, 228, 255, 0.35);
+  }
+}
+
+/* =========================== Responsive =========================== */
+
+/* Desktop & laptops (mouse / trackpad) ALWAYS use the zoom-locked canvas –
+   also when the browser is zoomed. The stacked layout below is only for
+   touch tablets (≤1180px) and phones / very narrow windows (≤600px).
+   The visual window there shows image area x 600→1671, y 200→830
+   (still locked to the image – just a fixed crop). */
+@media (max-width: 1180px) and (pointer: coarse), (max-width: 600px) {
+  .hero-PricingPageMainSlider {
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--header-space-PricingPageMainSlider) + 1.75rem) 0 2.5rem;
+  }
+
+  .hero-PricingPageMainSlider::before,
+  .hero-PricingPageMainSlider::after {
+    display: none;
+  }
+
+  .frame-PricingPageMainSlider {
+    height: auto;
+  }
+
+  .canvas-PricingPageMainSlider {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    transform: none;
+  }
+
+  .container-PricingPageMainSlider {
+    order: 1;
+    position: relative;
+    inset: auto;
+    display: block;
+    padding: 0 var(--zescloud-padding-x);
+  }
+
+  .content-PricingPageMainSlider {
+    width: auto;
+    max-width: 640px;
+  }
+
+  .eyebrow-PricingPageMainSlider {
+    margin-bottom: 1rem;
+  }
+
+  .title-PricingPageMainSlider {
+    margin-bottom: 1.1rem;
+    font-size: clamp(2.1rem, 7vw, 3.2rem);
+  }
+
+  .lead-PricingPageMainSlider {
+    margin-bottom: 1.6rem;
+    font-size: clamp(0.98rem, 2.4vw, 1.15rem);
+  }
+
+  .features-PricingPageMainSlider {
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+  }
+
+  .feature-icon-PricingPageMainSlider {
+    width: 38px;
+    height: 38px;
+  }
+
+  .feature-text-PricingPageMainSlider {
+    min-width: 190px;
+  }
+
+  .feature-title-PricingPageMainSlider {
+    font-size: 15px;
+  }
+
+  .feature-desc-PricingPageMainSlider {
+    font-size: 13px;
+  }
+
+  .visual-PricingPageMainSlider {
+    order: 2;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 1071 / 630;
+    margin-top: 2rem;
+    overflow: hidden;
+    container-type: inline-size;
+  }
+
+  .visual-PricingPageMainSlider::before,
+  .visual-PricingPageMainSlider::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .visual-PricingPageMainSlider::before {
+    top: 0;
+    height: 6%;
+    background: linear-gradient(180deg, var(--zescloud-bg-base), rgba(2, 10, 19, 0));
+  }
+
+  .visual-PricingPageMainSlider::after {
+    bottom: 0;
+    height: 18%;
+    background: linear-gradient(180deg, rgba(2, 10, 19, 0), var(--zescloud-bg-base));
+  }
+
+  .stage-PricingPageMainSlider {
+    top: calc(-200 / 1071 * 100cqw);
+    left: calc(-600 / 1071 * 100cqw);
+    width: calc(1671 / 1071 * 100cqw);
+    height: auto;
+    aspect-ratio: 1671 / 941;
+  }
+}
+
+/* Phones: stage cards become too small → show them as a grid instead */
+@media (max-width: 600px) {
+  .card-PricingPageMainSlider,
+  .card-link-PricingPageMainSlider {
+    display: none;
+  }
+
+  .features-PricingPageMainSlider {
+    flex-direction: column;
+  }
+
+  .feature-text-PricingPageMainSlider {
+    width: auto;
+  }
+
+  .chips-PricingPageMainSlider {
+    order: 3;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 0 var(--zescloud-padding-x);
+  }
+
+  .chip-PricingPageMainSlider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(86, 180, 255, 0.32);
+    background: linear-gradient(160deg, rgba(14, 40, 72, 0.9) 0%, rgba(5, 16, 31, 0.95) 100%);
+    box-shadow: 0 0 18px rgba(57, 137, 226, 0.18);
+  }
+
+  .chip-PricingPageMainSlider .card-icon-PricingPageMainSlider {
+    width: 34px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(86, 180, 255, 0.25);
+  }
+
+  .chip-PricingPageMainSlider .card-title-PricingPageMainSlider {
+    font-size: var(--font-size-sm);
+  }
+
+  .chip-PricingPageMainSlider .card-sub-PricingPageMainSlider {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 380px) {
+  .chips-PricingPageMainSlider {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-PricingPageMainSlider *,
+  .hero-PricingPageMainSlider *::before,
+  .hero-PricingPageMainSlider *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+
+  .line-PricingPageMainSlider {
+    stroke-dashoffset: 0;
+  }
+
+  .pulse-PricingPageMainSlider,
+  .packet-PricingPageMainSlider,
+  .bar-PricingPageMainSlider,
+  .particle-PricingPageMainSlider,
+  .dot-ring-PricingPageMainSlider,
+  .led-off-PricingPageMainSlider {
+    display: none;
+  }
+}

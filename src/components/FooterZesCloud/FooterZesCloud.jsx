@@ -50,13 +50,7 @@ function FooterZesCloud() {
     setOpenSectionId((prev) => (prev === id ? null : id));
   };
 
-  // Page transition is disabled for now, so <Link> handles navigation normally.
-  // When usePageTransition is re-enabled, uncomment the lines below
-  // (plus the import and the `const { navigate }` line above).
   const handleNav = (e, href, label) => {
-    // if (href.startsWith('#')) return;
-    // e.preventDefault();
-    // navigate(href, label);
   };
 
   const scrollToTop = () => {

@@ -327,10 +327,9 @@ function TotalDashboardControlPlatforms({
                   {/* ---------- Sidebar ---------- */}
                   <aside className="sidebar-TotalDashboardControlPlatforms">
                     <div className="logo-TotalDashboardControlPlatforms">
-                      <span className="logo-icon-TotalDashboardControlPlatforms">
-                        <Cloud size={15} strokeWidth={2.2} />
-                      </span>
-                      <span className="logo-text-TotalDashboardControlPlatforms">ZesCloud</span>
+                      
+                        <img src="main_logo.png" alt="" />
+                      {/* <span className="logo-text-TotalDashboardControlPlatforms">ZesCloud</span> */}
                     </div>
 
                     <motion.ul variants={navList} className="nav-TotalDashboardControlPlatforms">

@@ -1506,3 +1506,34 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+.brand-logo-wrap-BeforeUsersDoSolutions {
+  position: relative;
+  display: block;
+  max-width: 100%;
+}
+
+.brand-img-BeforeUsersDoSolutions {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: opacity 0.4s ease;
+}
+
+.brand-img-light-BeforeUsersDoSolutions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  opacity: 0;
+}
+
+.theme-light-BeforeUsersDoSolutions .brand-img-dark-BeforeUsersDoSolutions {
+  opacity: 0;
+}
+
+.theme-light-BeforeUsersDoSolutions .brand-img-light-BeforeUsersDoSolutions {
+  opacity: 1;
+}

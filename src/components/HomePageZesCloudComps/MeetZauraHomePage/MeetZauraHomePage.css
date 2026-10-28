@@ -1,11 +1,5 @@
-/* =====================================================================
-   MeetZauraHomePage
-   "Meet Zaura" intro: the AI portrait on the left (entering from the
-   left, as asked), copy + a 5-step colored pipeline on the right.
-   ===================================================================== */
-
 :root {
-  --meet-zaura-image: url('/MeetZauraHomePage2.png'); /* set url('/your-portrait.png') here, or on this var */
+  --meet-zaura-image: url('/MeetZauraHomePage2.png');
 }
 
 .section-MeetZauraHomePage {
@@ -14,31 +8,6 @@
   isolation: isolate;
   background-color: var(--zescloud-bg-base);
   padding-block: clamp(4rem, 8vw, 6.5rem);
-}
-
-/* ---------------------- ANIMATED BACKGROUND ------------------------ */
-.bgGlow-MeetZauraHomePage {
-  position: absolute;
-  top: -10%;
-  left: 10%;
-  width: 60%;
-  height: 120%;
-  z-index: 0;
-  pointer-events: none;
-  /* background: radial-gradient(45% 55% at 30% 50%, color-mix(in srgb, var(--zescloud-primary) 20%, transparent) 0%, transparent 70%); */
-  filter: blur(70px);
-  animation: glowDrift-MeetZauraHomePage 12s ease-in-out infinite;
-}
-
-.topFade-MeetZauraHomePage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(70px, 8vw, 120px);
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(to bottom, var(--zescloud-bg-base) 0%, transparent 100%);
 }
 
 .bottomFade-MeetZauraHomePage {
@@ -52,7 +21,6 @@
   background: linear-gradient(to top, var(--zescloud-bg-base) 0%, transparent 100%);
 }
 
-/* -------------------------------- GRID -------------------------------- */
 .grid-MeetZauraHomePage {
   position: relative;
   z-index: 2;
@@ -62,60 +30,102 @@
   gap: 0;
 }
 
-/* ------------------------------ LEFT VISUAL --------------------------- */
 .visual-MeetZauraHomePage {
   position: relative;
   aspect-ratio: 8 / 6;
   max-height: 560px;
   overflow: hidden;
-  /* border-radius: 0 var(--zescloud-radius-lg, 20px) var(--zescloud-radius-lg, 20px) 0; */
+  will-change: transform, filter, mask-position;
+  -webkit-mask-image: linear-gradient(75deg, #000 42%, transparent 58%);
+  mask-image: linear-gradient(75deg, #000 42%, transparent 58%);
+  -webkit-mask-size: 300% 300%;
+  mask-size: 300% 300%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0% 100%;
+  mask-position: 0% 100%;
+}
+
+.visual-MeetZauraHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--zescloud-bg-base) 0%, transparent 16%),
+    linear-gradient(to left, var(--zescloud-bg-base) 0%, transparent 16%),
+    linear-gradient(to bottom, var(--zescloud-bg-base) 0%, transparent 16%),
+    linear-gradient(to top, var(--zescloud-bg-base) 0%, transparent 16%);
+}
+
+.visualImage-MeetZauraHomePage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--zescloud-bg-base) 0%, transparent 20%),
+    linear-gradient(to left, var(--zescloud-bg-base) 0%, transparent 20%),
+    linear-gradient(to bottom, var(--zescloud-bg-base) 0%, transparent 20%),
+    linear-gradient(to top, var(--zescloud-bg-base) 0%, transparent 20%);
 }
 
 .visualImage-MeetZauraHomePage {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   background-image: var(--meet-zaura-image, none);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: var(--zescloud-bg-panel);
+  transform: rotate(-33deg) scale(1.06);
 }
 
-/* Fades the portrait into the section's background on both edges, so
-   it reads as part of the scene rather than a pasted-in rectangle. */
+.visualSweep-MeetZauraHomePage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background-image: linear-gradient(
+    108deg,
+    transparent 40%,
+    color-mix(in srgb, var(--zescloud-accent-cyan) 35%, transparent) 50%,
+    transparent 60%
+  );
+  background-size: 250% 250%;
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  opacity: 0;
+}
+
 .visualFadeRight-MeetZauraHomePage {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
-  background: linear-gradient(90deg, transparent 55%, var(--zescloud-bg-base) 100%);
+  background: linear-gradient(190deg, transparent 15%, var(--zescloud-bg-base) 100%);
 }
 
-.visualFadeBottom-MeetZauraHomePage {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent 55%, var(--zescloud-bg-base) 100%);
-}
-
-/* Small glowing sparks drifting slowly over the portrait, echoing the
-   neural-thread look of the artwork itself. */
 .spark-MeetZauraHomePage {
   position: absolute;
+  z-index: 3;
   width: 3px;
   height: 3px;
   border-radius: 50%;
   background: var(--zescloud-accent-cyan);
   box-shadow: 0 0 8px var(--zescloud-accent-cyan), 0 0 16px var(--zescloud-accent-cyan);
   opacity: 0;
-  animation: sparkFloat-MeetZauraHomePage 6s ease-in-out infinite;
+  animation: sparkFloat-MeetZauraHomePage 7s ease-in-out infinite;
 }
 
-.spark1-MeetZauraHomePage { top: 18%; left: 30%; animation-delay: 0s; }
-.spark2-MeetZauraHomePage { top: 38%; left: 55%; animation-delay: 1.4s; }
-.spark3-MeetZauraHomePage { top: 60%; left: 22%; animation-delay: 2.8s; }
-.spark4-MeetZauraHomePage { top: 72%; left: 48%; animation-delay: 4.2s; }
+.spark1-MeetZauraHomePage { top: 18%; left: 30%; animation-delay: 2.4s; }
+.spark2-MeetZauraHomePage { top: 38%; left: 55%; animation-delay: 4s; }
+.spark3-MeetZauraHomePage { top: 60%; left: 22%; animation-delay: 5.6s; }
+.spark4-MeetZauraHomePage { top: 72%; left: 48%; animation-delay: 7.2s; }
 
-/* ------------------------------ RIGHT CONTENT -------------------------- */
 .content-MeetZauraHomePage {
   position: relative;
   z-index: 2;
@@ -127,6 +137,7 @@
 }
 
 .overline-MeetZauraHomePage {
+  display: inline-block;
   font-size: 0.75rem;
   font-weight: var(--fw-bold);
   letter-spacing: 2px;
@@ -142,9 +153,17 @@
   color: var(--zescloud-text-white);
   text-transform: uppercase;
   margin-bottom: 0.4rem;
+  perspective: 800px;
+}
+
+.headingWord-MeetZauraHomePage {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
 }
 
 .highlight-MeetZauraHomePage {
+  display: inline-block;
   background: linear-gradient(
     90deg,
     var(--zescloud-accent-cyan) 0%,
@@ -177,7 +196,6 @@
   margin-bottom: 2.25rem;
 }
 
-/* ------------------------------ STEP PIPELINE -------------------------- */
 .steps-MeetZauraHomePage {
   position: relative;
   display: grid;
@@ -186,13 +204,13 @@
   width: 100%;
 }
 
-/* The horizontal connector behind the icon row */
 .stepsLine-MeetZauraHomePage {
   position: absolute;
   top: 24px;
   left: 10%;
   width: 80%;
   height: 1px;
+  transform-origin: left center;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -203,8 +221,6 @@
   overflow: visible;
 }
 
-/* A bright pulse of light that travels the length of the pipeline on a
-   loop, tying the 5 steps together as one continuous process. */
 .stepsLineTravel-MeetZauraHomePage {
   position: absolute;
   top: 50%;
@@ -215,7 +231,7 @@
   border-radius: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--zescloud-accent-cyan) 50%, transparent 100%);
   filter: drop-shadow(0 0 6px var(--zescloud-accent-cyan));
-  animation: pipelineTravel-MeetZauraHomePage 3.6s ease-in-out infinite;
+  animation: pipelineTravel-MeetZauraHomePage 4.5s ease-in-out 4s infinite backwards;
 }
 
 .step-MeetZauraHomePage {
@@ -226,6 +242,10 @@
   align-items: center;
   text-align: center;
   gap: 0.5rem;
+}
+
+.stepIconWrap-MeetZauraHomePage {
+  display: inline-flex;
 }
 
 .stepIcon-MeetZauraHomePage {
@@ -240,28 +260,27 @@
   background: color-mix(in srgb, var(--accent-MeetZauraHomePage, var(--zescloud-primary)) 16%, var(--zescloud-bg-base));
   border: 1.5px solid color-mix(in srgb, var(--accent-MeetZauraHomePage, var(--zescloud-primary)) 55%, transparent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--accent-MeetZauraHomePage, var(--zescloud-primary)) 35%, transparent);
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .step-MeetZauraHomePage:hover .stepIcon-MeetZauraHomePage {
   transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent-MeetZauraHomePage, var(--zescloud-primary)) 55%, transparent);
 }
 
-/* A soft pulsing ring behind each icon, staggered per step so the
-   pipeline feels alive rather than static. */
 .stepIconPulse-MeetZauraHomePage {
   position: absolute;
   inset: -4px;
   border-radius: 50%;
   border: 1px solid var(--accent-MeetZauraHomePage, var(--zescloud-primary));
   opacity: 0;
-  animation: iconPulse-MeetZauraHomePage 2.8s ease-out infinite;
+  animation: iconPulse-MeetZauraHomePage 3.2s ease-out 3.8s infinite;
 }
 
-.step-MeetZauraHomePage:nth-child(2) .stepIconPulse-MeetZauraHomePage { animation-delay: 0.5s; }
-.step-MeetZauraHomePage:nth-child(3) .stepIconPulse-MeetZauraHomePage { animation-delay: 1s; }
-.step-MeetZauraHomePage:nth-child(4) .stepIconPulse-MeetZauraHomePage { animation-delay: 1.5s; }
-.step-MeetZauraHomePage:nth-child(5) .stepIconPulse-MeetZauraHomePage { animation-delay: 2s; }
+.step-MeetZauraHomePage:nth-of-type(2) .stepIconPulse-MeetZauraHomePage { animation-delay: 4.4s; }
+.step-MeetZauraHomePage:nth-of-type(3) .stepIconPulse-MeetZauraHomePage { animation-delay: 5s; }
+.step-MeetZauraHomePage:nth-of-type(4) .stepIconPulse-MeetZauraHomePage { animation-delay: 5.6s; }
+.step-MeetZauraHomePage:nth-of-type(5) .stepIconPulse-MeetZauraHomePage { animation-delay: 6.2s; }
 
 .stepTitle-MeetZauraHomePage {
   font-size: 0.9rem;
@@ -273,12 +292,6 @@
   font-size: 0.74rem;
   line-height: 1.5;
   color: var(--zescloud-text-gray-500);
-}
-
-/* ---------------------------- KEYFRAMES ------------------------------ */
-@keyframes glowDrift-MeetZauraHomePage {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
-  50% { transform: translate(3%, -4%) scale(1.08); opacity: 1; }
 }
 
 @keyframes accentShimmer-MeetZauraHomePage {
@@ -303,11 +316,6 @@
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* ============================================================
-   RESPONSIVE CSS — MeetZauraHomePage
-   ============================================================ */
-
-/* Large tablets and smaller desktops */
 @media (max-width: 1200px) {
   .grid-MeetZauraHomePage {
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -338,7 +346,6 @@
   }
 }
 
-/* Tablets */
 @media (max-width: 1024px) {
   .section-MeetZauraHomePage {
     padding-block: 4.5rem;
@@ -394,16 +401,9 @@
   }
 }
 
-/* Small tablets and large phones */
 @media (max-width: 749px) {
   .section-MeetZauraHomePage {
     padding-block: 3.5rem;
-  }
-
-  .bgGlow-MeetZauraHomePage {
-    width: 100%;
-    left: 0;
-    filter: blur(50px);
   }
 
   .grid-MeetZauraHomePage {
@@ -417,22 +417,6 @@
     aspect-ratio: 16 / 10;
     margin: 0 1.25rem;
     border-radius: var(--zescloud-radius-lg, 20px);
-  }
-
-  .visualFadeRight-MeetZauraHomePage {
-    background: linear-gradient(
-      180deg,
-      transparent 45%,
-      var(--zescloud-bg-base) 100%
-    );
-  }
-
-  .visualFadeBottom-MeetZauraHomePage {
-    background: linear-gradient(
-      180deg,
-      transparent 40%,
-      var(--zescloud-bg-base) 100%
-    );
   }
 
   .content-MeetZauraHomePage {
@@ -498,13 +482,11 @@
     overflow-wrap: anywhere;
   }
 
-  .topFade-MeetZauraHomePage,
   .bottomFade-MeetZauraHomePage {
     height: 70px;
   }
 }
 
-/* Mobile phones */
 @media (max-width: 480px) {
   .section-MeetZauraHomePage {
     padding-block: 2.75rem;
@@ -581,17 +563,11 @@
     height: 2px;
   }
 
-  .bgGlow-MeetZauraHomePage {
-    filter: blur(35px);
-  }
-
-  .topFade-MeetZauraHomePage,
   .bottomFade-MeetZauraHomePage {
     height: 50px;
   }
 }
 
-/* Very narrow phones */
 @media (max-width: 360px) {
   .heading-MeetZauraHomePage {
     font-size: 1.65rem;
@@ -619,14 +595,12 @@
   }
 }
 
-/* Touch devices: prevent hover-only movement */
 @media (hover: none) {
   .step-MeetZauraHomePage:hover .stepIcon-MeetZauraHomePage {
     transform: none;
   }
 }
 
-/* Accessibility: respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .section-MeetZauraHomePage *,
   .section-MeetZauraHomePage *::before,
@@ -635,35 +609,4 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-}
-
-.visualImage-MeetZauraHomePage {
-  position: absolute;
-  inset: 0;
-  background-image: var(--meet-zaura-image, none);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: var(--zescloud-bg-panel);
-
-  transform: rotate(-33deg) scale(1.06);
-}
-
-/* Remove the dark gradient from the top of the section */
-.topFade-MeetZauraHomePage {
-  display: none;
-}
-
-/* Remove the dark gradient from the upper part of the image */
-.visualFadeBottom-MeetZauraHomePage {
-  background: none;
-}
-
-/* Keep the right-side fade for a smooth blend with the content */
-.visualFadeRight-MeetZauraHomePage {
-  background: linear-gradient(
-    910deg,
-    transparent 15%,
-    var(--zescloud-bg-base) 100%
-  );
 }

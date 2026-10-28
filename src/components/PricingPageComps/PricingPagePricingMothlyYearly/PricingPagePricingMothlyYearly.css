@@ -1,0 +1,976 @@
+/* =====================================================================
+   PricingPagePricingMothlyYearly
+   All classes, keyframes & local variables end with
+   "-PricingPagePricingMothlyYearly" so nothing merges with other components.
+   Colours / fonts / radii come from the global :root variables.
+===================================================================== */
+
+.section-PricingPagePricingMothlyYearly {
+  --card-bg-PricingPagePricingMothlyYearly: linear-gradient(180deg, rgba(7, 21, 39, 0.72) 0%, rgba(2, 10, 19, 0.88) 100%);
+  --card-border-PricingPagePricingMothlyYearly: #11243b;
+  --check-PricingPagePricingMothlyYearly: #1FAEF5;
+  --cta-blue-PricingPagePricingMothlyYearly: linear-gradient(180deg, #1C8BFF 0%, #0A6CF5 100%);
+  --save-PricingPagePricingMothlyYearly: #3DD6E0;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 6vw, 5.5rem);
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+/* top + bottom dark gradient */
+.section-PricingPagePricingMothlyYearly::before,
+.section-PricingPagePricingMothlyYearly::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* top */
+.section-PricingPagePricingMothlyYearly::before {
+  top: 0;
+  height: clamp(2.5rem, 5vw, 4.5rem);
+  background: linear-gradient(
+    180deg,
+    var(--zescloud-bg-base) 0%,
+    rgba(2, 10, 19, 0.6) 45%,
+    rgba(2, 10, 19, 0) 100%
+  );
+}
+
+/* bottom */
+.section-PricingPagePricingMothlyYearly::after {
+  bottom: 0;
+  height: clamp(4rem, 8vw, 7rem);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 10, 19, 0) 0%,
+    rgba(2, 10, 19, 0.6) 55%,
+    var(--zescloud-bg-base) 100%
+  );
+}
+/* soft blue light behind the featured column */
+.glow-PricingPagePricingMothlyYearly {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 0;
+  width: min(1100px, 90vw);
+  height: 520px;
+  transform: translateX(-35%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(24, 72, 217, 0.16) 0%, rgba(24, 72, 217, 0.05) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+.container-PricingPagePricingMothlyYearly {
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+/* ======================= Billing toggle ======================= */
+.topbar-PricingPagePricingMothlyYearly {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.75rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.toggle-PricingPagePricingMothlyYearly {
+  grid-column: 2;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--zescloud-border-highlight);
+  background: rgba(5, 16, 31, 0.85);
+  box-shadow: inset 0 1px 0 rgba(150, 200, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* sliding active background */
+.toggle-thumb-PricingPagePricingMothlyYearly {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 9px;
+  background: linear-gradient(180deg, #0B2C66 0%, #061B44 100%);
+  border: 1px solid #2F8CFF;
+  box-shadow:
+    0 0 18px rgba(47, 140, 255, 0.55),
+    inset 0 0 14px rgba(47, 140, 255, 0.25);
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.25, 1);
+}
+
+.is-annual-PricingPagePricingMothlyYearly .toggle-thumb-PricingPagePricingMothlyYearly {
+  transform: translateX(100%);
+}
+
+.toggle-btn-PricingPagePricingMothlyYearly {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-width: 250px;
+  min-height: 46px;
+  padding: 0 1.25rem;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-300);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.toggle-btn-PricingPagePricingMothlyYearly:hover {
+  color: var(--zescloud-text-gray-100);
+}
+
+.toggle-btn-PricingPagePricingMothlyYearly.is-active-PricingPagePricingMothlyYearly {
+  color: var(--zescloud-text-white);
+  font-weight: var(--fw-semibold);
+}
+
+.toggle-btn-PricingPagePricingMothlyYearly:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 2px;
+}
+
+.save-PricingPagePricingMothlyYearly {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--zescloud-radius-pill);
+  background: rgba(20, 184, 196, 0.14);
+  border: 1px solid rgba(61, 214, 224, 0.18);
+  font-size: 0.82rem;
+  font-weight: var(--fw-semibold);
+  color: var(--save-PricingPagePricingMothlyYearly);
+  transition: background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.is-annual-PricingPagePricingMothlyYearly .save-PricingPagePricingMothlyYearly {
+  background: rgba(20, 184, 196, 0.22);
+  box-shadow: 0 0 14px rgba(61, 214, 224, 0.35);
+  animation: savePop-PricingPagePricingMothlyYearly 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.note-PricingPagePricingMothlyYearly {
+  grid-column: 3;
+  max-width: 330px;
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--zescloud-text-gray-300);
+}
+
+/* =========================== Cards =========================== */
+.grid-PricingPagePricingMothlyYearly {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0 1rem;
+}
+
+/* Each card uses the 8 shared rows of the grid (subgrid):
+   head · price · servers · text · divider · list title · list · button
+   → every row lines up across all cards, whatever the text length. */
+.card-PricingPagePricingMothlyYearly {
+  position: relative;
+  display: grid;
+  grid-row: span 8;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  padding: 1.6rem 1.6rem 1.75rem;
+  border-radius: 14px;
+  border: 1px solid var(--card-border-PricingPagePricingMothlyYearly);
+  background: var(--card-bg-PricingPagePricingMothlyYearly);
+  box-shadow: inset 0 1px 0 rgba(150, 200, 255, 0.04), 0 18px 40px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card-PricingPagePricingMothlyYearly:hover {
+  transform: translateY(-6px);
+  border-color: var(--zescloud-border-highlight);
+  box-shadow: inset 0 1px 0 rgba(150, 200, 255, 0.06), 0 24px 50px rgba(0, 0, 0, 0.45), 0 0 26px rgba(57, 137, 226, 0.12);
+}
+
+/* Featured (Business) – taller, glowing border */
+.is-featured-PricingPagePricingMothlyYearly {
+  margin: -10px 0;
+  padding-top: calc(1.6rem + 10px);
+  padding-bottom: calc(1.75rem + 10px);
+  border-color: rgba(64, 158, 255, 0.75);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(47, 140, 255, 0.12) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(9, 27, 52, 0.9) 0%, rgba(3, 12, 24, 0.95) 100%);
+  box-shadow:
+    0 0 0 1px rgba(64, 158, 255, 0.15),
+    0 0 28px rgba(47, 140, 255, 0.28),
+    inset 0 0 40px rgba(47, 140, 255, 0.07);
+  animation: featuredGlow-PricingPagePricingMothlyYearly 4s ease-in-out infinite;
+}
+
+.is-featured-PricingPagePricingMothlyYearly:hover {
+  border-color: rgba(86, 180, 255, 0.95);
+}
+
+.badge-PricingPagePricingMothlyYearly {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 1;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--zescloud-radius-pill);
+  background: var(--cta-blue-PricingPagePricingMothlyYearly);
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  color: var(--zescloud-text-white);
+  box-shadow: 0 0 16px rgba(10, 108, 245, 0.55);
+  animation: badgePulse-PricingPagePricingMothlyYearly 2.8s ease-in-out infinite;
+}
+
+/* ---------- head ---------- */
+.head-PricingPagePricingMothlyYearly {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.icon-PricingPagePricingMothlyYearly {
+  --tone-PricingPagePricingMothlyYearly: var(--zescloud-primary);
+  --tone-rgb-PricingPagePricingMothlyYearly: 57, 137, 226;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  color: var(--tone-PricingPagePricingMothlyYearly);
+  background: rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.13);
+  border: 1px solid rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.22);
+  box-shadow: inset 0 0 16px rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.14);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow var(--transition-base);
+}
+
+.icon-PricingPagePricingMothlyYearly svg {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 0 6px rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.6));
+}
+
+.icon-blue-PricingPagePricingMothlyYearly {
+  --tone-PricingPagePricingMothlyYearly: #3B9BFF;
+  --tone-rgb-PricingPagePricingMothlyYearly: 59, 155, 255;
+}
+
+.icon-teal-PricingPagePricingMothlyYearly {
+  --tone-PricingPagePricingMothlyYearly: #4FEADB;
+  --tone-rgb-PricingPagePricingMothlyYearly: 45, 212, 191;
+}
+
+.icon-purple-PricingPagePricingMothlyYearly {
+  --tone-PricingPagePricingMothlyYearly: #A78BFA;
+  --tone-rgb-PricingPagePricingMothlyYearly: 139, 92, 246;
+}
+
+.icon-sky-PricingPagePricingMothlyYearly {
+  --tone-PricingPagePricingMothlyYearly: #6CC4FA;
+  --tone-rgb-PricingPagePricingMothlyYearly: 57, 137, 226;
+}
+
+.card-PricingPagePricingMothlyYearly:hover .icon-PricingPagePricingMothlyYearly {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow:
+    inset 0 0 16px rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.2),
+    0 0 18px rgba(var(--tone-rgb-PricingPagePricingMothlyYearly), 0.3);
+}
+
+.head-text-PricingPagePricingMothlyYearly {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name-PricingPagePricingMothlyYearly {
+  font-family: var(--zescloud-font-family);
+  font-size: 1.12rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-white);
+}
+
+.tagline-PricingPagePricingMothlyYearly {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--zescloud-text-gray-300);
+}
+
+/* ---------- price ---------- */
+.price-row-PricingPagePricingMothlyYearly {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-height: 3.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.price-PricingPagePricingMothlyYearly {
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.3rem, 2.9vw, 2.85rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--zescloud-text-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.period-PricingPagePricingMothlyYearly {
+  font-size: 1rem;
+  color: var(--zescloud-text-gray-300);
+}
+
+/* original monthly price – slides in when "Billed Annually" is on */
+.old-price-PricingPagePricingMothlyYearly {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0.95rem;
+  color: var(--zescloud-text-gray-500);
+  text-decoration: line-through;
+  white-space: nowrap;
+  transform: translateY(6px);
+  transition:
+    max-width 0.45s ease,
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.old-price-PricingPagePricingMothlyYearly.is-shown-PricingPagePricingMothlyYearly {
+  max-width: 4rem;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.servers-PricingPagePricingMothlyYearly {
+  margin-bottom: 0rem;
+  font-size: 0.9rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.4;
+}
+
+.servers-accent-PricingPagePricingMothlyYearly {
+  color: #4FA9FF;
+}
+
+.servers-white-PricingPagePricingMothlyYearly {
+  color: var(--zescloud-text-white);
+}
+
+.desc-PricingPagePricingMothlyYearly {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-300);
+}
+
+.divider-PricingPagePricingMothlyYearly {
+  display: block;
+  height: 1px;
+  margin: 1.35rem 0 1.4rem;
+  background: linear-gradient(90deg, rgba(30, 58, 95, 0.9), rgba(30, 58, 95, 0.35));
+  transform-origin: left center;
+}
+
+.is-featured-PricingPagePricingMothlyYearly .divider-PricingPagePricingMothlyYearly {
+  background: linear-gradient(90deg, rgba(64, 158, 255, 0.45), rgba(30, 58, 95, 0.35));
+}
+
+/* ---------- features ---------- */
+.list-title-PricingPagePricingMothlyYearly {
+  margin-bottom: 0.95rem;
+  font-size: 1rem;
+  font-weight: var(--fw-semibold);
+  line-height: 1.4;
+  color: var(--zescloud-text-white);
+}
+
+.list-PricingPagePricingMothlyYearly {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-self: start;
+  margin-bottom: 2rem;
+}
+
+.item-PricingPagePricingMothlyYearly {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: var(--zescloud-text-gray-100);
+}
+
+.check-PricingPagePricingMothlyYearly {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  color: var(--check-PricingPagePricingMothlyYearly);
+  filter: drop-shadow(0 0 4px rgba(31, 174, 245, 0.45));
+}
+
+.check-PricingPagePricingMothlyYearly svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- CTA ---------- */
+.cta-PricingPagePricingMothlyYearly {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 50px;
+  align-self: end;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #23456F;
+  background: rgba(7, 21, 39, 0.75);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.cta-PricingPagePricingMothlyYearly:hover {
+  transform: translateY(-2px);
+  border-color: var(--zescloud-primary);
+  background-color: rgba(57, 137, 226, 0.12);
+  box-shadow: 0 8px 24px rgba(57, 137, 226, 0.2);
+}
+
+.cta-PricingPagePricingMothlyYearly:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 3px;
+}
+
+.cta-primary-PricingPagePricingMothlyYearly {
+  border-color: rgba(86, 180, 255, 0.55);
+  background: var(--cta-blue-PricingPagePricingMothlyYearly);
+  box-shadow: 0 8px 26px rgba(10, 108, 245, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.cta-primary-PricingPagePricingMothlyYearly:hover {
+  background: linear-gradient(180deg, #3A9CFF 0%, #1479FF 100%);
+  border-color: rgba(150, 210, 255, 0.8);
+  box-shadow: 0 12px 34px rgba(20, 121, 255, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.cta-arrow-PricingPagePricingMothlyYearly {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-base);
+}
+
+.cta-arrow-PricingPagePricingMothlyYearly svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cta-PricingPagePricingMothlyYearly:hover .cta-arrow-PricingPagePricingMothlyYearly {
+  transform: translateX(4px);
+}
+
+/* ===================== Scroll-in animations =====================
+   Hidden state is only applied after JS is ready, so the section is
+   always visible without JS. */
+.is-ready-PricingPagePricingMothlyYearly .topbar-PricingPagePricingMothlyYearly,
+.is-ready-PricingPagePricingMothlyYearly .card-PricingPagePricingMothlyYearly,
+.is-ready-PricingPagePricingMothlyYearly .item-PricingPagePricingMothlyYearly,
+.is-ready-PricingPagePricingMothlyYearly .divider-PricingPagePricingMothlyYearly {
+  opacity: 0;
+}
+
+.is-visible-PricingPagePricingMothlyYearly .topbar-PricingPagePricingMothlyYearly {
+  animation: fadeUp-PricingPagePricingMothlyYearly 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.is-visible-PricingPagePricingMothlyYearly .card-PricingPagePricingMothlyYearly {
+  animation: cardIn-PricingPagePricingMothlyYearly 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(0.15s + var(--i-PricingPagePricingMothlyYearly) * 0.12s) both;
+}
+
+.is-visible-PricingPagePricingMothlyYearly .is-featured-PricingPagePricingMothlyYearly {
+  animation:
+    cardIn-PricingPagePricingMothlyYearly 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)
+      calc(0.15s + var(--i-PricingPagePricingMothlyYearly) * 0.12s) both,
+    featuredGlow-PricingPagePricingMothlyYearly 4s ease-in-out 1.4s infinite;
+}
+
+.is-visible-PricingPagePricingMothlyYearly .divider-PricingPagePricingMothlyYearly {
+  animation: lineGrow-PricingPagePricingMothlyYearly 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(0.55s + var(--i-PricingPagePricingMothlyYearly) * 0.12s) both;
+}
+
+.is-visible-PricingPagePricingMothlyYearly .item-PricingPagePricingMothlyYearly {
+  animation: itemIn-PricingPagePricingMothlyYearly 0.55s cubic-bezier(0.2, 0.8, 0.2, 1)
+    calc(0.65s + var(--i-PricingPagePricingMothlyYearly) * 0.12s + var(--j-PricingPagePricingMothlyYearly) * 0.06s) both;
+}
+
+/* =========================== Keyframes =========================== */
+@keyframes fadeUp-PricingPagePricingMothlyYearly {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn-PricingPagePricingMothlyYearly {
+  from { opacity: 0; transform: translateY(36px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lineGrow-PricingPagePricingMothlyYearly {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes itemIn-PricingPagePricingMothlyYearly {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes featuredGlow-PricingPagePricingMothlyYearly {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(64, 158, 255, 0.15),
+      0 0 24px rgba(47, 140, 255, 0.24),
+      inset 0 0 40px rgba(47, 140, 255, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(64, 158, 255, 0.3),
+      0 0 40px rgba(47, 140, 255, 0.42),
+      inset 0 0 48px rgba(47, 140, 255, 0.11);
+  }
+}
+
+@keyframes badgePulse-PricingPagePricingMothlyYearly {
+  0%, 100% { box-shadow: 0 0 12px rgba(10, 108, 245, 0.45); }
+  50% { box-shadow: 0 0 22px rgba(47, 140, 255, 0.8); }
+}
+
+@keyframes savePop-PricingPagePricingMothlyYearly {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+/* =========================================================
+   RESPONSIVE FIXES — PricingPagePricingMothlyYearly
+   ========================================================= */
+
+/* Large screens and laptops */
+@media (max-width: 1200px) {
+  .container-PricingPagePricingMothlyYearly {
+    padding-inline: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .grid-PricingPagePricingMothlyYearly {
+    gap: 1rem;
+  }
+
+  .card-PricingPagePricingMothlyYearly {
+    min-width: 0;
+    padding: 1.35rem 1.1rem 1.5rem;
+  }
+
+  .is-featured-PricingPagePricingMothlyYearly {
+    padding-top: calc(1.35rem + 10px);
+    padding-bottom: calc(1.5rem + 10px);
+  }
+
+  .name-PricingPagePricingMothlyYearly {
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+  }
+
+  .price-PricingPagePricingMothlyYearly {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+  }
+
+  .item-PricingPagePricingMothlyYearly {
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+  }
+
+  .cta-PricingPagePricingMothlyYearly {
+    width: 100%;
+    padding-inline: 0.65rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .section-PricingPagePricingMothlyYearly {
+    padding-block: 3.5rem 4rem;
+  }
+
+  .topbar-PricingPagePricingMothlyYearly {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .toggle-PricingPagePricingMothlyYearly,
+  .note-PricingPagePricingMothlyYearly {
+    grid-column: 1;
+  }
+
+  .note-PricingPagePricingMothlyYearly {
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .grid-PricingPagePricingMothlyYearly {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .card-PricingPagePricingMothlyYearly {
+    grid-row: auto;
+    grid-template-rows: auto;
+    row-gap: 0;
+    margin: 0;
+    padding: 1.5rem;
+  }
+
+  .is-featured-PricingPagePricingMothlyYearly {
+    margin: 0;
+    padding: 1.5rem;
+  }
+
+  .head-PricingPagePricingMothlyYearly {
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .price-row-PricingPagePricingMothlyYearly {
+    flex-wrap: wrap;
+    min-height: 0;
+    row-gap: 0.25rem;
+  }
+
+  .list-PricingPagePricingMothlyYearly {
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-PricingPagePricingMothlyYearly {
+    align-self: end;
+    margin-top: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 749px) {
+  .section-PricingPagePricingMothlyYearly {
+    padding-block: 3rem;
+  }
+
+  .container-PricingPagePricingMothlyYearly {
+    padding-inline: 1.25rem;
+  }
+
+  .topbar-PricingPagePricingMothlyYearly {
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .toggle-PricingPagePricingMothlyYearly {
+    width: min(100%, 420px);
+    min-width: 0;
+  }
+
+  .toggle-btn-PricingPagePricingMothlyYearly {
+    min-width: 0;
+    width: 100%;
+    min-height: 46px;
+    padding-inline: 0.5rem;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .save-PricingPagePricingMothlyYearly {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.7rem;
+  }
+
+  .note-PricingPagePricingMothlyYearly {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .grid-PricingPagePricingMothlyYearly {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .card-PricingPagePricingMothlyYearly,
+  .is-featured-PricingPagePricingMothlyYearly {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 1.5rem;
+    grid-row: auto;
+    grid-template-rows: auto;
+  }
+
+  .head-PricingPagePricingMothlyYearly {
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .icon-PricingPagePricingMothlyYearly {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+  }
+
+  .icon-PricingPagePricingMothlyYearly svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .name-PricingPagePricingMothlyYearly {
+    font-size: 1.05rem;
+  }
+
+  .tagline-PricingPagePricingMothlyYearly {
+    font-size: 0.84rem;
+  }
+
+  .price-row-PricingPagePricingMothlyYearly {
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .price-PricingPagePricingMothlyYearly {
+    font-size: clamp(2.25rem, 9vw, 2.75rem);
+  }
+
+  .period-PricingPagePricingMothlyYearly {
+    font-size: 0.9rem;
+  }
+
+  .old-price-PricingPagePricingMothlyYearly.is-shown-PricingPagePricingMothlyYearly {
+    max-width: 4rem;
+  }
+
+  .servers-PricingPagePricingMothlyYearly {
+    font-size: 1rem;
+  }
+
+  .desc-PricingPagePricingMothlyYearly {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .divider-PricingPagePricingMothlyYearly {
+    margin-block: 1.2rem;
+  }
+
+  .list-title-PricingPagePricingMothlyYearly {
+    font-size: 0.95rem;
+  }
+
+  .list-PricingPagePricingMothlyYearly {
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .item-PricingPagePricingMothlyYearly {
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .check-PricingPagePricingMothlyYearly {
+    width: 17px;
+    height: 17px;
+    margin-top: 2px;
+  }
+
+  .cta-PricingPagePricingMothlyYearly {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 0;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .badge-PricingPagePricingMothlyYearly {
+    top: 10px;
+    right: 10px;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.68rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .section-PricingPagePricingMothlyYearly {
+    padding-block: 2.5rem 3rem;
+  }
+
+  .container-PricingPagePricingMothlyYearly {
+    padding-inline: 1rem;
+  }
+
+  .toggle-PricingPagePricingMothlyYearly {
+    padding: 3px;
+    border-radius: 10px;
+  }
+
+  .toggle-btn-PricingPagePricingMothlyYearly {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 58px;
+    gap: 0.2rem;
+    padding: 0.35rem 0.2rem;
+    font-size: 0.8rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .save-PricingPagePricingMothlyYearly {
+    font-size: 0.67rem;
+    line-height: 1.25;
+    padding: 0.18rem 0.35rem;
+  }
+
+  .card-PricingPagePricingMothlyYearly,
+  .is-featured-PricingPagePricingMothlyYearly {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .badge-PricingPagePricingMothlyYearly {
+    top: 8px;
+    right: 8px;
+    font-size: 0.63rem;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .head-PricingPagePricingMothlyYearly {
+    gap: 0.7rem;
+    padding-right: 0.5rem;
+  }
+
+  .icon-PricingPagePricingMothlyYearly {
+    width: 42px;
+    height: 42px;
+  }
+
+  .icon-PricingPagePricingMothlyYearly svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .name-PricingPagePricingMothlyYearly {
+    font-size: 0.95rem;
+  }
+
+  .tagline-PricingPagePricingMothlyYearly {
+    font-size: 0.8rem;
+  }
+
+  .price-PricingPagePricingMothlyYearly {
+    font-size: clamp(2rem, 10vw, 2.45rem);
+  }
+
+  .period-PricingPagePricingMothlyYearly {
+    font-size: 0.82rem;
+  }
+
+  .servers-PricingPagePricingMothlyYearly {
+    font-size: 0.94rem;
+  }
+
+  .desc-PricingPagePricingMothlyYearly {
+    font-size: 0.86rem;
+  }
+
+  .item-PricingPagePricingMothlyYearly {
+    font-size: 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .cta-PricingPagePricingMothlyYearly {
+    min-height: 46px;
+    font-size: 0.86rem;
+  }
+}
+
+/* Very narrow devices */
+@media (max-width: 360px) {
+  .container-PricingPagePricingMothlyYearly {
+    padding-inline: 0.8rem;
+  }
+
+  .card-PricingPagePricingMothlyYearly,
+  .is-featured-PricingPagePricingMothlyYearly {
+    padding: 1.1rem;
+  }
+
+  .head-PricingPagePricingMothlyYearly {
+    gap: 0.6rem;
+  }
+
+  .price-PricingPagePricingMothlyYearly {
+    font-size: 1.9rem;
+  }
+
+  .old-price-PricingPagePricingMothlyYearly {
+    font-size: 0.82rem;
+  }
+
+  .toggle-btn-PricingPagePricingMothlyYearly {
+    font-size: 0.74rem;
+  }
+
+  .save-PricingPagePricingMothlyYearly {
+    font-size: 0.62rem;
+  }
+}

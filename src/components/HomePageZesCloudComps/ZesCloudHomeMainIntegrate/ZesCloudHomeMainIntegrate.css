@@ -1,10 +1,3 @@
-/* =====================================================================
-   ZesCloudHomeMainIntegrate
-   Every class, local variable and keyframe ends in -ZesCloudHomeMainIntegrate
-   so nothing merges with other components. Colours come from the global
-   CSS variables (with fallbacks).
-===================================================================== */
-
 .section-ZesCloudHomeMainIntegrate {
   --bg-ZesCloudHomeMainIntegrate: var(--zescloud-bg-base, #020a13);
   --line-ZesCloudHomeMainIntegrate: var(--zescloud-border-highlight, rgba(86, 148, 255, 0.22));
@@ -25,13 +18,12 @@
   isolation: isolate;
   overflow: hidden;
   width: 100%;
-  padding: clamp(5rem, 9vw, 8rem) 0;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
   background-color: var(--bg-ZesCloudHomeMainIntegrate);
   font-family: var(--zescloud-font-family, inherit);
   color: var(--white-ZesCloudHomeMainIntegrate);
 }
 
-/* ------------------------- top & bottom dark fades ------------------------ */
 .section-ZesCloudHomeMainIntegrate::before,
 .section-ZesCloudHomeMainIntegrate::after {
   content: '';
@@ -39,52 +31,76 @@
   left: 0;
   right: 0;
   z-index: 1;
-  height: clamp(100px, 16vh, 200px);
+  height: clamp(60px, 10vh, 120px);
   pointer-events: none;
 }
 
 .section-ZesCloudHomeMainIntegrate::before {
   top: 0;
-  background: linear-gradient(180deg,
-      var(--bg-ZesCloudHomeMainIntegrate) 0%,
-      rgba(2, 10, 19, 0.85) 35%,
-      rgba(2, 10, 19, 0.4) 70%,
-      rgba(2, 10, 19, 0) 100%);
+  background: linear-gradient(180deg, var(--bg-ZesCloudHomeMainIntegrate) 0%, rgba(2, 10, 19, 0) 100%);
 }
 
 .section-ZesCloudHomeMainIntegrate::after {
   bottom: 0;
-  background: linear-gradient(0deg,
-      var(--bg-ZesCloudHomeMainIntegrate) 0%,
-      rgba(2, 10, 19, 0.85) 35%,
-      rgba(2, 10, 19, 0.4) 70%,
-      rgba(2, 10, 19, 0) 100%);
+  background: linear-gradient(0deg, var(--bg-ZesCloudHomeMainIntegrate) 0%, rgba(2, 10, 19, 0) 100%);
 }
 
-/* ------------------------------- background ------------------------------- */
-.bgGlow-ZesCloudHomeMainIntegrate {
+.bg-ZesCloudHomeMainIntegrate {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 48% 42% at 50% 56%, rgba(31, 107, 255, 0.17), transparent 70%),
-    radial-gradient(ellipse 28% 30% at 16% 42%, rgba(34, 211, 238, 0.06), transparent 70%),
-    radial-gradient(ellipse 28% 30% at 84% 66%, rgba(139, 92, 246, 0.07), transparent 70%);
-  animation: glowBreath-ZesCloudHomeMainIntegrate 9s ease-in-out infinite;
 }
 
-.bgGrid-ZesCloudHomeMainIntegrate {
+.bg-ZesCloudHomeMainIntegrate::after {
+  content: '';
   position: absolute;
   inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(86, 148, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(86, 148, 255, 0.06) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 56%, #000 30%, transparent 80%);
-  mask-image: radial-gradient(ellipse 60% 55% at 50% 56%, #000 30%, transparent 80%);
+  background: radial-gradient(ellipse 75% 70% at 50% 55%, transparent 40%, rgba(2, 10, 19, 0.75) 100%);
+}
+
+.orb-ZesCloudHomeMainIntegrate {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.orbA-ZesCloudHomeMainIntegrate {
+  left: 50%;
+  top: 56%;
+  width: 64vmax;
+  height: 64vmax;
+  margin: -32vmax 0 0 -32vmax;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.2) 0%, rgba(29, 78, 216, 0.07) 38%, transparent 66%);
+  animation: driftA-ZesCloudHomeMainIntegrate 26s ease-in-out infinite alternate;
+}
+
+.orbB-ZesCloudHomeMainIntegrate {
+  left: -14vmax;
+  top: 4%;
+  width: 46vmax;
+  height: 46vmax;
+  background: radial-gradient(circle, rgba(14, 116, 144, 0.14) 0%, transparent 64%);
+  animation: driftB-ZesCloudHomeMainIntegrate 32s ease-in-out infinite alternate;
+}
+
+.orbC-ZesCloudHomeMainIntegrate {
+  right: -14vmax;
+  bottom: -10%;
+  width: 48vmax;
+  height: 48vmax;
+  background: radial-gradient(circle, rgba(91, 33, 182, 0.14) 0%, transparent 64%);
+  animation: driftC-ZesCloudHomeMainIntegrate 36s ease-in-out infinite alternate;
+}
+
+.noise-ZesCloudHomeMainIntegrate {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
 }
 
 .container-ZesCloudHomeMainIntegrate {
@@ -92,39 +108,37 @@
   z-index: 2;
 }
 
-/* --------------------------------- header --------------------------------- */
 .header-ZesCloudHomeMainIntegrate {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 780px;
-  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  max-width: 720px;
+  margin: 0 auto clamp(1.5rem, 3vw, 2.25rem);
   text-align: center;
 }
 
 .eyebrow-ZesCloudHomeMainIntegrate {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-  padding: 0.45rem 1rem;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+  padding: 0.35rem 0.85rem;
   border: 1px solid var(--line-ZesCloudHomeMainIntegrate);
   border-radius: var(--zescloud-radius-pill, 999px);
-  background: rgba(31, 107, 255, 0.08);
-  font-size: var(--font-size-xs, 0.75rem);
+  background: rgba(31, 107, 255, 0.07);
+  font-size: 0.68rem;
   font-weight: var(--fw-medium, 500);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--cyan-ZesCloudHomeMainIntegrate);
 }
 
 .eyebrowDot-ZesCloudHomeMainIntegrate {
   position: relative;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--cyan-ZesCloudHomeMainIntegrate);
-  box-shadow: 0 0 10px var(--cyan-ZesCloudHomeMainIntegrate);
 }
 
 .eyebrowDot-ZesCloudHomeMainIntegrate::after {
@@ -138,10 +152,10 @@
 
 .title-ZesCloudHomeMainIntegrate {
   margin: 0;
-  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
   font-weight: var(--fw-bold, 700);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
   color: var(--white-ZesCloudHomeMainIntegrate);
 }
 
@@ -150,36 +164,24 @@
 }
 
 .titleAccent-ZesCloudHomeMainIntegrate {
-  display: inline-block;
-  background: linear-gradient(90deg,
-      var(--cyan-ZesCloudHomeMainIntegrate) 0%,
-      var(--blue-ZesCloudHomeMainIntegrate) 30%,
-      #a9dcff 50%,
-      var(--blue-ZesCloudHomeMainIntegrate) 70%,
-      var(--cyan-ZesCloudHomeMainIntegrate) 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: shimmer-ZesCloudHomeMainIntegrate 6s linear infinite;
+  display: block;
+  color: var(--blue-ZesCloudHomeMainIntegrate);
 }
 
 .desc-ZesCloudHomeMainIntegrate {
-  max-width: 660px;
-  margin: 1.1rem 0 0;
-  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.075rem);
-  line-height: 1.65;
+  max-width: 600px;
+  margin: 0.75rem 0 0;
+  font-size: clamp(0.85rem, 0.82rem + 0.2vw, 0.95rem);
+  line-height: 1.6;
   color: var(--gray300-ZesCloudHomeMainIntegrate);
 }
 
-/* generic entrance */
 .reveal-ZesCloudHomeMainIntegrate {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(16px);
   transition:
-    opacity 0.8s var(--ease-ZesCloudHomeMainIntegrate) var(--d-ZesCloudHomeMainIntegrate, 0s),
-    transform 0.8s var(--ease-ZesCloudHomeMainIntegrate) var(--d-ZesCloudHomeMainIntegrate, 0s);
+    opacity 0.7s var(--ease-ZesCloudHomeMainIntegrate) var(--d-ZesCloudHomeMainIntegrate, 0s),
+    transform 0.7s var(--ease-ZesCloudHomeMainIntegrate) var(--d-ZesCloudHomeMainIntegrate, 0s);
 }
 
 .is-in-ZesCloudHomeMainIntegrate .reveal-ZesCloudHomeMainIntegrate {
@@ -187,19 +189,18 @@
   transform: none;
 }
 
-/* ---------------------------------- stage --------------------------------- */
 .stage-ZesCloudHomeMainIntegrate {
   position: relative;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  aspect-ratio: 1200 / 680;
+  aspect-ratio: 1200 / 560;
   container-type: inline-size;
   opacity: 0;
-  transform: scale(0.97);
+  transform: scale(0.98);
   transition:
-    opacity 1s var(--ease-ZesCloudHomeMainIntegrate) 0.15s,
-    transform 1.2s var(--ease-ZesCloudHomeMainIntegrate) 0.15s;
+    opacity 0.9s var(--ease-ZesCloudHomeMainIntegrate) 0.1s,
+    transform 1.1s var(--ease-ZesCloudHomeMainIntegrate) 0.1s;
 }
 
 .is-in-ZesCloudHomeMainIntegrate .stage-ZesCloudHomeMainIntegrate {
@@ -216,14 +217,12 @@
   overflow: visible;
 }
 
-/* tone tokens (used by wires and cards) */
 .tone-blue-ZesCloudHomeMainIntegrate { --tone-ZesCloudHomeMainIntegrate: var(--blue-ZesCloudHomeMainIntegrate); }
 .tone-cyan-ZesCloudHomeMainIntegrate { --tone-ZesCloudHomeMainIntegrate: var(--cyan-ZesCloudHomeMainIntegrate); }
 .tone-green-ZesCloudHomeMainIntegrate { --tone-ZesCloudHomeMainIntegrate: var(--green-ZesCloudHomeMainIntegrate); }
 .tone-orange-ZesCloudHomeMainIntegrate { --tone-ZesCloudHomeMainIntegrate: var(--orange-ZesCloudHomeMainIntegrate); }
 .tone-purple-ZesCloudHomeMainIntegrate { --tone-ZesCloudHomeMainIntegrate: var(--purple-ZesCloudHomeMainIntegrate); }
 
-/* --------------------------------- rings ---------------------------------- */
 .rings-ZesCloudHomeMainIntegrate {
   opacity: 0;
   transition: opacity 1s ease 0.3s;
@@ -234,7 +233,7 @@
 }
 
 .halo-ZesCloudHomeMainIntegrate {
-  opacity: 0.55;
+  opacity: 0.5;
   transition: opacity 1.2s ease;
 }
 
@@ -245,160 +244,120 @@
 .ripple-ZesCloudHomeMainIntegrate {
   fill: none;
   stroke: var(--blue-ZesCloudHomeMainIntegrate);
-  stroke-width: 1.2;
+  stroke-width: 1;
   vector-effect: non-scaling-stroke;
   opacity: 0;
   transform-box: view-box;
-  transform-origin: 600px 320px;
-  animation: ripple-ZesCloudHomeMainIntegrate 3.6s ease-out infinite;
+  transform-origin: 600px 260px;
+}
+
+.is-online-ZesCloudHomeMainIntegrate .ripple-ZesCloudHomeMainIntegrate {
+  animation: ripple-ZesCloudHomeMainIntegrate 4.2s ease-out infinite;
   animation-delay: var(--rd-ZesCloudHomeMainIntegrate, 0s);
 }
 
-.ringPort-ZesCloudHomeMainIntegrate {
+.portRing-ZesCloudHomeMainIntegrate {
   fill: none;
-  stroke: rgba(86, 148, 255, 0.3);
+  stroke: rgba(86, 148, 255, 0.2);
   stroke-width: 1;
-  stroke-dasharray: 3 7;
 }
 
-.ringOuter-ZesCloudHomeMainIntegrate {
+.orbit-ZesCloudHomeMainIntegrate {
   transform-box: view-box;
-  transform-origin: 600px 320px;
-  animation: spin-ZesCloudHomeMainIntegrate 28s linear infinite;
+  transform-origin: 600px 260px;
+  animation: spin-ZesCloudHomeMainIntegrate 40s linear infinite;
 }
 
-.ringOuterArc-ZesCloudHomeMainIntegrate {
+.orbitPath-ZesCloudHomeMainIntegrate {
   fill: none;
-  stroke: var(--blue-ZesCloudHomeMainIntegrate);
-  stroke-opacity: 0.55;
-  stroke-width: 1.6;
+  stroke: rgba(148, 163, 184, 0.28);
+  stroke-width: 1;
   stroke-linecap: round;
-  stroke-dasharray: 70 26 8 26;
+  stroke-dasharray: 1.5 7;
 }
 
-.ringOrbitDot-ZesCloudHomeMainIntegrate {
+.orbitDot-ZesCloudHomeMainIntegrate {
   fill: var(--cyan-ZesCloudHomeMainIntegrate);
+  opacity: 0.85;
 }
 
-.ringInner-ZesCloudHomeMainIntegrate {
+.focusArc-ZesCloudHomeMainIntegrate {
   transform-box: view-box;
-  transform-origin: 600px 320px;
-  animation: spin-ZesCloudHomeMainIntegrate 18s linear infinite reverse;
+  transform-origin: 600px 260px;
+  transition: transform 0.75s var(--ease-ZesCloudHomeMainIntegrate);
 }
 
-.ringInnerArc-ZesCloudHomeMainIntegrate {
-  fill: none;
-  stroke: var(--cyan-ZesCloudHomeMainIntegrate);
-  stroke-opacity: 0.45;
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  stroke-dasharray: 2 9;
-}
-
-/* --------------------------------- wires ---------------------------------- */
-.wireTrack-ZesCloudHomeMainIntegrate {
-  fill: none;
-  stroke: rgba(86, 148, 255, 0.12);
-  stroke-width: 2;
-}
-
-.wireGlow-ZesCloudHomeMainIntegrate {
+.focusArc-ZesCloudHomeMainIntegrate path {
   fill: none;
   stroke: var(--tone-ZesCloudHomeMainIntegrate);
-  stroke-width: 10;
+  stroke-width: 3;
   stroke-linecap: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
   opacity: 0;
-  transition:
-    stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay-ZesCloudHomeMainIntegrate, 0s),
-    opacity 0.5s ease;
+  transition: opacity 0.5s ease, stroke 0.5s ease;
+}
+
+.focusArc-ZesCloudHomeMainIntegrate.is-on-ZesCloudHomeMainIntegrate path {
+  opacity: 0.9;
+}
+
+.wireTrack-ZesCloudHomeMainIntegrate {
+  fill: none;
+  stroke: rgba(148, 163, 184, 0.16);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 2 5;
 }
 
 .wireLine-ZesCloudHomeMainIntegrate {
   fill: none;
   stroke: var(--tone-ZesCloudHomeMainIntegrate);
-  stroke-width: 2;
+  stroke-width: 1.8;
   stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  opacity: 0.85;
+  opacity: 0.5;
   transition:
-    stroke-dashoffset 1.1s cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay-ZesCloudHomeMainIntegrate, 0s),
+    stroke-dashoffset 0.9s cubic-bezier(0.65, 0, 0.35, 1) var(--draw-delay-ZesCloudHomeMainIntegrate, 0s),
     stroke-width 0.4s ease,
     opacity 0.4s ease;
 }
 
-.is-in-ZesCloudHomeMainIntegrate .wireGlow-ZesCloudHomeMainIntegrate,
 .is-in-ZesCloudHomeMainIntegrate .wireLine-ZesCloudHomeMainIntegrate {
   stroke-dashoffset: 0;
 }
 
-.is-in-ZesCloudHomeMainIntegrate .wireGlow-ZesCloudHomeMainIntegrate {
-  opacity: 0.12;
-}
-
-.wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .wireGlow-ZesCloudHomeMainIntegrate {
-  opacity: 0.32;
-}
-
 .wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .wireLine-ZesCloudHomeMainIntegrate {
-  stroke-width: 2.8;
-  opacity: 1;
-}
-
-.wireFlow-ZesCloudHomeMainIntegrate {
-  fill: none;
-  stroke: #ffffff;
-  stroke-opacity: 0.75;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-dasharray: 1.2 5.8;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  animation: flow-ZesCloudHomeMainIntegrate 1.4s linear infinite;
-}
-
-.wire-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .wireFlow-ZesCloudHomeMainIntegrate {
-  opacity: 0.5;
-}
-
-.wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .wireFlow-ZesCloudHomeMainIntegrate {
+  stroke-width: 2.4;
   opacity: 1;
 }
 
 .packets-ZesCloudHomeMainIntegrate {
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.5s ease;
 }
 
 .wire-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .packets-ZesCloudHomeMainIntegrate {
+  opacity: 0.7;
+}
+
+.wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .packets-ZesCloudHomeMainIntegrate {
   opacity: 1;
 }
 
-.packetBurst-ZesCloudHomeMainIntegrate {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .packetBurst-ZesCloudHomeMainIntegrate {
-  opacity: 1;
-}
-
-.startDot-ZesCloudHomeMainIntegrate {
+.packetHalo-ZesCloudHomeMainIntegrate {
   fill: var(--tone-ZesCloudHomeMainIntegrate);
-  opacity: 0;
-  transition: opacity 0.4s ease var(--draw-delay-ZesCloudHomeMainIntegrate, 0s);
+  opacity: 0.22;
 }
 
-.is-in-ZesCloudHomeMainIntegrate .startDot-ZesCloudHomeMainIntegrate {
-  opacity: 0.95;
+.packetCore-ZesCloudHomeMainIntegrate {
+  fill: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 35%, #ffffff);
 }
 
 .portDot-ZesCloudHomeMainIntegrate {
   fill: var(--bg-ZesCloudHomeMainIntegrate);
   stroke: var(--tone-ZesCloudHomeMainIntegrate);
-  stroke-width: 2;
+  stroke-width: 1.8;
   opacity: 0;
   transition: opacity 0.4s ease, fill 0.4s ease;
 }
@@ -416,23 +375,87 @@
 }
 
 .wire-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .portPulse-ZesCloudHomeMainIntegrate {
-  animation: portPulse-ZesCloudHomeMainIntegrate 1.3s ease-out infinite;
+  animation: portPulse-ZesCloudHomeMainIntegrate 1.4s ease-out infinite;
 }
 
-/* ---------------------------------- core ---------------------------------- */
+.engine-ZesCloudHomeMainIntegrate {
+  position: absolute;
+  left: var(--x-ZesCloudHomeMainIntegrate);
+  top: var(--y-ZesCloudHomeMainIntegrate);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.45em 0.95em;
+  border: 1px solid rgba(86, 148, 255, 0.2);
+  border-radius: var(--zescloud-radius-pill, 999px);
+  background: rgba(6, 16, 30, 0.85);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-size: 1cqw;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--gray300-ZesCloudHomeMainIntegrate);
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(0.6em);
+  transition:
+    opacity 0.7s var(--ease-ZesCloudHomeMainIntegrate) 0.45s,
+    transform 0.7s var(--ease-ZesCloudHomeMainIntegrate) 0.45s,
+    border-color 0.5s ease;
+}
+
+.is-in-ZesCloudHomeMainIntegrate .engine-ZesCloudHomeMainIntegrate {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.engine-ZesCloudHomeMainIntegrate.is-live-ZesCloudHomeMainIntegrate {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.engineDot-ZesCloudHomeMainIntegrate {
+  flex: 0 0 auto;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--orange-ZesCloudHomeMainIntegrate);
+  animation: blink-ZesCloudHomeMainIntegrate 1s ease-in-out infinite;
+}
+
+.engine-ZesCloudHomeMainIntegrate.is-live-ZesCloudHomeMainIntegrate .engineDot-ZesCloudHomeMainIntegrate {
+  background: var(--green-ZesCloudHomeMainIntegrate);
+  animation: livePulse-ZesCloudHomeMainIntegrate 2s ease-out infinite;
+}
+
+.engineName-ZesCloudHomeMainIntegrate {
+  font-weight: var(--fw-semibold, 600);
+  color: var(--white-ZesCloudHomeMainIntegrate);
+}
+
+.engineSep-ZesCloudHomeMainIntegrate {
+  width: 1px;
+  height: 0.9em;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.engineValue-ZesCloudHomeMainIntegrate {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  animation: valueIn-ZesCloudHomeMainIntegrate 0.35s var(--ease-ZesCloudHomeMainIntegrate) both;
+}
+
 .core-ZesCloudHomeMainIntegrate {
   position: absolute;
   left: var(--x-ZesCloudHomeMainIntegrate);
   top: var(--y-ZesCloudHomeMainIntegrate);
   z-index: 3;
-  width: 14.6667cqw;
+  width: 13.3333cqw;
   aspect-ratio: 1;
-  font-size: 1.2cqw;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.6);
+  transform: translate(-50%, -50%) scale(0.7);
   transition:
-    opacity 0.8s var(--ease-ZesCloudHomeMainIntegrate) 0.25s,
-    transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s;
+    opacity 0.8s var(--ease-ZesCloudHomeMainIntegrate) 0.2s,
+    transform 1s cubic-bezier(0.34, 1.4, 0.64, 1) 0.2s;
 }
 
 .is-in-ZesCloudHomeMainIntegrate .core-ZesCloudHomeMainIntegrate {
@@ -441,151 +464,27 @@
 }
 
 .coreDisc-ZesCloudHomeMainIntegrate {
-  position: relative;
   display: grid;
   place-items: center;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 32%, rgba(47, 123, 255, 0.38), rgba(6, 18, 36, 0.96) 64%);
+  background: radial-gradient(circle at 50% 30%, #0e2852 0%, #061428 58%, #040d1b 100%);
   box-shadow:
-    inset 0 0 0 1px rgba(86, 148, 255, 0.25),
-    inset 0 -1.2em 2.4em rgba(0, 0, 0, 0.45),
-    0 1.6em 3.4em rgba(0, 0, 0, 0.55);
-  animation: coreFloat-ZesCloudHomeMainIntegrate 6s ease-in-out infinite;
+    inset 0 0 0 1px color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 50%, transparent),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 6px rgba(6, 16, 30, 0.7),
+    0 18px 40px rgba(0, 0, 0, 0.55);
+  transition: box-shadow 0.6s ease;
 }
 
-.coreDisc-ZesCloudHomeMainIntegrate::before {
-  content: '';
-  position: absolute;
-  inset: -22%;
-  z-index: -1;
-  border-radius: 50%;
-  /* background: radial-gradient(circle, rgba(47, 123, 255, 0.45) 0%, rgba(24, 72, 217, 0.12) 45%, transparent 70%); */
-  opacity: 0.45;
-  transition: opacity 1s ease;
+.coreLogo-ZesCloudHomeMainIntegrate {
+  display: block;
+  width: 58%;
+  height: auto;
+  user-select: none;
 }
 
-.is-online-ZesCloudHomeMainIntegrate .coreDisc-ZesCloudHomeMainIntegrate::before {
-  opacity: 1;
-  animation: coreGlow-ZesCloudHomeMainIntegrate 2.6s ease-in-out infinite;
-}
-
-.coreBorder-ZesCloudHomeMainIntegrate {
-  position: absolute;
-  inset: -2px;
-  padding: 2px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg,
-      transparent 0%,
-      transparent 38%,
-      var(--cyan-ZesCloudHomeMainIntegrate) 55%,
-      var(--blue-ZesCloudHomeMainIntegrate) 72%,
-      transparent 88%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  animation: spin-ZesCloudHomeMainIntegrate 5s linear infinite;
-}
-
-.coreInner-ZesCloudHomeMainIntegrate {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.28em;
-  text-align: center;
-}
-
-.coreKicker-ZesCloudHomeMainIntegrate {
-  font-size: 0.6em;
-  font-weight: var(--fw-medium, 500);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gray300-ZesCloudHomeMainIntegrate);
-}
-
-.coreWave-ZesCloudHomeMainIntegrate {
-  width: 4.4em;
-  height: 2.2em;
-  overflow: visible;
-}
-
-.coreWaveBase-ZesCloudHomeMainIntegrate,
-.coreWavePath-ZesCloudHomeMainIntegrate {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.coreWaveBase-ZesCloudHomeMainIntegrate {
-  stroke: rgba(34, 211, 238, 0.18);
-  stroke-width: 2.2;
-}
-
-.coreWavePath-ZesCloudHomeMainIntegrate {
-  stroke: var(--cyan-ZesCloudHomeMainIntegrate);
-  stroke-width: 2.6;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: waveDraw-ZesCloudHomeMainIntegrate 3.2s ease-in-out infinite;
-}
-
-.coreName-ZesCloudHomeMainIntegrate {
-  font-size: 1.8em;
-  font-weight: var(--fw-bold, 700);
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--white-ZesCloudHomeMainIntegrate);
-}
-
-.coreName-ZesCloudHomeMainIntegrate sup {
-  margin-left: 0.08em;
-  font-size: 0.42em;
-  vertical-align: top;
-  color: var(--cyan-ZesCloudHomeMainIntegrate);
-}
-
-.coreStatus-ZesCloudHomeMainIntegrate {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45em;
-  margin-top: 0.25em;
-  padding: 0.32em 0.75em;
-  border: 1px solid rgba(47, 123, 255, 0.35);
-  border-radius: var(--zescloud-radius-pill, 999px);
-  background: rgba(47, 123, 255, 0.12);
-  font-size: 0.74em;
-  font-weight: var(--fw-medium, 500);
-  white-space: nowrap;
-  color: var(--white-ZesCloudHomeMainIntegrate);
-  transition: background-color 0.5s ease, border-color 0.5s ease;
-}
-
-.is-online-ZesCloudHomeMainIntegrate .coreStatus-ZesCloudHomeMainIntegrate {
-  border-color: rgba(16, 185, 129, 0.38);
-  background: rgba(16, 185, 129, 0.12);
-}
-
-.coreStatusDot-ZesCloudHomeMainIntegrate {
-  width: 0.6em;
-  height: 0.6em;
-  border-radius: 50%;
-  background: var(--blue-ZesCloudHomeMainIntegrate);
-  animation: blink-ZesCloudHomeMainIntegrate 1.2s ease-in-out infinite;
-}
-
-.is-online-ZesCloudHomeMainIntegrate .coreStatusDot-ZesCloudHomeMainIntegrate {
-  background: var(--green-ZesCloudHomeMainIntegrate);
-}
-
-.coreStatusText-ZesCloudHomeMainIntegrate {
-  display: inline-block;
-  animation: statusIn-ZesCloudHomeMainIntegrate 0.45s var(--ease-ZesCloudHomeMainIntegrate) both;
-}
-
-/* ---------------------------------- cards --------------------------------- */
 .card-ZesCloudHomeMainIntegrate {
   --from-x-ZesCloudHomeMainIntegrate: 0;
   --from-y-ZesCloudHomeMainIntegrate: 0;
@@ -594,20 +493,20 @@
   left: var(--x-ZesCloudHomeMainIntegrate);
   top: var(--y-ZesCloudHomeMainIntegrate);
   z-index: 4;
-  width: 25cqw;
-  height: 8.6667cqw;
-  font-size: 1.2cqw;
+  width: 23.3333cqw;
+  height: 7.3333cqw;
+  font-size: 1.1cqw;
   outline: none;
   opacity: 0;
   transform: translate(-50%, -50%) translate(var(--from-x-ZesCloudHomeMainIntegrate), var(--from-y-ZesCloudHomeMainIntegrate));
   transition:
-    opacity 0.8s var(--ease-ZesCloudHomeMainIntegrate) var(--card-delay-ZesCloudHomeMainIntegrate, 0s),
-    transform 1s var(--ease-ZesCloudHomeMainIntegrate) var(--card-delay-ZesCloudHomeMainIntegrate, 0s);
+    opacity 0.7s var(--ease-ZesCloudHomeMainIntegrate) var(--card-delay-ZesCloudHomeMainIntegrate, 0s),
+    transform 0.9s var(--ease-ZesCloudHomeMainIntegrate) var(--card-delay-ZesCloudHomeMainIntegrate, 0s);
 }
 
-.side-left-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: -3cqw; }
-.side-right-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: 3cqw; }
-.side-bottom-ZesCloudHomeMainIntegrate { --from-y-ZesCloudHomeMainIntegrate: 3cqw; }
+.side-left-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: -2.5cqw; }
+.side-right-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: 2.5cqw; }
+.side-bottom-ZesCloudHomeMainIntegrate { --from-y-ZesCloudHomeMainIntegrate: 2.5cqw; }
 
 .is-in-ZesCloudHomeMainIntegrate .card-ZesCloudHomeMainIntegrate {
   opacity: 1;
@@ -619,46 +518,26 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 0.85em;
   width: 100%;
   height: 100%;
-  padding: 0 1.1em;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 26%, transparent);
-  border-radius: 1.1em;
-  background: linear-gradient(145deg,
-      color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 12%, rgba(8, 20, 38, 0.92)),
-      rgba(5, 14, 28, 0.94));
-  box-shadow:
-    0 1.2em 2.6em rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: border-color 0.45s ease, box-shadow 0.45s ease;
-}
-
-.cardInner-ZesCloudHomeMainIntegrate::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  display: none;
-  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.13) 50%, transparent 65%);
-  transform: translateX(-120%);
-}
-
-.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .cardInner-ZesCloudHomeMainIntegrate::before {
-  animation: sheenA-ZesCloudHomeMainIntegrate 1.1s ease 0.15s 1;
-}
-
-.card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .cardInner-ZesCloudHomeMainIntegrate::before {
-  animation: sheenB-ZesCloudHomeMainIntegrate 1.4s ease 1;
+  padding: 0 1em 0 0.75em;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 0.9em;
+  background: linear-gradient(180deg, rgba(13, 24, 42, 0.94), rgba(7, 15, 28, 0.96));
+  box-shadow: 0 0.9em 2em rgba(0, 0, 0, 0.4);
+  transition:
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s var(--ease-ZesCloudHomeMainIntegrate);
 }
 
 .card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .cardInner-ZesCloudHomeMainIntegrate {
-  border-color: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 75%, transparent);
+  border-color: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 55%, transparent);
   box-shadow:
-    0 1.2em 2.6em rgba(0, 0, 0, 0.45),
-    0 0 2.2em color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 32%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0.9em 2em rgba(0, 0, 0, 0.45),
+    0 0 0 3px color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 12%, transparent);
+  transform: translateY(-2px);
 }
 
 .card-ZesCloudHomeMainIntegrate:focus-visible .cardInner-ZesCloudHomeMainIntegrate {
@@ -668,17 +547,19 @@
 .cardPort-ZesCloudHomeMainIntegrate {
   position: absolute;
   z-index: 2;
+  box-sizing: border-box;
   width: 0.6em;
   height: 0.6em;
+  border: 2px solid var(--tone-ZesCloudHomeMainIntegrate);
   border-radius: 50%;
-  background: var(--tone-ZesCloudHomeMainIntegrate);
-  box-shadow: 0 0 0.9em var(--tone-ZesCloudHomeMainIntegrate);
-  opacity: 0.6;
-  transition: opacity 0.4s ease;
+  background: var(--bg-ZesCloudHomeMainIntegrate);
+  opacity: 0.5;
+  transition: opacity 0.4s ease, background-color 0.4s ease;
 }
 
 .card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .cardPort-ZesCloudHomeMainIntegrate {
   opacity: 1;
+  background: var(--tone-ZesCloudHomeMainIntegrate);
 }
 
 .side-left-ZesCloudHomeMainIntegrate .cardPort-ZesCloudHomeMainIntegrate {
@@ -699,53 +580,41 @@
   transform: translate(-50%, -50%);
 }
 
-.cardIcon-ZesCloudHomeMainIntegrate {
-  position: relative;
+.cardLogoWrap-ZesCloudHomeMainIntegrate {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 3.6em;
-  height: 3.6em;
-  border: 1px solid color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 38%, transparent);
-  border-radius: 0.9em;
-  background: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 14%, transparent);
-  color: var(--tone-ZesCloudHomeMainIntegrate);
-  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+  width: 4.6em;
+  height: 4.6em;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.75em;
+  background: rgba(255, 255, 255, 0.035);
+  transition: border-color 0.4s ease, background-color 0.4s ease;
 }
 
-.cardIcon-ZesCloudHomeMainIntegrate svg {
-  width: 1.65em;
-  height: 1.65em;
+.card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .cardLogoWrap-ZesCloudHomeMainIntegrate {
+  border-color: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 45%, transparent);
+  background: color-mix(in srgb, var(--tone-ZesCloudHomeMainIntegrate) 10%, transparent);
 }
 
-.cardIcon-ZesCloudHomeMainIntegrate::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  border: 1px solid var(--tone-ZesCloudHomeMainIntegrate);
-  opacity: 0;
-}
-
-.card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .cardIcon-ZesCloudHomeMainIntegrate {
-  border-color: var(--tone-ZesCloudHomeMainIntegrate);
-  background: var(--tone-ZesCloudHomeMainIntegrate);
-  color: #ffffff;
-}
-
-.card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .cardIcon-ZesCloudHomeMainIntegrate::after {
-  animation: iconPing-ZesCloudHomeMainIntegrate 1.3s ease-out infinite;
+.cardLogo-ZesCloudHomeMainIntegrate {
+  display: block;
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  user-select: none;
 }
 
 .cardBody-ZesCloudHomeMainIntegrate {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  gap: 0.26em;
+  gap: 0.2em;
   min-width: 0;
 }
 
 .cardName-ZesCloudHomeMainIntegrate {
-  font-size: 1.18em;
+  font-size: 1.05em;
   font-weight: var(--fw-semibold, 600);
   line-height: 1.15;
   color: var(--white-ZesCloudHomeMainIntegrate);
@@ -753,97 +622,69 @@
 
 .cardRole-ZesCloudHomeMainIntegrate {
   overflow: hidden;
-  font-size: 0.82em;
+  font-size: 0.78em;
   line-height: 1.25;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--gray300-ZesCloudHomeMainIntegrate);
 }
 
-.cardTag-ZesCloudHomeMainIntegrate {
-  display: grid;
-  margin-top: 0.18em;
-  font-size: 0.7em;
-  font-weight: var(--fw-medium, 500);
-  letter-spacing: 0.02em;
-}
-
-.tagSolo-ZesCloudHomeMainIntegrate,
-.tagIncluded-ZesCloudHomeMainIntegrate {
-  position: relative;
-  grid-area: 1 / 1;
-  display: inline-flex;
+.cardStatus-ZesCloudHomeMainIntegrate {
+  display: flex;
   align-items: center;
-  gap: 0.4em;
-  width: max-content;
-  padding: 0.3em 0.75em;
-  border-radius: var(--zescloud-radius-pill, 999px);
-  white-space: nowrap;
-  transition: opacity 0.45s ease, transform 0.45s var(--ease-ZesCloudHomeMainIntegrate);
+  gap: 0.45em;
+  margin-top: 0.3em;
+  font-size: 0.72em;
+  line-height: 1.2;
+  color: var(--gray500-ZesCloudHomeMainIntegrate);
 }
 
-.tagSolo-ZesCloudHomeMainIntegrate svg,
-.tagIncluded-ZesCloudHomeMainIntegrate svg {
-  width: 1.1em;
-  height: 1.1em;
+.statusDot-ZesCloudHomeMainIntegrate {
+  flex: 0 0 auto;
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: var(--orange-ZesCloudHomeMainIntegrate);
+  animation: blink-ZesCloudHomeMainIntegrate 1s ease-in-out infinite;
 }
 
-.tagSolo-ZesCloudHomeMainIntegrate {
-  border: 1px solid color-mix(in srgb, var(--red-ZesCloudHomeMainIntegrate) 32%, transparent);
-  background: color-mix(in srgb, var(--red-ZesCloudHomeMainIntegrate) 12%, transparent);
-  color: color-mix(in srgb, var(--red-ZesCloudHomeMainIntegrate) 70%, #ffffff);
+.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .statusDot-ZesCloudHomeMainIntegrate {
+  background: var(--green-ZesCloudHomeMainIntegrate);
+  animation: none;
 }
 
-.tagSolo-ZesCloudHomeMainIntegrate::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 0.6em;
-  right: 0.6em;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.35s ease;
+.card-ZesCloudHomeMainIntegrate.is-active-ZesCloudHomeMainIntegrate .statusDot-ZesCloudHomeMainIntegrate {
+  animation: livePulse-ZesCloudHomeMainIntegrate 1.6s ease-out infinite;
 }
 
-.tagIncluded-ZesCloudHomeMainIntegrate {
-  border: 1px solid color-mix(in srgb, var(--green-ZesCloudHomeMainIntegrate) 34%, transparent);
-  background: color-mix(in srgb, var(--green-ZesCloudHomeMainIntegrate) 13%, transparent);
-  color: color-mix(in srgb, var(--green-ZesCloudHomeMainIntegrate) 75%, #ffffff);
-  opacity: 0;
-  transform: translateY(70%);
+.statusText-ZesCloudHomeMainIntegrate {
+  transition: color 0.4s ease;
 }
 
-.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .tagSolo-ZesCloudHomeMainIntegrate::after {
-  transform: scaleX(1);
+.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .statusText-ZesCloudHomeMainIntegrate {
+  color: color-mix(in srgb, var(--green-ZesCloudHomeMainIntegrate) 70%, #ffffff);
 }
 
-.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .tagSolo-ZesCloudHomeMainIntegrate {
-  opacity: 0;
-  transform: translateY(-70%);
-  transition-delay: 0.3s;
+.cardMetric-ZesCloudHomeMainIntegrate {
+  display: inline-block;
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--gray300-ZesCloudHomeMainIntegrate);
+  animation: valueIn-ZesCloudHomeMainIntegrate 0.35s var(--ease-ZesCloudHomeMainIntegrate) both;
 }
 
-.card-ZesCloudHomeMainIntegrate.is-linked-ZesCloudHomeMainIntegrate .tagIncluded-ZesCloudHomeMainIntegrate {
-  opacity: 1;
-  transform: none;
-  transition-delay: 0.38s;
-}
-
-/* --------------------------------- summary -------------------------------- */
 .summary-ZesCloudHomeMainIntegrate {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: stretch;
-  gap: 1.25rem;
-  max-width: 980px;
-  margin: clamp(2.5rem, 4vw, 3.5rem) auto 0;
+  gap: 1rem;
+  max-width: 900px;
+  margin: clamp(1.5rem, 3vw, 2.25rem) auto 0;
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(18px);
   transition:
-    opacity 0.8s var(--ease-ZesCloudHomeMainIntegrate) 0.6s,
-    transform 0.8s var(--ease-ZesCloudHomeMainIntegrate) 0.6s;
+    opacity 0.7s var(--ease-ZesCloudHomeMainIntegrate) 0.5s,
+    transform 0.7s var(--ease-ZesCloudHomeMainIntegrate) 0.5s;
 }
 
 .is-in-ZesCloudHomeMainIntegrate .summary-ZesCloudHomeMainIntegrate {
@@ -852,21 +693,19 @@
 }
 
 .compare-ZesCloudHomeMainIntegrate {
-  position: relative;
-  overflow: hidden;
-  padding: 1.25rem 1.4rem;
-  border: 1px solid var(--line-ZesCloudHomeMainIntegrate);
-  border-radius: var(--zescloud-radius-md, 14px);
-  background: rgba(8, 20, 38, 0.6);
-  transition: border-color 0.6s ease, box-shadow 0.6s ease;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: var(--zescloud-radius-md, 12px);
+  background: rgba(8, 18, 34, 0.7);
+  transition: border-color 0.6s ease;
 }
 
 .compareLabel-ZesCloudHomeMainIntegrate {
   display: block;
-  margin-bottom: 0.9rem;
-  font-size: var(--font-size-xs, 0.75rem);
+  margin-bottom: 0.65rem;
+  font-size: 0.66rem;
   font-weight: var(--fw-medium, 500);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gray500-ZesCloudHomeMainIntegrate);
 }
@@ -874,7 +713,7 @@
 .compareList-ZesCloudHomeMainIntegrate {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.6rem 1rem;
+  gap: 0.45rem 0.9rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -883,8 +722,8 @@
 .compareItem-ZesCloudHomeMainIntegrate {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  font-size: var(--font-size-sm, 0.875rem);
+  gap: 0.5rem;
+  font-size: 0.8rem;
   line-height: 1.35;
   color: var(--gray300-ZesCloudHomeMainIntegrate);
 }
@@ -896,8 +735,8 @@
 .compareOld-ZesCloudHomeMainIntegrate .compareItem-ZesCloudHomeMainIntegrate::before {
   content: '';
   flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--red-ZesCloudHomeMainIntegrate);
   opacity: 0.8;
@@ -929,26 +768,12 @@
 }
 
 .compareNew-ZesCloudHomeMainIntegrate {
-  border-color: color-mix(in srgb, var(--blue-ZesCloudHomeMainIntegrate) 32%, transparent);
-  background: linear-gradient(145deg, rgba(31, 107, 255, 0.12), rgba(8, 20, 38, 0.72));
-}
-
-.compareNew-ZesCloudHomeMainIntegrate::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.1) 50%, transparent 65%);
-  transform: translateX(-120%);
+  border-color: color-mix(in srgb, var(--blue-ZesCloudHomeMainIntegrate) 28%, transparent);
+  background: linear-gradient(160deg, rgba(31, 107, 255, 0.1), rgba(8, 18, 34, 0.78));
 }
 
 .is-online-ZesCloudHomeMainIntegrate .compareNew-ZesCloudHomeMainIntegrate {
-  border-color: color-mix(in srgb, var(--blue-ZesCloudHomeMainIntegrate) 60%, transparent);
-  box-shadow: 0 0 2.4rem rgba(31, 107, 255, 0.18);
-}
-
-.is-online-ZesCloudHomeMainIntegrate .compareNew-ZesCloudHomeMainIntegrate::before {
-  animation: sheenA-ZesCloudHomeMainIntegrate 1.4s ease 0.3s 1;
+  border-color: color-mix(in srgb, var(--blue-ZesCloudHomeMainIntegrate) 55%, transparent);
 }
 
 .compareNew-ZesCloudHomeMainIntegrate .compareLabel-ZesCloudHomeMainIntegrate {
@@ -973,55 +798,54 @@
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
   background: color-mix(in srgb, var(--green-ZesCloudHomeMainIntegrate) 18%, transparent);
   color: var(--green-ZesCloudHomeMainIntegrate);
 }
 
 .compareCheck-ZesCloudHomeMainIntegrate svg {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
 }
 
 .compareArrow-ZesCloudHomeMainIntegrate {
   align-self: center;
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--line-ZesCloudHomeMainIntegrate);
   border-radius: 50%;
-  background: rgba(31, 107, 255, 0.1);
+  background: rgba(31, 107, 255, 0.08);
   color: var(--cyan-ZesCloudHomeMainIntegrate);
 }
 
 .compareArrow-ZesCloudHomeMainIntegrate svg {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
 }
 
 .is-online-ZesCloudHomeMainIntegrate .compareArrow-ZesCloudHomeMainIntegrate svg {
   animation: nudge-ZesCloudHomeMainIntegrate 1.6s ease-in-out infinite;
 }
 
-/* ----------------------------------- cta ---------------------------------- */
 .cta-ZesCloudHomeMainIntegrate {
   display: flex;
   justify-content: center;
-  margin-top: 2.25rem;
+  margin-top: 1.5rem;
 }
 
 .ctaBtn-ZesCloudHomeMainIntegrate {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
 }
 
 .ctaBtn-ZesCloudHomeMainIntegrate svg {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   transition: transform 0.3s ease;
 }
 
@@ -1029,54 +853,38 @@
   transform: translateX(4px);
 }
 
-/* -------------------------------- keyframes ------------------------------- */
-/* @keyframes glowBreath-ZesCloudHomeMainIntegrate {
-  0%, 100% { opacity: 0.75; }
-  50% { opacity: 1; }
-} */
+@keyframes driftA-ZesCloudHomeMainIntegrate {
+  0% { transform: translate3d(-3%, -2%, 0) scale(1); opacity: 0.85; }
+  100% { transform: translate3d(3%, 3%, 0) scale(1.08); opacity: 1; }
+}
+
+@keyframes driftB-ZesCloudHomeMainIntegrate {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(8vmax, 6vmax, 0); }
+}
+
+@keyframes driftC-ZesCloudHomeMainIntegrate {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-8vmax, -6vmax, 0); }
+}
 
 @keyframes dotPing-ZesCloudHomeMainIntegrate {
   0% { transform: scale(1); opacity: 0.7; }
   100% { transform: scale(3); opacity: 0; }
 }
 
-/* @keyframes shimmer-ZesCloudHomeMainIntegrate {
-  from { background-position: 200% 0; }
-  to { background-position: 0 0; }
-} */
-
 @keyframes spin-ZesCloudHomeMainIntegrate {
   to { transform: rotate(360deg); }
 }
 
 @keyframes ripple-ZesCloudHomeMainIntegrate {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(1.9); opacity: 0; }
-}
-
-@keyframes flow-ZesCloudHomeMainIntegrate {
-  to { stroke-dashoffset: -7; }
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.7); opacity: 0; }
 }
 
 @keyframes portPulse-ZesCloudHomeMainIntegrate {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(3.4); opacity: 0; }
-}
-
-@keyframes coreFloat-ZesCloudHomeMainIntegrate {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-0.35em); }
-}
-
-@keyframes coreGlow-ZesCloudHomeMainIntegrate {
-  0%, 100% { opacity: 0.75; }
-  50% { opacity: 1; }
-}
-
-@keyframes waveDraw-ZesCloudHomeMainIntegrate {
-  0% { stroke-dashoffset: 100; }
-  45%, 70% { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -100; }
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(3.2); opacity: 0; }
 }
 
 @keyframes blink-ZesCloudHomeMainIntegrate {
@@ -1084,24 +892,14 @@
   50% { opacity: 0.3; }
 }
 
-@keyframes statusIn-ZesCloudHomeMainIntegrate {
-  from { opacity: 0; transform: translateY(0.4em); }
+@keyframes livePulse-ZesCloudHomeMainIntegrate {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55); }
+  100% { box-shadow: 0 0 0 0.55em rgba(16, 185, 129, 0); }
+}
+
+@keyframes valueIn-ZesCloudHomeMainIntegrate {
+  from { opacity: 0; transform: translateY(0.35em); }
   to { opacity: 1; transform: none; }
-}
-
-@keyframes sheenA-ZesCloudHomeMainIntegrate {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
-}
-
-@keyframes sheenB-ZesCloudHomeMainIntegrate {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
-}
-
-@keyframes iconPing-ZesCloudHomeMainIntegrate {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.45); opacity: 0; }
 }
 
 @keyframes nudge-ZesCloudHomeMainIntegrate {
@@ -1109,20 +907,18 @@
   50% { transform: translateX(3px); }
 }
 
-/* pause everything while the section is off screen */
 .is-paused-ZesCloudHomeMainIntegrate *,
 .is-paused-ZesCloudHomeMainIntegrate *::before,
 .is-paused-ZesCloudHomeMainIntegrate *::after {
   animation-play-state: paused !important;
 }
 
-/* -------------------------------- responsive ------------------------------ */
 @media (max-width: 1024px) {
   .stage-ZesCloudHomeMainIntegrate {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    max-width: 720px;
+    gap: 0.75rem;
+    max-width: 680px;
     aspect-ratio: auto;
     container-type: normal;
   }
@@ -1131,16 +927,29 @@
     display: none;
   }
 
+  .engine-ZesCloudHomeMainIntegrate {
+    position: relative;
+    left: auto;
+    top: auto;
+    grid-column: 1 / -1;
+    justify-self: center;
+    font-size: 12px;
+    transform: translateY(8px);
+  }
+
+  .is-in-ZesCloudHomeMainIntegrate .engine-ZesCloudHomeMainIntegrate {
+    transform: none;
+  }
+
   .core-ZesCloudHomeMainIntegrate {
     position: relative;
     left: auto;
     top: auto;
     grid-column: 1 / -1;
     justify-self: center;
-    width: 210px;
-    margin-bottom: 1rem;
-    font-size: 15px;
-    transform: scale(0.6);
+    width: 140px;
+    margin: 0.25rem 0 0.75rem;
+    transform: scale(0.7);
   }
 
   .is-in-ZesCloudHomeMainIntegrate .core-ZesCloudHomeMainIntegrate {
@@ -1153,14 +962,14 @@
     top: auto;
     width: auto;
     height: auto;
-    font-size: 15px;
+    font-size: 14px;
     transform: translate(var(--from-x-ZesCloudHomeMainIntegrate), var(--from-y-ZesCloudHomeMainIntegrate));
   }
 
-  .side-left-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: -24px; }
-  .side-right-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: 24px; }
+  .side-left-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: -20px; }
+  .side-right-ZesCloudHomeMainIntegrate { --from-x-ZesCloudHomeMainIntegrate: 20px; }
   .side-bottom-ZesCloudHomeMainIntegrate {
-    --from-y-ZesCloudHomeMainIntegrate: 24px;
+    --from-y-ZesCloudHomeMainIntegrate: 20px;
     grid-column: 1 / -1;
   }
 
@@ -1170,8 +979,8 @@
 
   .cardInner-ZesCloudHomeMainIntegrate {
     height: auto;
-    min-height: 96px;
-    padding: 1rem 1.1rem;
+    min-height: 82px;
+    padding: 0.7rem 0.9rem 0.7rem 0.7rem;
   }
 
   .cardPort-ZesCloudHomeMainIntegrate {
@@ -1180,7 +989,7 @@
 
   .summary-ZesCloudHomeMainIntegrate {
     grid-template-columns: 1fr;
-    max-width: 720px;
+    max-width: 680px;
   }
 
   .compareArrow-ZesCloudHomeMainIntegrate {
@@ -1199,8 +1008,7 @@
   }
 
   .core-ZesCloudHomeMainIntegrate {
-    width: 190px;
-    font-size: 14px;
+    width: 120px;
   }
 
   .compareList-ZesCloudHomeMainIntegrate {
@@ -1208,11 +1016,10 @@
   }
 
   .eyebrow-ZesCloudHomeMainIntegrate {
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
   }
 }
 
-/* ------------------------------ reduced motion ---------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .section-ZesCloudHomeMainIntegrate *,
   .section-ZesCloudHomeMainIntegrate *::before,
@@ -1221,12 +1028,7 @@
     transition: none !important;
   }
 
-  .packets-ZesCloudHomeMainIntegrate,
-  .wireFlow-ZesCloudHomeMainIntegrate {
+  .packets-ZesCloudHomeMainIntegrate {
     display: none;
-  }
-
-  .coreWavePath-ZesCloudHomeMainIntegrate {
-    stroke-dashoffset: 0;
   }
 }

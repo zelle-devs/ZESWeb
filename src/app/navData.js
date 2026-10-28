@@ -31,6 +31,8 @@ export const companyLinks = [
 // Header navigation — sirf 4 links, koi dropdown nahi
 export const navLinks = [
   { href: '/platforms', label: 'Platforms' },
+  { href: '/zaura-ai-operations', label: 'Zaura ™' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/solutions', label: 'Solutions' },
   { href: '/integrations', label: 'Integrations' },
   { href: '/resources', label: 'Resources' },

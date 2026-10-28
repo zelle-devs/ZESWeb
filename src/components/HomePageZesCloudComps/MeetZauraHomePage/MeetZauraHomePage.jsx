@@ -1,13 +1,11 @@
 "use client";
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, MotionConfig } from 'framer-motion';
 import { Search, Lightbulb, TrendingUp, Settings, Zap } from 'lucide-react';
 import './MeetZauraHomePage.css';
+import BageZescloudAllComps from '@/components/BageZescloudAllComps/BageZescloudAllComps';
 
-/* The 5-step intelligence pipeline, left to right, each with its own
-   accent color matched to the screenshot (blue, purple, green,
-   orange, red). */
 const STEPS_MeetZauraHomePage = [
   {
     key: 'detect',
@@ -46,144 +44,244 @@ const STEPS_MeetZauraHomePage = [
   },
 ];
 
-/* Image: left to right entrance - starts off-screen to the left,
-   slides + fades in. */
+const EASE_MeetZauraHomePage = [0.22, 1, 0.36, 1];
+const STEP_START_MeetZauraHomePage = 2.1;
+const STEP_GAP_MeetZauraHomePage = 0.28;
+
+const sectionVariants = {
+  hidden: {},
+  visible: {},
+};
+
 const imageVariants = {
-  hidden: { opacity: 0, x: -90, scale: 1.04 },
+  hidden: {
+    opacity: 0,
+    x: -145,
+    y: 39,
+    scale: 1.12,
+    filter: 'blur(18px) brightness(1.8)',
+    WebkitMaskPosition: '100% 0%',
+    maskPosition: '100% 0%',
+  },
   visible: {
     opacity: 1,
     x: 0,
+    y: 0,
     scale: 1,
-    transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] },
+    filter: 'blur(0px) brightness(1)',
+    WebkitMaskPosition: '0% 100%',
+    maskPosition: '0% 100%',
+    transition: {
+      duration: 2.2,
+      ease: EASE_MeetZauraHomePage,
+      opacity: { duration: 0.9, ease: 'easeOut' },
+    },
   },
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
+const sweepVariants = {
+  hidden: { opacity: 0, backgroundPosition: '100% 100%' },
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.14, delayChildren: 0.2 },
+    opacity: [0, 1, 1, 0],
+    backgroundPosition: '0% 0%',
+    transition: { delay: 1.7, duration: 2.2, ease: 'easeInOut' },
   },
 };
 
-const textItemVariants = {
-  hidden: { opacity: 0, x: 24 },
+const overlineVariants = {
+  hidden: { opacity: 0, x: -24, filter: 'blur(6px)' },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    filter: 'blur(0px)',
+    transition: { delay: 0.7, duration: 1, ease: EASE_MeetZauraHomePage },
   },
 };
 
-const stepsListVariants = {
-  hidden: { opacity: 0 },
+const wordVariants = {
+  hidden: { opacity: 0, y: '60%', rotateX: -85, filter: 'blur(10px)' },
+  visible: (delay) => ({
+    opacity: 1,
+    y: '0%',
+    rotateX: 0,
+    filter: 'blur(0px)',
+    transition: { delay, duration: 1.2, ease: EASE_MeetZauraHomePage },
+  }),
+};
+
+const subheadingVariants = {
+  hidden: { opacity: 0, x: -20, clipPath: 'inset(0 100% 0 0)' },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.7 },
+    x: 0,
+    clipPath: 'inset(0 0% 0 0)',
+    transition: { delay: 1.45, duration: 1.2, ease: EASE_MeetZauraHomePage },
   },
 };
 
-const stepItemVariants = {
-  hidden: { opacity: 0, y: 24, scale: 0.85 },
+const descVariants = {
+  hidden: { opacity: 0, y: 20, filter: 'blur(6px)' },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    filter: 'blur(0px)',
+    transition: { delay: 1.75, duration: 1.1, ease: EASE_MeetZauraHomePage },
   },
+};
+
+const lineVariants = {
+  hidden: { scaleX: 0, opacity: 0 },
+  visible: {
+    scaleX: 1,
+    opacity: 1,
+    transition: { delay: 2, duration: 1.8, ease: EASE_MeetZauraHomePage },
+  },
+};
+
+const stepVariants = {
+  hidden: { opacity: 0, x: -56, filter: 'blur(8px)' },
+  visible: (delay) => ({
+    opacity: 1,
+    x: 0,
+    filter: 'blur(0px)',
+    transition: { delay, duration: 1, ease: EASE_MeetZauraHomePage },
+  }),
+};
+
+const iconVariants = {
+  hidden: { scale: 0, rotate: -120 },
+  visible: (delay) => ({
+    scale: 1,
+    rotate: 0,
+    transition: { delay: delay + 0.15, type: 'spring', stiffness: 170, damping: 18 },
+  }),
+};
+
+const stepTextVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (delay) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: delay + 0.3, duration: 0.7, ease: EASE_MeetZauraHomePage },
+  }),
 };
 
 function MeetZauraHomePage() {
   return (
-    <section className="section-MeetZauraHomePage zescloud-section">
-      {/* Ambient animated background glow */}
-      <div className="bgGlow-MeetZauraHomePage" aria-hidden="true" />
-      <div className="topFade-MeetZauraHomePage" aria-hidden="true" />
-      <div className="bottomFade-MeetZauraHomePage" aria-hidden="true" />
+    <MotionConfig reducedMotion="user">
+      <section className="section-MeetZauraHomePage zescloud-section">
+        <div className="bottomFade-MeetZauraHomePage" aria-hidden="true" />
 
-      <div className="grid-MeetZauraHomePage">
-
-        {/* ---------------- LEFT: Zaura portrait ---------------- */}
-        <motion.div
-          className="visual-MeetZauraHomePage"
-          variants={imageVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {/* Set the portrait image here, or define --meet-zaura-image on :root */}
-          <div className="visualImage-MeetZauraHomePage" aria-hidden="true" />
-          <div className="visualFadeRight-MeetZauraHomePage" aria-hidden="true" />
-          <div className="visualFadeBottom-MeetZauraHomePage" aria-hidden="true" />
-
-          {/* Drifting particle sparks over the portrait, echoing the
-              glowing neural-thread look of the artwork */}
-          <span className="spark-MeetZauraHomePage spark1-MeetZauraHomePage" aria-hidden="true" />
-          <span className="spark-MeetZauraHomePage spark2-MeetZauraHomePage" aria-hidden="true" />
-          <span className="spark-MeetZauraHomePage spark3-MeetZauraHomePage" aria-hidden="true" />
-          <span className="spark-MeetZauraHomePage spark4-MeetZauraHomePage" aria-hidden="true" />
-        </motion.div>
-
-        {/* ---------------- RIGHT: content ---------------- */}
-        <motion.div
-          className="content-MeetZauraHomePage"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          <motion.span variants={textItemVariants} className="overline-MeetZauraHomePage">
-            ZAURA™
-          </motion.span>
-
-          <motion.h2 variants={textItemVariants} className="heading-MeetZauraHomePage">
-            MEET <span className="highlight-MeetZauraHomePage">ZAURA™</span>
-          </motion.h2>
-
-          <motion.p variants={textItemVariants} className="subheading-MeetZauraHomePage">
-            THE INTELLIGENCE BEHIND ZESCLOUD.
-          </motion.p>
-
-          <motion.p variants={textItemVariants} className="desc-MeetZauraHomePage">
-            Zaura turns thousands of operational signals into insights your team can actually use.
-          </motion.p>
-
-          {/* ---------------- STEP PIPELINE ---------------- */}
+        <div className="grid-MeetZauraHomePage">
           <motion.div
-            className="steps-MeetZauraHomePage"
-            variants={stepsListVariants}
+            className="visual-MeetZauraHomePage"
+            variants={imageVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, amount: 0.3 }}
           >
-            {/* Connecting line behind the icons, with a traveling light
-                pulse that runs the length of the pipeline on a loop */}
-            <span className="stepsLine-MeetZauraHomePage" aria-hidden="true">
-              <span className="stepsLineTravel-MeetZauraHomePage" />
-            </span>
+            <div className="visualImage-MeetZauraHomePage" aria-hidden="true">
+              <motion.span
+                className="visualSweep-MeetZauraHomePage"
+                variants={sweepVariants}
+              />
+            </div>
+            <div className="visualFadeRight-MeetZauraHomePage" aria-hidden="true" />
 
-            {STEPS_MeetZauraHomePage.map((s) => {
-              const Icon = s.icon;
-              return (
-                <motion.div
-                  key={s.key}
-                  className="step-MeetZauraHomePage"
-                  variants={stepItemVariants}
-                  style={{ '--accent-MeetZauraHomePage': s.accent }}
-                >
-                  <span className="stepIcon-MeetZauraHomePage" aria-hidden="true">
-                    <span className="stepIconPulse-MeetZauraHomePage" />
-                    <Icon size={18} />
-                  </span>
-                  <span className="stepTitle-MeetZauraHomePage">{s.title}</span>
-                  <span className="stepDesc-MeetZauraHomePage">{s.desc}</span>
-                </motion.div>
-              );
-            })}
+            <span className="spark-MeetZauraHomePage spark1-MeetZauraHomePage" aria-hidden="true" />
+            <span className="spark-MeetZauraHomePage spark2-MeetZauraHomePage" aria-hidden="true" />
+            <span className="spark-MeetZauraHomePage spark3-MeetZauraHomePage" aria-hidden="true" />
+            <span className="spark-MeetZauraHomePage spark4-MeetZauraHomePage" aria-hidden="true" />
           </motion.div>
-        </motion.div>
-      </div>
-    </section>
+
+          <motion.div
+            className="content-MeetZauraHomePage"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.span variants={overlineVariants} className="overline-MeetZauraHomePage">
+              <BageZescloudAllComps badge='ZAURA™'/>
+            </motion.span>
+
+            <h2 className="heading-MeetZauraHomePage">
+              <motion.span
+                className="headingWord-MeetZauraHomePage"
+                variants={wordVariants}
+                custom={0.95}
+              >
+                MEET
+              </motion.span>{' '}
+              <motion.span
+                className="headingWord-MeetZauraHomePage"
+                variants={wordVariants}
+                custom={1.15}
+              >
+                <span className="highlight-MeetZauraHomePage">ZAURA™</span>
+              </motion.span>
+            </h2>
+
+            <motion.p variants={subheadingVariants} className="subheading-MeetZauraHomePage">
+              THE INTELLIGENCE BEHIND ZESCLOUD.
+            </motion.p>
+
+            <motion.p variants={descVariants} className="desc-MeetZauraHomePage">
+              Zaura turns thousands of operational signals into insights your team can actually use.
+            </motion.p>
+
+            <div className="steps-MeetZauraHomePage">
+              <motion.span
+                className="stepsLine-MeetZauraHomePage"
+                variants={lineVariants}
+                aria-hidden="true"
+              >
+                <span className="stepsLineTravel-MeetZauraHomePage" />
+              </motion.span>
+
+              {STEPS_MeetZauraHomePage.map((s, i) => {
+                const Icon = s.icon;
+                const delay = STEP_START_MeetZauraHomePage + i * STEP_GAP_MeetZauraHomePage;
+                return (
+                  <motion.div
+                    key={s.key}
+                    className="step-MeetZauraHomePage"
+                    variants={stepVariants}
+                    custom={delay}
+                    style={{ '--accent-MeetZauraHomePage': s.accent }}
+                  >
+                    <motion.span
+                      className="stepIconWrap-MeetZauraHomePage"
+                      variants={iconVariants}
+                      custom={delay}
+                    >
+                      <span className="stepIcon-MeetZauraHomePage" aria-hidden="true">
+                        <span className="stepIconPulse-MeetZauraHomePage" />
+                        <Icon size={18} />
+                      </span>
+                    </motion.span>
+                    <motion.span
+                      className="stepTitle-MeetZauraHomePage"
+                      variants={stepTextVariants}
+                      custom={delay}
+                    >
+                      {s.title}
+                    </motion.span>
+                    <motion.span
+                      className="stepDesc-MeetZauraHomePage"
+                      variants={stepTextVariants}
+                      custom={delay + 0.1}
+                    >
+                      {s.desc}
+                    </motion.span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </MotionConfig>
   );
 }
 
