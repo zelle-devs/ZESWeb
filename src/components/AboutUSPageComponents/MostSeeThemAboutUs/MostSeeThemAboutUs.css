@@ -1,0 +1,707 @@
+/* =====================================================================
+   AboutPageMainSlider — "02. Why We Exist"
+   Every class ends with  -MostSeeThemAboutUs  so nothing merges
+   with other components. Colours come from the global :root variables.
+
+   ZOOM-LOCK: the artwork, cards, lines and glows live on one "canvas"
+   with the exact ratio of the image (1922 x 818). Positions use % and
+   sizes use cqw (container width), never px or rem, so browser zoom
+   in / zoom out scales the whole composition together — nothing slides.
+   ===================================================================== */
+
+.section-MostSeeThemAboutUs {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--zescloud-bg-base);
+}
+
+/* Frame = the coordinate system for the whole component */
+.frame-MostSeeThemAboutUs {
+  --win-x: 1;        /* share of the image WIDTH that is visible        */
+  --win-top: 14;     /* % of the image HEIGHT cropped away at the top   */
+  --win-h: 0.58;     /* share of the image HEIGHT that is visible       */
+  --pointer-x: 0;
+  --pointer-y: 0;
+  --ease-out-MostSeeThemAboutUs: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  width: 100%;
+  max-width: none; /* ZOOM-LOCK: no px cap, the composition always fills the width */
+  margin: 0 auto;
+  container-type: inline-size;
+}
+
+/* ---------------------------------------------------------------------
+   Visual window + canvas
+--------------------------------------------------------------------- */
+.visual-MostSeeThemAboutUs {
+  position: relative;
+  width: 100%;
+  height: calc(100cqw / var(--win-x) * 818 / 1922 * var(--win-h));
+  overflow: hidden;
+}
+
+.canvas-MostSeeThemAboutUs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% / var(--win-x));
+  aspect-ratio: 1922 / 818;
+  transform: translate3d(0, calc(var(--win-top) * -1%), 0);
+  container-type: inline-size;
+}
+
+.bg-image-MostSeeThemAboutUs {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---------------------------------------------------------------------
+   Light sweep across the city
+--------------------------------------------------------------------- */
+.sweep-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sweep-MostSeeThemAboutUs::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 18%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(86, 180, 255, 0.06) 40%,
+    rgba(86, 180, 255, 0.13) 50%,
+    rgba(86, 180, 255, 0.06) 60%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  transform: translate3d(-120%, 0, 0) skewX(-18deg);
+  animation: sweep-MostSeeThemAboutUs 9s ease-in-out 1.6s infinite;
+}
+
+/* @keyframes sweep-MostSeeThemAboutUs {
+  0% {
+    transform: translate3d(-120%, 0, 0) skewX(-18deg);
+  }
+  45%,
+  100% {
+    transform: translate3d(380%, 0, 0) skewX(-18deg);
+  }
+} */
+
+/* ---------------------------------------------------------------------
+   Vertical data beams
+--------------------------------------------------------------------- */
+.beams-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.beam-MostSeeThemAboutUs {
+  position: absolute;
+  left: var(--beam-x);
+  top: var(--beam-top);
+  width: 0.12cqw;
+  min-width: 1px;
+  height: var(--beam-height);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(86, 180, 255, 0.16) 40%,
+    rgba(86, 180, 255, 0.04) 100%
+  );
+  opacity: 0;
+  transition: opacity 1.2s ease 0.6s;
+}
+
+.beam-MostSeeThemAboutUs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 28%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(150, 210, 255, 0.95), transparent);
+  box-shadow: 0 0 0.6cqw rgba(86, 180, 255, 0.9);
+  animation: beam-rise-MostSeeThemAboutUs var(--beam-duration) linear var(--beam-delay) infinite;
+}
+
+.is-visible-MostSeeThemAboutUs .beam-MostSeeThemAboutUs {
+  opacity: 1;
+}
+
+@keyframes beam-rise-MostSeeThemAboutUs {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, -457%, 0);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Server tower glow + signal rings
+--------------------------------------------------------------------- */
+.tower-glow-MostSeeThemAboutUs {
+  position: absolute;
+  left: 23.67%;
+  top: 30%;
+  z-index: 1;
+  width: 16cqw;
+  aspect-ratio: 2.2 / 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(86, 180, 255, 0.45) 0%,
+    rgba(57, 137, 226, 0.18) 45%,
+    transparent 75%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: tower-pulse-MostSeeThemAboutUs 3.6s ease-in-out infinite;
+}
+
+.tower-ring-MostSeeThemAboutUs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  aspect-ratio: 2.2 / 1;
+  border: 1px solid rgba(86, 180, 255, 0.55);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
+  animation: tower-ring-MostSeeThemAboutUs 3.6s ease-out infinite;
+}
+
+.tower-ring-late-MostSeeThemAboutUs {
+  animation-delay: 1.8s;
+}
+
+@keyframes tower-pulse-MostSeeThemAboutUs {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+/* @keyframes tower-ring-MostSeeThemAboutUs {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
+} */
+
+/* ---------------------------------------------------------------------
+   Connection lines (SVG uses the same 1922 x 818 coordinates)
+--------------------------------------------------------------------- */
+.links-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease 0.9s;
+}
+
+.is-visible-MostSeeThemAboutUs .links-MostSeeThemAboutUs {
+  opacity: 1;
+}
+
+.link-base-MostSeeThemAboutUs {
+  fill: none;
+  stroke: rgba(86, 180, 255, 0.22);
+  stroke-width: 1.4;
+}
+
+.link-flow-MostSeeThemAboutUs {
+  fill: none;
+  stroke: rgba(120, 195, 255, 0.75);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 6 14;
+  filter: drop-shadow(0 0 3px rgba(86, 180, 255, 0.8));
+  animation: link-flow-MostSeeThemAboutUs 2.4s linear infinite;
+}
+
+.link-pulse-MostSeeThemAboutUs {
+  fill: #a8d8ff;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(86, 180, 255, 1));
+}
+
+@keyframes link-flow-MostSeeThemAboutUs {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Floating particles
+--------------------------------------------------------------------- */
+.particles-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.particle-MostSeeThemAboutUs {
+  position: absolute;
+  left: var(--particle-x);
+  top: var(--particle-y);
+  width: var(--particle-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(150, 210, 255, 0.9);
+  box-shadow: 0 0 0.5cqw rgba(86, 180, 255, 0.9);
+  opacity: 0;
+  animation: particle-rise-MostSeeThemAboutUs var(--particle-duration) ease-in-out var(--particle-delay) infinite;
+}
+
+@keyframes particle-rise-MostSeeThemAboutUs {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1cqw, -9cqw, 0) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Glass system cards
+   anchor   -> position + entrance
+   parallax -> mouse movement
+   float    -> idle float loop
+   card     -> 3D tilt, glass look, hover
+--------------------------------------------------------------------- */
+.cards-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-anchor-MostSeeThemAboutUs {
+  position: absolute;
+  left: var(--card-x);
+  top: var(--card-y);
+  width: var(--card-width);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  scale: 0.82;
+  filter: blur(0.6cqw);
+  transition:
+    opacity 0.9s var(--ease-out-MostSeeThemAboutUs) var(--card-delay),
+    scale 1s var(--ease-out-MostSeeThemAboutUs) var(--card-delay),
+    filter 0.9s ease var(--card-delay);
+}
+
+.is-visible-MostSeeThemAboutUs .card-anchor-MostSeeThemAboutUs {
+  opacity: 1;
+  scale: 1;
+  filter: none;
+}
+
+.card-parallax-MostSeeThemAboutUs {
+  transform: translate3d(
+    calc(var(--pointer-x) * var(--card-depth) * 0.5cqw),
+    calc(var(--pointer-y) * var(--card-depth) * 0.5cqw),
+    0
+  );
+  transition: transform 0.8s var(--ease-out-MostSeeThemAboutUs);
+}
+
+.card-float-MostSeeThemAboutUs {
+  animation: card-float-MostSeeThemAboutUs var(--card-float) ease-in-out infinite alternate;
+  animation-delay: calc(var(--card-delay) * -4);
+}
+
+@keyframes card-float-MostSeeThemAboutUs {
+  0% {
+    transform: translate3d(0, -0.35cqw, 0);
+  }
+  100% {
+    transform: translate3d(0, 0.35cqw, 0);
+  }
+}
+
+.card-MostSeeThemAboutUs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45cqw;
+  width: 100%;
+  min-height: 5.2cqw;
+  padding: 0.9cqw 1cqw;
+  overflow: hidden;
+  border: 1px solid rgba(120, 185, 255, 0.38);
+  border-radius: 0.75cqw;
+  background: linear-gradient(
+    150deg,
+    rgba(86, 180, 255, 0.16) 0%,
+    rgba(30, 58, 95, 0.42) 38%,
+    rgba(5, 16, 31, 0.62) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 1.2cqw rgba(57, 137, 226, 0.18),
+    0 1.2cqw 2.4cqw rgba(0, 0, 0, 0.45),
+    0 0 1.4cqw rgba(57, 137, 226, 0.18);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  backdrop-filter: blur(6px) saturate(140%);
+  color: var(--zescloud-text-white);
+  transform: perspective(60cqw) rotateX(12deg) rotateY(-14deg) rotateZ(var(--card-rotate));
+  transform-origin: center;
+  transition:
+    transform 0.5s var(--ease-out-MostSeeThemAboutUs),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* thin bright top edge */
+.card-MostSeeThemAboutUs::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(150, 210, 255, 0.9), transparent);
+  pointer-events: none;
+}
+
+.card-shine-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 48%, transparent 62%);
+  transform: translate3d(-120%, 0, 0);
+  pointer-events: none;
+  animation: card-shine-MostSeeThemAboutUs 7s ease-in-out infinite;
+  animation-delay: calc(var(--card-delay) * 3 + 2s);
+}
+
+@keyframes card-shine-MostSeeThemAboutUs {
+  0% {
+    transform: translate3d(-120%, 0, 0);
+  }
+  30%,
+  100% {
+    transform: translate3d(120%, 0, 0);
+  }
+}
+
+.card-icon-MostSeeThemAboutUs {
+  position: relative;
+  display: block;
+  width: 1.7cqw;
+  aspect-ratio: 1;
+  color: #8fcaff;
+  filter: drop-shadow(0 0 0.4cqw rgba(86, 180, 255, 0.7));
+}
+
+.card-label-MostSeeThemAboutUs {
+  position: relative;
+  font-family: var(--zescloud-font-family);
+  font-size: 1.3cqw;
+  font-weight: var(--fw-semibold);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: var(--zescloud-text-white);
+  text-shadow: 0 0 0.8cqw rgba(86, 180, 255, 0.45);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-MostSeeThemAboutUs:hover {
+    border-color: rgba(140, 205, 255, 0.8);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 0 1.6cqw rgba(57, 137, 226, 0.3),
+      0 1.6cqw 3cqw rgba(0, 0, 0, 0.5),
+      0 0 2.4cqw rgba(86, 180, 255, 0.45);
+    transform: perspective(60cqw) rotateX(4deg) rotateY(-6deg) rotateZ(var(--card-rotate)) translate3d(0, -0.5cqw, 0);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Shade over the visual (edge fades + darker right side for the text)
+--------------------------------------------------------------------- */
+.shade-MostSeeThemAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--zescloud-bg-base) 0%, transparent 6%, transparent 94%, var(--zescloud-bg-base) 100%),
+    linear-gradient(90deg, transparent 52%, rgba(2, 10, 19, 0.35) 72%, rgba(2, 10, 19, 0.6) 100%);
+}
+
+/* ---------------------------------------------------------------------
+   Text content (desktop: sits on the dark right side of the image)
+--------------------------------------------------------------------- */
+.content-MostSeeThemAboutUs {
+  position: absolute;
+  top: 47%;
+  left: 60%;
+  z-index: 6;
+  width: 36%;
+  transform: translateY(-50%);
+}
+
+.eyebrow-MostSeeThemAboutUs {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0 0 0.9cqw;
+  font-family: var(--zescloud-font-family);
+  font-size: 0.7cqw; /* ZOOM-LOCK: no px floor, scales with the composition */
+  font-weight: var(--fw-semibold);
+  line-height: 1.4;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-100);
+}
+
+.eyebrow-number-MostSeeThemAboutUs {
+  color: var(--zescloud-text-gray-100);
+}
+
+.title-MostSeeThemAboutUs {
+  margin: 0 0 1.35cqw;
+  font-family: var(--zescloud-heading-font);
+  font-size: 2.25cqw;
+  font-weight: var(--fw-bold);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-MostSeeThemAboutUs {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.title-line-text-MostSeeThemAboutUs {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1s var(--ease-out-MostSeeThemAboutUs);
+  transition-delay: calc(0.25s + var(--reveal-order) * 0.12s);
+}
+
+.is-visible-MostSeeThemAboutUs .title-line-text-MostSeeThemAboutUs {
+  transform: translate3d(0, 0, 0);
+}
+
+.title-accent-MostSeeThemAboutUs {
+  color: var(--zescloud-accent-cyan);
+  background: linear-gradient(
+    90deg,
+    var(--zescloud-primary) 0%,
+    var(--zescloud-accent-cyan) 30%,
+    #2e8bef 60%,
+    var(--zescloud-accent-cyan) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: accent-shimmer-MostSeeThemAboutUs 6s linear infinite;
+}
+
+@keyframes accent-shimmer-MostSeeThemAboutUs {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 220% 50%;
+  }
+}
+
+.text-MostSeeThemAboutUs {
+  max-width: 30cqw;
+  margin: 0 0 0.9cqw;
+  font-size: 1.02cqw;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.tagline-MostSeeThemAboutUs {
+  margin: 0;
+  font-size: 1.04cqw;
+  font-weight: var(--fw-semibold);
+  line-height: 1.5;
+  color: var(--zescloud-accent-cyan);
+  text-shadow: 0 0 1.2cqw rgba(86, 180, 255, 0.35);
+}
+
+/* entrance for eyebrow / paragraphs / tagline */
+.reveal-MostSeeThemAboutUs {
+  opacity: 0;
+  transform: translate3d(0, 1.4cqw, 0);
+  transition:
+    opacity 0.9s var(--ease-out-MostSeeThemAboutUs),
+    transform 0.9s var(--ease-out-MostSeeThemAboutUs);
+  transition-delay: calc(0.25s + var(--reveal-order) * 0.12s);
+}
+
+.is-visible-MostSeeThemAboutUs .reveal-MostSeeThemAboutUs {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ---------------------------------------------------------------------
+   Tablet & mobile: image (tower + cards) on top, text below
+--------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+  .frame-MostSeeThemAboutUs {
+    --win-x: 0.56;
+  }
+
+  .shade-MostSeeThemAboutUs {
+    background: linear-gradient(
+      180deg,
+      var(--zescloud-bg-base) 0%,
+      transparent 8%,
+      transparent 90%,
+      var(--zescloud-bg-base) 100%
+    );
+  }
+
+  .content-MostSeeThemAboutUs {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0.5rem var(--zescloud-padding-x) 3.5rem;
+    transform: none;
+  }
+
+  .eyebrow-MostSeeThemAboutUs {
+    margin-bottom: 0.9rem;
+    font-size: 0.72rem;
+  }
+
+  .title-MostSeeThemAboutUs {
+    margin-bottom: 1.1rem;
+    font-size: clamp(1.75rem, 4.6vw, 2.5rem);
+  }
+
+  .text-MostSeeThemAboutUs {
+    max-width: none;
+    margin-bottom: 0.9rem;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+  }
+
+  .tagline-MostSeeThemAboutUs {
+    font-size: clamp(0.98rem, 2.1vw, 1.1rem);
+  }
+
+  .reveal-MostSeeThemAboutUs {
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+@media (max-width: 640px) {
+  .frame-MostSeeThemAboutUs {
+    --win-x: 0.5;
+    --win-top: 13;
+    --win-h: 0.62;
+  }
+
+  .content-MostSeeThemAboutUs {
+    padding: 0.25rem 1.25rem 3rem;
+  }
+
+  .title-MostSeeThemAboutUs {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Reduced motion: show the final state, no movement
+--------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .section-MostSeeThemAboutUs *,
+  .section-MostSeeThemAboutUs *::before,
+  .section-MostSeeThemAboutUs *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .card-anchor-MostSeeThemAboutUs,
+  .reveal-MostSeeThemAboutUs,
+  .beam-MostSeeThemAboutUs,
+  .links-MostSeeThemAboutUs {
+    opacity: 1;
+  }
+
+  .card-anchor-MostSeeThemAboutUs {
+    scale: 1;
+    filter: none;
+  }
+
+  .reveal-MostSeeThemAboutUs,
+  .title-line-text-MostSeeThemAboutUs {
+    transform: none;
+  }
+
+  .link-pulse-MostSeeThemAboutUs,
+  .particles-MostSeeThemAboutUs,
+  .sweep-MostSeeThemAboutUs,
+  .beam-MostSeeThemAboutUs::after {
+    display: none;
+  }
+}

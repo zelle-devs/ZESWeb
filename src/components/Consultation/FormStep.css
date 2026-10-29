@@ -1,0 +1,584 @@
+/* ============================================
+   FormStep.css
+   ZesCloud Theme - Modern Booking System
+   All colors mapped to global :root tokens
+   ============================================ */
+
+.split-layout-form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: auto !important;
+}
+
+/* ==================== FORM CONTAINER LEFT ==================== */
+.form-container-left {
+  flex: 0 0 60%;
+  min-width: 0;
+}
+
+.form-card {
+  background: linear-gradient(145deg, var(--zescloud-bg-surface), var(--zescloud-bg-surface-hover));
+  padding: 24px;
+  border-radius: var(--zescloud-radius-lg);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px color-mix(in srgb, var(--zescloud-primary) 8%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--zescloud-text-white) 5%, transparent);
+  height: 100%;
+}
+
+/* ==================== SUMMARY CONTAINER RIGHT ==================== */
+.summary-container-right {
+  flex: 0 0 25%;
+  background: linear-gradient(145deg, var(--zescloud-bg-surface), var(--zescloud-bg-surface-hover));
+  padding: 20px 16px;
+  border-radius: var(--zescloud-radius-lg);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px color-mix(in srgb, var(--zescloud-primary) 8%, transparent);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ==================== TITLES ==================== */
+.step-title {
+  font-size: 20px !important;
+  color: var(--zescloud-text-white);
+  margin-bottom: 6px;
+  line-height: 1.2;
+  font-family: var(--zescloud-heading-font);
+  font-weight: var(--fw-semibold);
+}
+
+.form-subtitle {
+  color: var(--zescloud-text-gray-300);
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  font-family: var(--zescloud-font-family);
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-primary);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  margin-top: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  font-family: var(--zescloud-font-family);
+}
+
+.section-label:first-of-type {
+  margin-top: 0;
+}
+
+.side-label {
+  font-size: 18px;
+  color: var(--zescloud-text-white);
+  margin-bottom: 12px;
+  text-align: left;
+  font-weight: var(--fw-semibold);
+  font-family: var(--zescloud-heading-font);
+}
+
+/* ==================== FORM GRID SYSTEM ==================== */
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 10px;
+}
+
+/* ==================== INPUT GROUP ==================== */
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-primary);
+  margin-left: 4px;
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--zescloud-font-family);
+  letter-spacing: 0.5px;
+}
+
+.required-star {
+  color: var(--zescloud-primary);
+  font-size: 12px;
+  margin-left: 3px;
+  font-weight: var(--fw-bold);
+}
+
+/* ==================== INPUTS ==================== */
+.neu-input {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid color-mix(in srgb, var(--zescloud-text-white) 15%, transparent);
+  padding: 10px 12px;
+  border-radius: var(--zescloud-radius-md);
+  background: color-mix(in srgb, var(--zescloud-text-white) 5%, transparent);
+  font-size: 14px;
+  width: 100%;
+  height: 34px;
+  font-family: var(--zescloud-font-family);
+  color: var(--zescloud-text-white);
+  outline: none;
+  transition: all var(--transition-base);
+  box-sizing: border-box;
+}
+
+.neu-input::placeholder {
+  color: var(--zescloud-text-gray-300);
+  opacity: 0.6;
+}
+
+.neu-input:focus {
+  border-color: var(--zescloud-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--zescloud-text-white) 8%, transparent);
+}
+
+.neu-input:focus::placeholder {
+  opacity: 0;
+}
+
+textarea.neu-input {
+  resize: vertical;
+  min-height: 50px;
+}
+
+/* ==================== CUSTOM SELECT DROPDOWN ==================== */
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 12px;
+  padding-right: 28px;
+  position: relative;
+  margin-top: 5px !important;
+}
+
+.custom-trigger span {
+  color: var(--zescloud-text-white);
+  font-weight: var(--fw-medium);
+  font-size: 14px;
+  font-family: var(--zescloud-font-family);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 4px;
+}
+
+.form-chevron {
+  position: absolute;
+  right: 10px;
+  /* transform: translateY(-50%); */
+  pointer-events: none;
+  transition: 0.2s;
+  color: var(--zescloud-primary);
+  display: flex;
+  align-items: center;
+  transition: transform var(--transition-base);
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: 0.2s;
+}
+
+.neu-dropdown-list {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    145deg,
+    var(--zescloud-bg-surface),
+    var(--zescloud-bg-surface-hover)
+  );
+  border: 1px solid color-mix(
+    in srgb,
+    var(--zescloud-primary) 20%,
+    transparent
+  );
+  border-radius: var(--zescloud-radius-md);
+  padding: 5px;
+  z-index: 1000;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px color-mix(
+      in srgb,
+      var(--zescloud-primary) 10%,
+      transparent
+    );
+  max-height: 160px;
+  overflow-y: auto;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--zescloud-primary) transparent;
+}
+
+/* Chrome, Edge, Safari */
+.neu-dropdown-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.neu-dropdown-list::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0;
+}
+
+.neu-dropdown-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--zescloud-gradient-start),
+    var(--zescloud-gradient-end)
+  );
+  border-radius: 10px;
+  box-shadow: 0 0 8px color-mix(
+    in srgb,
+    var(--zescloud-primary) 35%,
+    transparent
+  );
+}
+
+.neu-dropdown-list::-webkit-scrollbar-thumb:hover {
+  background: var(--zescloud-primary);
+  box-shadow: 0 0 12px color-mix(
+    in srgb,
+    var(--zescloud-primary) 50%,
+    transparent
+  );
+}
+
+.neu-option {
+  padding: 8px 10px;
+  border-radius: var(--zescloud-radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  font-family: var(--zescloud-font-family);
+  color: var(--zescloud-text-gray-300);
+  transition: all var(--transition-base);
+  line-height: 1.2;
+}
+
+.neu-option:hover {
+  background: color-mix(in srgb, var(--zescloud-primary) 10%, transparent);
+  color: var(--zescloud-primary);
+}
+
+/* ==================== MULTI-SELECT CHIPS ==================== */
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px !important;
+}
+
+.chip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  border-radius: var(--zescloud-radius-pill);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--zescloud-text-white) 3%, transparent);
+  font-size: 12px;
+  font-family: var(--zescloud-font-family);
+  color: var(--zescloud-text-gray-300);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.chip-item:hover {
+  border-color: color-mix(in srgb, var(--zescloud-primary) 40%, transparent);
+  color: var(--zescloud-primary);
+  background: color-mix(in srgb, var(--zescloud-primary) 5%, transparent);
+}
+
+.chip-selected {
+  background: var(--zescloud-btn-gradient);
+  color: var(--zescloud-text-white);
+  border-color: var(--zescloud-primary);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--zescloud-primary) 30%, transparent);
+  font-weight: var(--fw-semibold);
+}
+
+.chip-selected:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  color: var(--zescloud-text-white);
+}
+
+.chip-check {
+  flex-shrink: 0;
+}
+
+/* ==================== RADIO GROUP ==================== */
+.radio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--zescloud-radius-md);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 15%, transparent);
+  background: color-mix(in srgb, var(--zescloud-text-white) 3%, transparent);
+  font-size: 12px;
+  font-family: var(--zescloud-font-family);
+  color: var(--zescloud-text-gray-300);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: left;
+  width: 100%;
+}
+
+.radio-item:hover {
+  border-color: color-mix(in srgb, var(--zescloud-primary) 40%, transparent);
+  color: var(--zescloud-primary);
+}
+
+.radio-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--zescloud-primary) 30%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.radio-dot-fill {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--zescloud-primary);
+  animation: radioPop 0.2s ease;
+}
+
+@keyframes radioPop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.radio-selected {
+  border-color: var(--zescloud-primary);
+  background: color-mix(in srgb, var(--zescloud-primary) 5%, transparent);
+  color: var(--zescloud-text-white);
+  font-weight: var(--fw-medium);
+}
+
+/* ==================== ERROR ==================== */
+.error-msg {
+  color: var(--zescloud-status-danger);
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+  font-family: var(--zescloud-font-family);
+}
+
+.error-input {
+  border: 1px solid var(--zescloud-status-danger) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--zescloud-status-danger) 10%, transparent);
+}
+
+/* ==================== SUMMARY RIGHT SIDE ==================== */
+.selection-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--zescloud-radius-md);
+  background: color-mix(in srgb, var(--zescloud-primary) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--zescloud-primary);
+  flex-shrink: 0;
+}
+
+.info-text span {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-primary);
+  letter-spacing: 1px;
+  font-family: var(--zescloud-font-family);
+  line-height: 1.2;
+}
+
+.info-text p {
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-white);
+  margin: 0;
+  line-height: 1.2;
+  font-family: var(--zescloud-font-family);
+}
+
+.selection-note {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.note-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: color-mix(in srgb, var(--zescloud-primary) 5%, transparent);
+  padding: 10px;
+  border-radius: var(--zescloud-radius-md);
+  border: 1px solid color-mix(in srgb, var(--zescloud-primary) 15%, transparent);
+}
+
+.note-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--zescloud-primary);
+  flex-shrink: 0;
+}
+
+.note-content span {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--zescloud-text-gray-300);
+  line-height: 1.3;
+  font-family: var(--zescloud-font-family);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .split-layout-form {
+    flex-direction: column;
+    gap: 16px;
+    width: 97%;
+  }
+
+  .form-container-left,
+  .summary-container-right {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .summary-container-right {
+    order: -1;
+    margin-bottom: 16px;
+    padding: 20px 16px;
+  }
+
+  .selection-info {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .split-layout-form { width: 98%; }
+
+  .form-card { padding: 18px; }
+
+  .neu-input {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .chip-item {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card,
+  .summary-container-right {
+    padding: 16px;
+    border-radius: var(--zescloud-radius-md);
+  }
+
+  .row2 { gap: 8px; }
+
+  .neu-input {
+    padding: 10px;
+    font-size: 10px;
+    border-radius: var(--zescloud-radius-md);
+  }
+
+  .selection-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 390px) {
+  .form-card,
+  .summary-container-right {
+    padding: 14px;
+  }
+
+  .neu-input {
+    padding: 8px;
+    font-size: 9px;
+  }
+
+  .chip-item {
+    padding: 5px 8px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neu-input,
+  .chip-item,
+  .radio-item,
+  .custom-trigger,
+  .neu-option {
+    transition: none !important;
+  }
+}

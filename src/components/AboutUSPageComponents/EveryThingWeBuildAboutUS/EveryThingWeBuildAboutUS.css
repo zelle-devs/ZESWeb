@@ -1,0 +1,1385 @@
+/* =====================================================================
+   EveryThingWeBuildAboutUS  ("What We Believe")
+   - Left: a looping 3D card carousel on one fixed-ratio stage
+     (1000 x 375 units). Positions are container units of the stage, so
+     the tilted row never breaks at any width or zoom.
+   - Cards move with transform only, and every card's text block has a
+     fixed width that is scaled (never resized), so titles never re-wrap
+     while the cards travel.
+   - Right: eyebrow, title, lead and a principle index (vertical list on
+     desktop, segmented progress bar under the cards on tablet / phone).
+   - Desktop (≥1101px) is drawn on a 1920-wide design canvas: every size is
+     a multiple of --dp (section width / 1920), so browser zoom in / out
+     never moves anything.
+   - Autoplay is driven by the progress ring on the "next" button; it
+     pauses on mouse hover, keyboard focus and while off-screen.
+   ===================================================================== */
+
+/* 1 design pixel on desktop. Registered as a length so it is resolved
+   once against the section and inherited as a fixed value. */
+@property --dp-EveryThingWeBuildAboutUS {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 1px;
+}
+
+/* ============================ LAYOUT (tablet / phone first) ============================ */
+
+.section-EveryThingWeBuildAboutUS {
+  --cyan-rgb-EveryThingWeBuildAboutUS: 86, 180, 255;
+  --blue-rgb-EveryThingWeBuildAboutUS: 57, 137, 226;
+  --deep-rgb-EveryThingWeBuildAboutUS: 24, 72, 217;
+  --ease-EveryThingWeBuildAboutUS: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-EveryThingWeBuildAboutUS: cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* freeze every loop while off-screen / tab hidden */
+.section-EveryThingWeBuildAboutUS.is-paused-EveryThingWeBuildAboutUS *,
+.section-EveryThingWeBuildAboutUS.is-paused-EveryThingWeBuildAboutUS *::before,
+.section-EveryThingWeBuildAboutUS.is-paused-EveryThingWeBuildAboutUS *::after {
+  animation-play-state: paused !important;
+}
+
+.inner-EveryThingWeBuildAboutUS {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 5rem) var(--zescloud-padding-x);
+}
+
+/* on tablet / phone the aside dissolves so its children can be ordered
+   around the carousel: copy → cards → index */
+.aside-EveryThingWeBuildAboutUS {
+  display: contents;
+}
+
+.content-EveryThingWeBuildAboutUS {
+  order: 1;
+  max-width: 640px;
+}
+
+.carousel-EveryThingWeBuildAboutUS {
+  order: 2;
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin-top: clamp(2rem, 5vw, 2.75rem);
+}
+
+/* ============================ BACKDROP ============================ */
+
+.backdrop-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* faint vertical light streaks behind the cards */
+.streaks-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg,
+      rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.055) 0,
+      rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.055) 1px,
+      transparent 1px,
+      transparent 9px);
+  -webkit-mask-image: radial-gradient(ellipse 42% 62% at 28% 60%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 42% 62% at 28% 60%, #000 0%, transparent 75%);
+  opacity: 0.7;
+  animation: streakBreath-EveryThingWeBuildAboutUS 6s ease-in-out infinite;
+}
+
+.halo-EveryThingWeBuildAboutUS {
+  position: absolute;
+  left: 4%;
+  top: 18%;
+  width: 40%;
+  height: 74%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(var(--deep-rgb-EveryThingWeBuildAboutUS), 0.16), transparent 100%);
+}
+
+/* two soft light orbs drifting slowly */
+.orb-EveryThingWeBuildAboutUS {
+  position: absolute;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.orb-a-EveryThingWeBuildAboutUS {
+  left: -6%;
+  top: 30%;
+  width: 34%;
+  background: radial-gradient(closest-side, rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.14), transparent 100%);
+  animation: orbDriftA-EveryThingWeBuildAboutUS 18s ease-in-out infinite alternate;
+}
+
+.orb-b-EveryThingWeBuildAboutUS {
+  right: -4%;
+  top: -10%;
+  width: 30%;
+  background: radial-gradient(closest-side, rgba(139, 92, 246, 0.09), transparent 100%);
+  animation: orbDriftB-EveryThingWeBuildAboutUS 22s ease-in-out infinite alternate;
+}
+
+/* tiny data particles rising */
+.particle-EveryThingWeBuildAboutUS {
+  --rise-EveryThingWeBuildAboutUS: 56px;
+  position: absolute;
+  left: var(--px-EveryThingWeBuildAboutUS);
+  top: var(--py-EveryThingWeBuildAboutUS);
+  width: calc(var(--ps-EveryThingWeBuildAboutUS) * 1px);
+  height: calc(var(--ps-EveryThingWeBuildAboutUS) * 1px);
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 6px rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.9);
+  opacity: 0;
+  animation: particleRise-EveryThingWeBuildAboutUS var(--pd-EveryThingWeBuildAboutUS) ease-in-out var(--pt-EveryThingWeBuildAboutUS) infinite;
+}
+
+/* ============================ CONTROLS ============================ */
+
+.controls-EveryThingWeBuildAboutUS {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-left: 0.9rem;
+}
+
+.counter-EveryThingWeBuildAboutUS {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-right: 1.2rem;
+  font-size: 0.8rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--zescloud-text-gray-500);
+}
+
+.counter-window-EveryThingWeBuildAboutUS {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.1em;
+  line-height: 1.1;
+}
+
+.counter-current-EveryThingWeBuildAboutUS {
+  display: inline-block;
+  color: var(--zescloud-text-white);
+  animation: countUp-EveryThingWeBuildAboutUS 0.55s var(--ease-out-EveryThingWeBuildAboutUS) both;
+}
+
+.counter-sep-EveryThingWeBuildAboutUS {
+  display: inline-block;
+  width: 1.4em;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.7), rgba(148, 163, 184, 0.25));
+}
+
+.counter-total-EveryThingWeBuildAboutUS {
+  color: var(--zescloud-text-gray-500);
+}
+
+.arrow-EveryThingWeBuildAboutUS {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1.5px solid rgba(226, 232, 240, 0.4);
+  border-radius: 50%;
+  background: rgba(7, 21, 39, 0.6);
+  color: var(--zescloud-text-white);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform 0.15s ease;
+}
+
+.arrow-EveryThingWeBuildAboutUS > svg:last-child {
+  width: 42%;
+  height: 42%;
+  transition: transform var(--transition-base);
+}
+
+.arrow-EveryThingWeBuildAboutUS:hover,
+.arrow-EveryThingWeBuildAboutUS:focus-visible {
+  border-color: var(--zescloud-accent-cyan);
+  background: rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.18);
+  box-shadow: 0 0 14px rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.4);
+}
+
+.arrow-next-EveryThingWeBuildAboutUS:hover > svg:last-child { transform: translateX(2px); }
+.arrow-prev-EveryThingWeBuildAboutUS:hover > svg:last-child { transform: translateX(-2px); }
+
+.arrow-EveryThingWeBuildAboutUS:active { transform: scale(0.92); }
+
+/* autoplay progress ring around the "next" button */
+.ring-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.ring-track-EveryThingWeBuildAboutUS,
+.ring-timer-EveryThingWeBuildAboutUS {
+  fill: none;
+  stroke-width: 1.6;
+}
+
+.ring-track-EveryThingWeBuildAboutUS {
+  stroke: rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.1);
+}
+
+.ring-timer-EveryThingWeBuildAboutUS {
+  stroke: var(--zescloud-accent-cyan);
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ringFill-EveryThingWeBuildAboutUS var(--autoplay-EveryThingWeBuildAboutUS, 5200ms) linear forwards;
+}
+
+.ring-timer-EveryThingWeBuildAboutUS.is-held-EveryThingWeBuildAboutUS {
+  animation-play-state: paused;
+}
+
+/* tiny "Auto / Paused" equalizer next to the arrows */
+.status-EveryThingWeBuildAboutUS {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-left: 0.6rem;
+  font-size: 0.68rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-500);
+}
+
+.status-bars-EveryThingWeBuildAboutUS {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.9em;
+}
+
+.status-bars-EveryThingWeBuildAboutUS > span {
+  display: block;
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--zescloud-accent-cyan);
+  transform-origin: bottom;
+  animation: eq-EveryThingWeBuildAboutUS 1.1s ease-in-out infinite;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.status-bars-EveryThingWeBuildAboutUS > span:nth-child(2) { animation-delay: -0.35s; }
+.status-bars-EveryThingWeBuildAboutUS > span:nth-child(3) { animation-delay: -0.7s; }
+
+.status-EveryThingWeBuildAboutUS.is-off-EveryThingWeBuildAboutUS .status-bars-EveryThingWeBuildAboutUS > span {
+  animation: none;
+  transform: scaleY(0.3);
+  opacity: 0.5;
+}
+
+/* ============================ STAGE + CARDS ============================ */
+
+.stage-EveryThingWeBuildAboutUS {
+  /* 1 internal card unit (desktop / tablet = 1% of the stage width) */
+  --u-EveryThingWeBuildAboutUS: 1cqw;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1000 / 375;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  container-type: inline-size;
+  touch-action: pan-y;
+}
+
+/* soft blue light behind the active card */
+.halo-card-EveryThingWeBuildAboutUS {
+  position: absolute;
+  left: -6cqw;
+  top: -6cqw;
+  width: 46cqw;
+  height: 49cqw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.28), rgba(var(--deep-rgb-EveryThingWeBuildAboutUS), 0.08) 60%, transparent);
+  pointer-events: none;
+  animation: haloBreath-EveryThingWeBuildAboutUS 4.5s ease-in-out infinite;
+}
+
+/* light pool on the "floor" under the row */
+.floor-EveryThingWeBuildAboutUS {
+  position: absolute;
+  left: -2cqw;
+  top: 33cqw;
+  width: 70cqw;
+  height: 7cqw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.22), transparent);
+  pointer-events: none;
+  animation: floorBreath-EveryThingWeBuildAboutUS 4.5s ease-in-out infinite;
+}
+
+/* slot geometry: x / y / w / h in % of stage width,
+   s = content scale, o = opacity, z = stacking, ry = tilt */
+.slot-0-EveryThingWeBuildAboutUS { --x: 1.4; --y: 1.6; --w: 31.5; --h: 34.2; --s: 1; --o: 1; --z: 5; --ry: 9deg; }
+.slot-1-EveryThingWeBuildAboutUS { --x: 33; --y: 2.2; --w: 18.1; --h: 33; --s: 0.86; --o: 0.82; --z: 4; --ry: 14deg; }
+.slot-2-EveryThingWeBuildAboutUS { --x: 52.5; --y: 2.9; --w: 16.5; --h: 31.6; --s: 0.8; --o: 0.66; --z: 3; --ry: 14deg; }
+.slot-3-EveryThingWeBuildAboutUS { --x: 70.1; --y: 3.6; --w: 15; --h: 30.2; --s: 0.72; --o: 0.52; --z: 2; --ry: 14deg; }
+.slot-4-EveryThingWeBuildAboutUS { --x: 86.3; --y: 4.3; --w: 13.7; --h: 28.8; --s: 0.64; --o: 0.42; --z: 1; --ry: 14deg; }
+
+.card-pos-EveryThingWeBuildAboutUS {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: var(--z);
+  width: calc(var(--w) * 1cqw);
+  height: calc(var(--h) * 1cqw);
+  opacity: var(--o);
+  transform:
+    translate3d(calc(var(--x) * 1cqw), calc(var(--y) * 1cqw), 0)
+    perspective(160cqw)
+    rotateY(var(--ry));
+  transform-origin: left center;
+  transition:
+    transform 0.9s var(--ease-EveryThingWeBuildAboutUS),
+    width 0.9s var(--ease-EveryThingWeBuildAboutUS),
+    height 0.9s var(--ease-EveryThingWeBuildAboutUS),
+    translate 0.45s var(--ease-out-EveryThingWeBuildAboutUS),
+    opacity 0.6s ease;
+}
+
+.card-pos-EveryThingWeBuildAboutUS:not(.slot-0-EveryThingWeBuildAboutUS):hover {
+  opacity: calc(var(--o) + 0.22);
+  translate: 0 -0.8cqw;
+}
+
+.card-float-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  perspective: calc(120 * var(--u-EveryThingWeBuildAboutUS));
+}
+
+/* the active card gently floats */
+.slot-0-EveryThingWeBuildAboutUS > .card-float-EveryThingWeBuildAboutUS {
+  animation: cardFloat-EveryThingWeBuildAboutUS 5.5s ease-in-out 1s infinite;
+}
+
+/* thick back plate that gives the active card its depth */
+.plate-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(86, 170, 255, 0.5);
+  border-radius: calc(1.2 * var(--u-EveryThingWeBuildAboutUS));
+  background: linear-gradient(180deg, rgba(20, 70, 150, 0.45), rgba(8, 26, 60, 0.6));
+  opacity: 0;
+  transform: translate(calc(-1 * var(--u-EveryThingWeBuildAboutUS)), calc(-0.8 * var(--u-EveryThingWeBuildAboutUS)));
+  transition: opacity 0.6s ease;
+}
+
+.slot-0-EveryThingWeBuildAboutUS .plate-EveryThingWeBuildAboutUS {
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+.card-EveryThingWeBuildAboutUS {
+  --tone-EveryThingWeBuildAboutUS: var(--zescloud-accent-cyan);
+  --tone-rgb-EveryThingWeBuildAboutUS: 86, 180, 255;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(120, 170, 230, 0.16);
+  border-radius: calc(1.2 * var(--u-EveryThingWeBuildAboutUS));
+  background: linear-gradient(180deg, rgba(24, 44, 78, 0.55) 0%, rgba(8, 20, 38, 0.82) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 calc(1.4 * var(--u-EveryThingWeBuildAboutUS)) calc(3 * var(--u-EveryThingWeBuildAboutUS)) rgba(0, 0, 0, 0.45);
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transform: rotateX(0deg) rotateY(0deg);
+  transition:
+    border-color 0.6s ease,
+    box-shadow 0.6s ease,
+    transform 0.6s var(--ease-out-EveryThingWeBuildAboutUS);
+}
+
+.card-EveryThingWeBuildAboutUS:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 3px;
+}
+
+.card-pos-EveryThingWeBuildAboutUS:not(.slot-0-EveryThingWeBuildAboutUS):hover .card-EveryThingWeBuildAboutUS {
+  border-color: rgba(var(--tone-rgb-EveryThingWeBuildAboutUS), 0.45);
+}
+
+.tone-purple-EveryThingWeBuildAboutUS {
+  --tone-EveryThingWeBuildAboutUS: var(--zescloud-status-purple);
+  --tone-rgb-EveryThingWeBuildAboutUS: 139, 92, 246;
+  background: linear-gradient(180deg, rgba(36, 34, 84, 0.5) 0%, rgba(10, 18, 40, 0.84) 100%);
+}
+
+.tone-teal-EveryThingWeBuildAboutUS {
+  --tone-EveryThingWeBuildAboutUS: var(--zescloud-status-healthy);
+  --tone-rgb-EveryThingWeBuildAboutUS: 16, 185, 129;
+}
+
+/* active look: bright blue frame, deep blue glass with vertical streaks */
+.card-glow-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(120, 190, 255, 0.06) 0,
+      rgba(120, 190, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 6px),
+    linear-gradient(165deg, rgba(22, 84, 190, 0.62) 0%, rgba(10, 40, 98, 0.75) 45%, rgba(6, 22, 52, 0.9) 100%);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.card-glow-EveryThingWeBuildAboutUS::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 calc(2.4 * var(--u-EveryThingWeBuildAboutUS)) rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.35);
+  opacity: 0.5;
+}
+
+.is-active-EveryThingWeBuildAboutUS {
+  border-color: rgba(56, 150, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 calc(2.2 * var(--u-EveryThingWeBuildAboutUS)) rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.55),
+    0 calc(1.6 * var(--u-EveryThingWeBuildAboutUS)) calc(3.4 * var(--u-EveryThingWeBuildAboutUS)) rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+/* mouse tilt (values set from JS, only on the active card) */
+.card-EveryThingWeBuildAboutUS.is-active-EveryThingWeBuildAboutUS.is-tilting-EveryThingWeBuildAboutUS {
+  transform:
+    rotateX(var(--tilt-x-EveryThingWeBuildAboutUS, 0deg))
+    rotateY(var(--tilt-y-EveryThingWeBuildAboutUS, 0deg));
+  transition:
+    border-color 0.6s ease,
+    box-shadow 0.6s ease,
+    transform 0.15s ease-out;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-glow-EveryThingWeBuildAboutUS {
+  opacity: 1;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-glow-EveryThingWeBuildAboutUS::after {
+  animation: innerGlow-EveryThingWeBuildAboutUS 3.2s ease-in-out infinite;
+}
+
+/* small index number, top-left */
+.card-num-EveryThingWeBuildAboutUS {
+  position: absolute;
+  top: calc(2.2 * var(--u-EveryThingWeBuildAboutUS));
+  left: calc(2.4 * var(--u-EveryThingWeBuildAboutUS));
+  z-index: 2;
+  font-size: calc(1.75 * var(--u-EveryThingWeBuildAboutUS));
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--zescloud-text-gray-500);
+  transform: scale(var(--s));
+  transform-origin: left top;
+  transition:
+    color 0.6s ease,
+    transform 0.9s var(--ease-EveryThingWeBuildAboutUS);
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-num-EveryThingWeBuildAboutUS {
+  color: var(--zescloud-accent-cyan);
+}
+
+/* corner bracket, top-right of the active card */
+.card-corner-EveryThingWeBuildAboutUS {
+  position: absolute;
+  top: calc(1.8 * var(--u-EveryThingWeBuildAboutUS));
+  right: calc(1.8 * var(--u-EveryThingWeBuildAboutUS));
+  z-index: 2;
+  width: calc(2.2 * var(--u-EveryThingWeBuildAboutUS));
+  height: calc(2.2 * var(--u-EveryThingWeBuildAboutUS));
+  border-top: 1.5px solid rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.75);
+  border-right: 1.5px solid rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.75);
+  border-top-right-radius: calc(0.6 * var(--u-EveryThingWeBuildAboutUS));
+  opacity: 0;
+  transform: translate(calc(-0.6 * var(--u-EveryThingWeBuildAboutUS)), calc(0.6 * var(--u-EveryThingWeBuildAboutUS)));
+  transition:
+    opacity 0.4s ease,
+    transform 0.6s var(--ease-out-EveryThingWeBuildAboutUS);
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-corner-EveryThingWeBuildAboutUS {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.45s;
+}
+
+/* text block: fixed width, scaled per slot, centred in the card */
+.card-body-EveryThingWeBuildAboutUS {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(28 * var(--u-EveryThingWeBuildAboutUS));
+  transform: translate(-50%, -50%) scale(var(--s));
+  transform-origin: center;
+  transition: transform 0.9s var(--ease-EveryThingWeBuildAboutUS);
+}
+
+.card-icon-EveryThingWeBuildAboutUS {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: calc(8.6 * var(--u-EveryThingWeBuildAboutUS));
+  height: calc(8.6 * var(--u-EveryThingWeBuildAboutUS));
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 38%,
+      rgba(var(--tone-rgb-EveryThingWeBuildAboutUS), 0.24) 0%,
+      rgba(var(--tone-rgb-EveryThingWeBuildAboutUS), 0.08) 55%,
+      rgba(8, 20, 40, 0.4) 100%);
+  box-shadow: inset 0 0 0 1px rgba(var(--tone-rgb-EveryThingWeBuildAboutUS), 0.18);
+  color: var(--tone-EveryThingWeBuildAboutUS);
+  transition:
+    color 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+.card-icon-EveryThingWeBuildAboutUS > svg {
+  position: relative;
+  width: 46%;
+  height: 46%;
+  overflow: visible;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-icon-EveryThingWeBuildAboutUS {
+  color: var(--zescloud-accent-cyan);
+  background: radial-gradient(circle at 50% 38%, rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.28) 0%, rgba(var(--deep-rgb-EveryThingWeBuildAboutUS), 0.18) 55%, rgba(8, 24, 56, 0.6) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.25),
+    0 0 calc(2.4 * var(--u-EveryThingWeBuildAboutUS)) rgba(var(--blue-rgb-EveryThingWeBuildAboutUS), 0.45);
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-icon-EveryThingWeBuildAboutUS > svg {
+  filter: drop-shadow(0 0 calc(0.8 * var(--u-EveryThingWeBuildAboutUS)) rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.8));
+}
+
+.card-icon-ring-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.6);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-icon-ring-EveryThingWeBuildAboutUS {
+  animation: iconPing-EveryThingWeBuildAboutUS 2.6s ease-out 0.6s infinite;
+}
+
+/* dashed orbit with a travelling dot around the active icon */
+.card-orbit-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: calc(-1 * var(--u-EveryThingWeBuildAboutUS));
+  border: 1px dashed rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.28);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.5s ease,
+    transform 0.7s var(--ease-out-EveryThingWeBuildAboutUS);
+}
+
+.card-orbit-dot-EveryThingWeBuildAboutUS {
+  position: absolute;
+  top: calc(-0.35 * var(--u-EveryThingWeBuildAboutUS));
+  left: 50%;
+  width: calc(0.7 * var(--u-EveryThingWeBuildAboutUS));
+  height: calc(0.7 * var(--u-EveryThingWeBuildAboutUS));
+  margin-left: calc(-0.35 * var(--u-EveryThingWeBuildAboutUS));
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 calc(0.8 * var(--u-EveryThingWeBuildAboutUS)) rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.95);
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-orbit-EveryThingWeBuildAboutUS {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.3s;
+  animation: spin-EveryThingWeBuildAboutUS 7s linear infinite;
+}
+
+.card-title-EveryThingWeBuildAboutUS {
+  display: block;
+  width: calc(17.5 * var(--u-EveryThingWeBuildAboutUS));
+  margin-top: calc(2.6 * var(--u-EveryThingWeBuildAboutUS));
+  font-family: var(--zescloud-font-family);
+  font-size: calc(2.2 * var(--u-EveryThingWeBuildAboutUS));
+  font-weight: var(--fw-medium);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--zescloud-text-gray-300);
+  text-wrap: balance;
+  transition: color 0.6s ease;
+  animation: titleSwapB-EveryThingWeBuildAboutUS 0.55s var(--ease-out-EveryThingWeBuildAboutUS) 0.2s both;
+}
+
+/* the active title gets a wider line; it re-wraps while faded out */
+.is-active-EveryThingWeBuildAboutUS .card-title-EveryThingWeBuildAboutUS {
+  width: calc(24 * var(--u-EveryThingWeBuildAboutUS));
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  animation: titleSwapA-EveryThingWeBuildAboutUS 0.7s var(--ease-out-EveryThingWeBuildAboutUS) 0.3s both;
+}
+
+/* description only opens on the active card */
+.card-text-wrap-EveryThingWeBuildAboutUS {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: calc(26 * var(--u-EveryThingWeBuildAboutUS));
+  opacity: 0;
+  transition:
+    grid-template-rows 0.6s var(--ease-EveryThingWeBuildAboutUS),
+    opacity 0.35s ease;
+}
+
+.card-text-EveryThingWeBuildAboutUS {
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  padding-top: calc(1.5 * var(--u-EveryThingWeBuildAboutUS));
+  font-size: calc(1.62 * var(--u-EveryThingWeBuildAboutUS));
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  color: rgba(226, 232, 240, 0.86);
+}
+
+.card-word-EveryThingWeBuildAboutUS {
+  display: inline-block;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-text-wrap-EveryThingWeBuildAboutUS {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows 0.7s var(--ease-EveryThingWeBuildAboutUS) 0.3s,
+    opacity 0.3s ease 0.4s;
+}
+
+.is-active-EveryThingWeBuildAboutUS .card-word-EveryThingWeBuildAboutUS {
+  animation: wordIn-EveryThingWeBuildAboutUS 0.6s var(--ease-out-EveryThingWeBuildAboutUS) both;
+  animation-delay: calc(0.45s + var(--w-EveryThingWeBuildAboutUS) * 0.035s);
+}
+
+/* --- icon micro-animations on the active card ------------------------- */
+.icon-eye-EveryThingWeBuildAboutUS,
+.icon-gear-EveryThingWeBuildAboutUS,
+.icon-bolt-EveryThingWeBuildAboutUS,
+.icon-layer-EveryThingWeBuildAboutUS {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.is-active-EveryThingWeBuildAboutUS .icon-eye-EveryThingWeBuildAboutUS {
+  animation: blinkEye-EveryThingWeBuildAboutUS 4.6s ease-in-out 1s infinite;
+}
+
+.is-active-EveryThingWeBuildAboutUS .icon-spark-EveryThingWeBuildAboutUS {
+  animation: sparkPulse-EveryThingWeBuildAboutUS 2.2s ease-in-out infinite;
+}
+
+.is-active-EveryThingWeBuildAboutUS .icon-bolt-EveryThingWeBuildAboutUS {
+  animation: boltFlash-EveryThingWeBuildAboutUS 2.4s ease-in-out infinite;
+}
+
+.is-active-EveryThingWeBuildAboutUS .icon-gear-EveryThingWeBuildAboutUS {
+  animation: spin-EveryThingWeBuildAboutUS 8s linear infinite;
+}
+
+.is-active-EveryThingWeBuildAboutUS .icon-layer-EveryThingWeBuildAboutUS {
+  animation: layerBob-EveryThingWeBuildAboutUS 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--l-EveryThingWeBuildAboutUS) * 0.15s);
+}
+
+/* --- wrap: the card that jumps to the other end fades out / back in ---- */
+.is-shown-EveryThingWeBuildAboutUS .card-pos-EveryThingWeBuildAboutUS.wrap-a-EveryThingWeBuildAboutUS {
+  animation: wrapA-EveryThingWeBuildAboutUS 1s ease;
+}
+
+.is-shown-EveryThingWeBuildAboutUS .card-pos-EveryThingWeBuildAboutUS.wrap-b-EveryThingWeBuildAboutUS {
+  animation: wrapB-EveryThingWeBuildAboutUS 1s ease;
+}
+
+/* ============================ CONTENT ============================ */
+
+.eyebrow-EveryThingWeBuildAboutUS {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: 0.9rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.eyebrow-dot-EveryThingWeBuildAboutUS {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 0.6em rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.9);
+}
+
+.eyebrow-dot-EveryThingWeBuildAboutUS::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: dotPing-EveryThingWeBuildAboutUS 2.4s ease-out infinite;
+}
+
+.eyebrow-line-EveryThingWeBuildAboutUS {
+  flex-shrink: 0;
+  width: 2.2em;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.8), transparent);
+  transform-origin: left;
+}
+
+.is-shown-EveryThingWeBuildAboutUS .eyebrow-line-EveryThingWeBuildAboutUS {
+  animation: lineDraw-EveryThingWeBuildAboutUS 0.9s var(--ease-out-EveryThingWeBuildAboutUS) 0.5s both;
+}
+
+.title-EveryThingWeBuildAboutUS {
+  margin-bottom: 1.25rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(1.8rem, 4.8vw, 2.6rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  text-transform: normal;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-EveryThingWeBuildAboutUS {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.06em 0.08em 0;
+  margin-bottom: -0.08em;
+}
+
+.title-text-EveryThingWeBuildAboutUS {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(105%);
+}
+
+.title-accent-EveryThingWeBuildAboutUS {
+  background: var(--zescloud-text-gradient-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead-EveryThingWeBuildAboutUS {
+  max-width: 520px;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.65;
+  color: var(--zescloud-text-gray-100);
+}
+
+/* ============================ PRINCIPLE INDEX ============================ */
+/* tablet / phone: a 5-step segmented progress bar under the cards */
+
+.index-EveryThingWeBuildAboutUS {
+  order: 3;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 860px;
+  margin: 1.4rem 0 0;
+  padding: 0 0.9rem;
+  list-style: none;
+}
+
+.index-row-EveryThingWeBuildAboutUS {
+  min-width: 0;
+}
+
+.index-item-EveryThingWeBuildAboutUS {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.85rem 0 0.2rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--zescloud-text-gray-500);
+  cursor: pointer;
+  transition: color 0.4s ease;
+}
+
+.index-item-EveryThingWeBuildAboutUS:focus-visible {
+  outline: 2px solid var(--zescloud-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.index-num-EveryThingWeBuildAboutUS {
+  font-size: 0.75rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  transition: color 0.4s ease;
+}
+
+.index-label-EveryThingWeBuildAboutUS,
+.index-arrow-EveryThingWeBuildAboutUS {
+  display: none;
+}
+
+.index-bar-EveryThingWeBuildAboutUS {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.index-fill-EveryThingWeBuildAboutUS {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--zescloud-accent-cyan), var(--zescloud-primary));
+  box-shadow: 0 0 8px rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.6);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: indexFill-EveryThingWeBuildAboutUS var(--autoplay-EveryThingWeBuildAboutUS, 5200ms) linear forwards;
+}
+
+.index-fill-EveryThingWeBuildAboutUS.is-held-EveryThingWeBuildAboutUS {
+  animation-play-state: paused;
+}
+
+.index-item-EveryThingWeBuildAboutUS:hover {
+  color: var(--zescloud-text-gray-300);
+}
+
+.index-item-EveryThingWeBuildAboutUS.is-active-EveryThingWeBuildAboutUS {
+  color: var(--zescloud-text-white);
+}
+
+.index-item-EveryThingWeBuildAboutUS.is-active-EveryThingWeBuildAboutUS .index-num-EveryThingWeBuildAboutUS {
+  color: var(--zescloud-accent-cyan);
+}
+
+/* ============================ ENTRANCE (once, on scroll) ============================ */
+
+.reveal-EveryThingWeBuildAboutUS {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.sr-only-EveryThingWeBuildAboutUS {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.card-pos-EveryThingWeBuildAboutUS {
+  visibility: hidden;
+}
+
+.is-shown-EveryThingWeBuildAboutUS .card-pos-EveryThingWeBuildAboutUS {
+  visibility: visible;
+  animation: dealIn-EveryThingWeBuildAboutUS 0.95s var(--ease-out-EveryThingWeBuildAboutUS) backwards;
+  animation-delay: calc(0.2s + (4 - var(--i-EveryThingWeBuildAboutUS)) * 0.09s);
+}
+
+.is-shown-EveryThingWeBuildAboutUS .reveal-EveryThingWeBuildAboutUS {
+  animation: fadeUp-EveryThingWeBuildAboutUS 0.9s var(--ease-out-EveryThingWeBuildAboutUS) var(--d-EveryThingWeBuildAboutUS, 0s) both;
+}
+
+.is-shown-EveryThingWeBuildAboutUS .title-text-EveryThingWeBuildAboutUS {
+  animation: lineUp-EveryThingWeBuildAboutUS 1s var(--ease-out-EveryThingWeBuildAboutUS) var(--d-EveryThingWeBuildAboutUS, 0s) both;
+}
+
+/* =========================== KEYFRAMES =========================== */
+
+@keyframes fadeUp-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes lineUp-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineDraw-EveryThingWeBuildAboutUS {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes dealIn-EveryThingWeBuildAboutUS {
+  from { opacity: 0; translate: -6cqw 0; }
+}
+
+@keyframes wrapA-EveryThingWeBuildAboutUS {
+  0%, 55% { opacity: 0; scale: 0.92; }
+  100% { opacity: var(--o); scale: 1; }
+}
+
+@keyframes wrapB-EveryThingWeBuildAboutUS {
+  0%, 55% { opacity: 0; scale: 0.92; }
+  100% { opacity: var(--o); scale: 1; }
+}
+
+@keyframes cardFloat-EveryThingWeBuildAboutUS {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 calc(-0.7 * var(--u-EveryThingWeBuildAboutUS)); }
+}
+
+@keyframes titleSwapA-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(0.45em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titleSwapB-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(0.45em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes wordIn-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(0.7em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes innerGlow-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@keyframes haloBreath-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 0.6; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes floorBreath-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 0.55; transform: scaleX(0.94); }
+  50% { opacity: 1; transform: scaleX(1.04); }
+}
+
+@keyframes streakBreath-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes orbDriftA-EveryThingWeBuildAboutUS {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(14%, -10%) scale(1.12); }
+}
+
+@keyframes orbDriftB-EveryThingWeBuildAboutUS {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-12%, 16%) scale(0.9); }
+}
+
+@keyframes particleRise-EveryThingWeBuildAboutUS {
+  0% { opacity: 0; transform: translateY(0) scale(0.6); }
+  20% { opacity: 0.9; }
+  75% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(calc(-1 * var(--rise-EveryThingWeBuildAboutUS))) scale(1); }
+}
+
+@keyframes countUp-EveryThingWeBuildAboutUS {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ringFill-EveryThingWeBuildAboutUS {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes indexFill-EveryThingWeBuildAboutUS {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes eq-EveryThingWeBuildAboutUS {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes iconPing-EveryThingWeBuildAboutUS {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+@keyframes dotPing-EveryThingWeBuildAboutUS {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes blinkEye-EveryThingWeBuildAboutUS {
+  0%, 88%, 100% { transform: scaleY(1); }
+  93% { transform: scaleY(0.12); }
+}
+
+@keyframes sparkPulse-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes boltFlash-EveryThingWeBuildAboutUS {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  45% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.92); }
+  58% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes spin-EveryThingWeBuildAboutUS {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes layerBob-EveryThingWeBuildAboutUS {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.2px); }
+}
+
+/* =====================================================================
+   DESKTOP + ZOOM LOCK (≥1101px)
+   Cards on the left, copy + index on the right. Every size is a multiple
+   of --dp (1 design pixel = section width / 1920), so browser zoom in /
+   out only scales the picture — nothing moves relative to anything else.
+   ===================================================================== */
+@media (min-width: 1101px) {
+  .section-EveryThingWeBuildAboutUS {
+    container-type: inline-size;
+  }
+
+  .inner-EveryThingWeBuildAboutUS,
+  .backdrop-EveryThingWeBuildAboutUS {
+    --dp-EveryThingWeBuildAboutUS: calc(100cqw / 1920);
+  }
+
+  .inner-EveryThingWeBuildAboutUS {
+    display: grid;
+    grid-template-columns: calc(940 * var(--dp-EveryThingWeBuildAboutUS)) minmax(0, 1fr);
+    column-gap: calc(96 * var(--dp-EveryThingWeBuildAboutUS));
+    align-items: center;
+    max-width: calc(1730 * var(--dp-EveryThingWeBuildAboutUS));
+    padding:
+      calc(96 * var(--dp-EveryThingWeBuildAboutUS))
+      calc(32 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .carousel-EveryThingWeBuildAboutUS {
+    order: 0;
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .aside-EveryThingWeBuildAboutUS {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .content-EveryThingWeBuildAboutUS {
+    max-width: calc(646 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .particle-EveryThingWeBuildAboutUS {
+    --rise-EveryThingWeBuildAboutUS: calc(70 * var(--dp-EveryThingWeBuildAboutUS));
+    width: calc(var(--ps-EveryThingWeBuildAboutUS) * var(--dp-EveryThingWeBuildAboutUS));
+    height: calc(var(--ps-EveryThingWeBuildAboutUS) * var(--dp-EveryThingWeBuildAboutUS));
+    box-shadow: 0 0 calc(6 * var(--dp-EveryThingWeBuildAboutUS)) rgba(var(--cyan-rgb-EveryThingWeBuildAboutUS), 0.9);
+  }
+
+  .controls-EveryThingWeBuildAboutUS {
+    gap: calc(14 * var(--dp-EveryThingWeBuildAboutUS));
+    margin-bottom: calc(26 * var(--dp-EveryThingWeBuildAboutUS));
+    padding-left: calc(24 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .counter-EveryThingWeBuildAboutUS {
+    margin-right: calc(24 * var(--dp-EveryThingWeBuildAboutUS));
+    font-size: calc(16 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .arrow-EveryThingWeBuildAboutUS {
+    width: calc(46 * var(--dp-EveryThingWeBuildAboutUS));
+    height: calc(46 * var(--dp-EveryThingWeBuildAboutUS));
+    border-width: max(1px, calc(1.6 * var(--dp-EveryThingWeBuildAboutUS)));
+  }
+
+  .ring-EveryThingWeBuildAboutUS {
+    inset: calc(-5 * var(--dp-EveryThingWeBuildAboutUS));
+    width: calc(100% + 10 * var(--dp-EveryThingWeBuildAboutUS));
+    height: calc(100% + 10 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .status-EveryThingWeBuildAboutUS {
+    margin-left: calc(14 * var(--dp-EveryThingWeBuildAboutUS));
+    font-size: calc(12 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .status-bars-EveryThingWeBuildAboutUS {
+    gap: calc(2.5 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .status-bars-EveryThingWeBuildAboutUS > span {
+    width: max(1px, calc(2.5 * var(--dp-EveryThingWeBuildAboutUS)));
+  }
+
+  .eyebrow-EveryThingWeBuildAboutUS {
+    margin-bottom: calc(18 * var(--dp-EveryThingWeBuildAboutUS));
+    font-size: calc(15 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .title-EveryThingWeBuildAboutUS {
+    margin-bottom: calc(26 * var(--dp-EveryThingWeBuildAboutUS));
+    font-size: calc(42 * var(--dp-EveryThingWeBuildAboutUS));
+    white-space: nowrap;
+  }
+
+  .lead-EveryThingWeBuildAboutUS {
+    max-width: calc(540 * var(--dp-EveryThingWeBuildAboutUS));
+    font-size: calc(21 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  /* index: vertical list with a progress line under the active row */
+  .index-EveryThingWeBuildAboutUS {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: calc(560 * var(--dp-EveryThingWeBuildAboutUS));
+    margin-top: calc(40 * var(--dp-EveryThingWeBuildAboutUS));
+    padding: 0;
+  }
+
+  .index-item-EveryThingWeBuildAboutUS {
+    display: grid;
+    grid-template-columns: calc(44 * var(--dp-EveryThingWeBuildAboutUS)) minmax(0, 1fr) calc(18 * var(--dp-EveryThingWeBuildAboutUS));
+    align-items: center;
+    padding: calc(15 * var(--dp-EveryThingWeBuildAboutUS)) 0;
+    font-size: calc(17 * var(--dp-EveryThingWeBuildAboutUS));
+    transition:
+      color 0.4s ease,
+      padding-left 0.5s var(--ease-out-EveryThingWeBuildAboutUS);
+  }
+
+  .index-num-EveryThingWeBuildAboutUS {
+    font-size: calc(13 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .index-label-EveryThingWeBuildAboutUS {
+    display: block;
+    overflow: hidden;
+    font-weight: var(--fw-medium);
+    line-height: 1.3;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .index-arrow-EveryThingWeBuildAboutUS {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--zescloud-accent-cyan);
+    opacity: 0;
+    transform: translateX(calc(-10 * var(--dp-EveryThingWeBuildAboutUS)));
+    transition:
+      opacity 0.35s ease,
+      transform 0.5s var(--ease-out-EveryThingWeBuildAboutUS);
+  }
+
+  .index-bar-EveryThingWeBuildAboutUS {
+    top: auto;
+    bottom: 0;
+    height: max(1px, calc(2 * var(--dp-EveryThingWeBuildAboutUS)));
+    border-radius: 0;
+    background: rgba(148, 163, 184, 0.12);
+  }
+
+  .index-item-EveryThingWeBuildAboutUS:hover .index-arrow-EveryThingWeBuildAboutUS {
+    opacity: 0.5;
+    transform: translateX(calc(-4 * var(--dp-EveryThingWeBuildAboutUS)));
+  }
+
+  .index-item-EveryThingWeBuildAboutUS.is-active-EveryThingWeBuildAboutUS {
+    padding-left: calc(10 * var(--dp-EveryThingWeBuildAboutUS));
+  }
+
+  .index-item-EveryThingWeBuildAboutUS.is-active-EveryThingWeBuildAboutUS .index-arrow-EveryThingWeBuildAboutUS {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* tablet: a bit more room around the cards */
+@media (min-width: 641px) and (max-width: 1100px) {
+  .controls-EveryThingWeBuildAboutUS {
+    margin-bottom: 1.4rem;
+  }
+}
+
+/* phones: the active card fills most of the width, the next one peeks in
+   from the screen edge, the rest wait off-stage */
+@media (max-width: 640px) {
+  .carousel-EveryThingWeBuildAboutUS {
+    width: auto;
+    margin-right: calc(-1 * var(--zescloud-padding-x));
+  }
+
+  .stage-EveryThingWeBuildAboutUS {
+    --u-EveryThingWeBuildAboutUS: 1.97cqw;
+    aspect-ratio: 100 / 76;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 78%, transparent 100%);
+  }
+
+  .halo-card-EveryThingWeBuildAboutUS {
+    left: -10cqw;
+    top: -8cqw;
+    width: 86cqw;
+    height: 90cqw;
+  }
+
+  .floor-EveryThingWeBuildAboutUS {
+    left: -4cqw;
+    top: 66cqw;
+    width: 80cqw;
+    height: 10cqw;
+  }
+
+  .slot-0-EveryThingWeBuildAboutUS { --x: 3; --y: 3.4; --w: 62; --h: 67.4; }
+  .slot-1-EveryThingWeBuildAboutUS { --x: 68; --y: 5; --w: 36; --h: 64; --o: 0.8; }
+  .slot-2-EveryThingWeBuildAboutUS { --x: 106; --y: 6; --w: 33; --h: 61; --o: 0; }
+  .slot-3-EveryThingWeBuildAboutUS { --x: 106; --y: 6; --w: 33; --h: 61; --o: 0; }
+  .slot-4-EveryThingWeBuildAboutUS { --x: 106; --y: 6; --w: 33; --h: 61; --o: 0; }
+
+  .slot-2-EveryThingWeBuildAboutUS,
+  .slot-3-EveryThingWeBuildAboutUS,
+  .slot-4-EveryThingWeBuildAboutUS {
+    pointer-events: none;
+  }
+
+  .controls-EveryThingWeBuildAboutUS {
+    padding-left: 0.2rem;
+    padding-right: calc(var(--zescloud-padding-x) - 0.2rem);
+  }
+
+  .counter-EveryThingWeBuildAboutUS {
+    margin-right: auto;
+  }
+
+  .status-EveryThingWeBuildAboutUS {
+    display: none;
+  }
+
+  .index-EveryThingWeBuildAboutUS {
+    padding: 0 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-EveryThingWeBuildAboutUS *,
+  .section-EveryThingWeBuildAboutUS *::before,
+  .section-EveryThingWeBuildAboutUS *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+  }
+
+  /* no autoplay with reduced motion */
+  .ring-timer-EveryThingWeBuildAboutUS,
+  .index-fill-EveryThingWeBuildAboutUS {
+    animation-name: none !important;
+  }
+
+  .index-fill-EveryThingWeBuildAboutUS {
+    transform: scaleX(1);
+  }
+
+  .reveal-EveryThingWeBuildAboutUS,
+  .title-text-EveryThingWeBuildAboutUS {
+    opacity: 1;
+    transform: none;
+  }
+
+  .particle-EveryThingWeBuildAboutUS,
+  .card-icon-ring-EveryThingWeBuildAboutUS,
+  .status-EveryThingWeBuildAboutUS {
+    display: none;
+  }
+}

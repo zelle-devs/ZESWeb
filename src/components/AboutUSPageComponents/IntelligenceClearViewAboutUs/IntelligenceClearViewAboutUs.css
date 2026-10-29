@@ -1,0 +1,651 @@
+/* =====================================================================
+   IntelligenceClearViewAboutUs  ("03. The Idea")
+   - The dashboard artwork and the animated SVG overlay share ONE
+     fixed-ratio stage (1983 x 793, the image's own pixels), so the chart,
+     status dots and rack lights stay exactly on the artwork.
+   - Desktop (≥1101px) is drawn on a 1920-wide design canvas: every size is
+     a multiple of --dp (section width / 1920), so browser zoom in / out
+     never moves the text, the image or the animations.
+   - Entrance animations play once when the section scrolls into view.
+   - Loop animations pause while the section is off-screen.
+   - No shine / sweep effects.
+   ===================================================================== */
+
+/* ============================ LAYOUT (tablet / phone first) ============================ */
+
+.section-IntelligenceClearViewAboutUs {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(4rem, 10vw, 6rem) 0 clamp(2.5rem, 6vw, 4rem);
+  background-color: var(--zescloud-bg-base);
+  font-family: var(--zescloud-font-family);
+}
+
+/* freeze every loop while off-screen / tab hidden */
+.section-IntelligenceClearViewAboutUs.is-paused-IntelligenceClearViewAboutUs *,
+.section-IntelligenceClearViewAboutUs.is-paused-IntelligenceClearViewAboutUs *::before,
+.section-IntelligenceClearViewAboutUs.is-paused-IntelligenceClearViewAboutUs *::after {
+  animation-play-state: paused !important;
+}
+
+.container-IntelligenceClearViewAboutUs {
+  order: 1;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--zescloud-container-width);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x);
+}
+
+.content-IntelligenceClearViewAboutUs {
+  position: relative;
+  max-width: 680px;
+}
+
+/* artwork cropped to the monitor: image area x 1060–1983, y 20–780 */
+.art-IntelligenceClearViewAboutUs {
+  order: 2;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  max-width: 860px;
+  margin: clamp(2rem, 5vw, 2.75rem) auto 0;
+  aspect-ratio: 923 / 760;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 6%, #000 97%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 6%, #000 97%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.stage-IntelligenceClearViewAboutUs {
+  position: absolute;
+  top: -2.6316%;    /* -20 / 760 */
+  left: -114.8429%; /* -1060 / 923 */
+  width: 214.8429%; /* 1983 / 923 */
+  aspect-ratio: 1983 / 793;
+  contain: layout;
+  opacity: 0;
+}
+
+/* image and overlay share the exact same box → pixel-locked alignment */
+.stage-img-IntelligenceClearViewAboutUs {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 100%),
+    linear-gradient(180deg, transparent 0%, #000 8%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 14%, #000 100%),
+    linear-gradient(180deg, transparent 0%, #000 8%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.fx-IntelligenceClearViewAboutUs {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* readability shade on the text side (desktop only) */
+.shade-IntelligenceClearViewAboutUs {
+  display: none;
+}
+
+/* ============================ SVG EFFECTS ============================ */
+
+/* --- rack light bars: soft flicker ------------------------------------ */
+.rack-light-IntelligenceClearViewAboutUs {
+  mix-blend-mode: screen;
+  opacity: 0.25;
+  animation: rackFlicker-IntelligenceClearViewAboutUs var(--dur-IntelligenceClearViewAboutUs, 3s) ease-in-out var(--delay-IntelligenceClearViewAboutUs, 0s) infinite;
+}
+
+/* --- floor reflections ------------------------------------------------- */
+.floor-glow-IntelligenceClearViewAboutUs {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.4;
+  animation: floorBreath-IntelligenceClearViewAboutUs 4.8s ease-in-out var(--delay-IntelligenceClearViewAboutUs, 0s) infinite;
+}
+
+/* --- logo + active nav item ------------------------------------------- */
+.logo-glow-IntelligenceClearViewAboutUs,
+.nav-glow-IntelligenceClearViewAboutUs {
+  transform-box: fill-box;
+  transform-origin: center;
+  mix-blend-mode: screen;
+}
+
+.logo-glow-IntelligenceClearViewAboutUs {
+  opacity: 0.5;
+  animation: glowBreath-IntelligenceClearViewAboutUs 4.2s ease-in-out infinite;
+}
+
+.nav-glow-IntelligenceClearViewAboutUs {
+  opacity: 0.4;
+  animation: glowBreath-IntelligenceClearViewAboutUs 3.2s ease-in-out 0.8s infinite;
+}
+
+/* --- chart ------------------------------------------------------------- */
+.chart-area-IntelligenceClearViewAboutUs {
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.chart-bloom-IntelligenceClearViewAboutUs,
+.chart-line-IntelligenceClearViewAboutUs,
+.chart-flow-IntelligenceClearViewAboutUs {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-bloom-IntelligenceClearViewAboutUs {
+  stroke: rgba(86, 180, 255, 0.9);
+  stroke-width: 6;
+  opacity: 0;
+}
+
+/* bright line re-drawn exactly over the chart in the image */
+.chart-line-IntelligenceClearViewAboutUs {
+  stroke: rgba(214, 240, 255, 0.95);
+  stroke-width: 2;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+/* small light that keeps running along the chart */
+.chart-flow-IntelligenceClearViewAboutUs {
+  stroke: #FFFFFF;
+  stroke-width: 2.6;
+  stroke-dasharray: 6 94;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.chart-packet-IntelligenceClearViewAboutUs {
+  fill: url(#packet-IntelligenceClearViewAboutUs);
+  opacity: 0;
+}
+
+.end-dot-IntelligenceClearViewAboutUs {
+  fill: #FFFFFF;
+}
+
+.end-glow-IntelligenceClearViewAboutUs {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.chart-end-IntelligenceClearViewAboutUs,
+.status-IntelligenceClearViewAboutUs {
+  opacity: 0;
+}
+
+/* --- status dots -------------------------------------------------------- */
+.ring-IntelligenceClearViewAboutUs {
+  fill: none;
+  stroke-width: 1.4;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+
+.ring-blue-IntelligenceClearViewAboutUs { stroke: #9FD6FF; }
+.ring-red-IntelligenceClearViewAboutUs { stroke: var(--zescloud-status-danger); }
+.ring-green-IntelligenceClearViewAboutUs { stroke: var(--zescloud-status-healthy); }
+
+.dot-red-IntelligenceClearViewAboutUs {
+  fill: var(--zescloud-status-danger);
+}
+
+.dot-green-IntelligenceClearViewAboutUs {
+  fill: var(--zescloud-status-healthy);
+}
+
+/* --- particles ---------------------------------------------------------- */
+.particle-IntelligenceClearViewAboutUs {
+  fill: #9FD6FF;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: particleRise-IntelligenceClearViewAboutUs var(--dur-IntelligenceClearViewAboutUs) ease-in-out var(--delay-IntelligenceClearViewAboutUs) infinite;
+}
+
+/* ============================ CONTENT ============================ */
+
+.eyebrow-IntelligenceClearViewAboutUs {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  /* margin-bottom: 1.1rem; */
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-300);
+}
+
+.eyebrow-line-IntelligenceClearViewAboutUs {
+  display: block;
+  flex-shrink: 0;
+  width: 28px;
+  height: 1px;
+  background: var(--zescloud-accent-cyan);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.title-IntelligenceClearViewAboutUs {
+  margin-bottom: 1.4rem;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(1.9rem, 5.2vw, 2.9rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.16;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: var(--zescloud-text-white);
+}
+
+.title-line-IntelligenceClearViewAboutUs {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.06em 0.08em 0;
+  margin-bottom: -0.08em;
+}
+
+.title-text-IntelligenceClearViewAboutUs {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(105%);
+}
+
+.title-accent-IntelligenceClearViewAboutUs {
+  color: var(--zescloud-accent-cyan);
+  text-shadow: 0 0 22px rgba(57, 137, 226, 0.35);
+}
+
+.lead-IntelligenceClearViewAboutUs {
+  max-width: 660px;
+  margin-bottom: 1.5rem;
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.6;
+  color: var(--zescloud-text-gray-100);
+}
+
+.statements-IntelligenceClearViewAboutUs {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.statement-IntelligenceClearViewAboutUs {
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.6;
+  color: var(--zescloud-text-gray-100);
+  opacity: 0;
+  transform: translateX(-18px);
+}
+
+.statement-text-IntelligenceClearViewAboutUs {
+  position: relative;
+  display: inline-block;
+}
+
+.statement-accent-IntelligenceClearViewAboutUs {
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-accent-cyan);
+}
+
+/* underline that draws in under "More clarity." */
+.statement-accent-IntelligenceClearViewAboutUs .statement-text-IntelligenceClearViewAboutUs::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 1px;
+  background: var(--zescloud-accent-cyan);
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0.8;
+}
+
+.reveal-IntelligenceClearViewAboutUs {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ============================ ENTRANCE (once, on scroll) ============================ */
+
+.is-shown-IntelligenceClearViewAboutUs .reveal-IntelligenceClearViewAboutUs {
+  animation: fadeUp-IntelligenceClearViewAboutUs 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-IntelligenceClearViewAboutUs, 0s) both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .eyebrow-line-IntelligenceClearViewAboutUs {
+  animation: growX-IntelligenceClearViewAboutUs 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .title-text-IntelligenceClearViewAboutUs {
+  animation: lineUp-IntelligenceClearViewAboutUs 1s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-IntelligenceClearViewAboutUs, 0s) both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .statement-IntelligenceClearViewAboutUs {
+  animation: slideIn-IntelligenceClearViewAboutUs 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d-IntelligenceClearViewAboutUs, 0s) both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .statement-accent-IntelligenceClearViewAboutUs .statement-text-IntelligenceClearViewAboutUs::after {
+  animation: growX-IntelligenceClearViewAboutUs 0.9s cubic-bezier(0.65, 0, 0.35, 1) 1.55s both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .stage-IntelligenceClearViewAboutUs {
+  animation: artIn-IntelligenceClearViewAboutUs 1.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .chart-line-IntelligenceClearViewAboutUs {
+  animation:
+    chartDraw-IntelligenceClearViewAboutUs 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.9s both,
+    lineBreath-IntelligenceClearViewAboutUs 3.6s ease-in-out 2.7s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .chart-bloom-IntelligenceClearViewAboutUs {
+  animation: bloomBreath-IntelligenceClearViewAboutUs 3.6s ease-in-out 2.4s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .chart-area-IntelligenceClearViewAboutUs {
+  animation: areaBreath-IntelligenceClearViewAboutUs 4.5s ease-in-out 2.4s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .chart-flow-IntelligenceClearViewAboutUs {
+  animation: chartFlow-IntelligenceClearViewAboutUs 3s linear 2.7s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .chart-packet-IntelligenceClearViewAboutUs,
+.is-shown-IntelligenceClearViewAboutUs .chart-end-IntelligenceClearViewAboutUs,
+.is-shown-IntelligenceClearViewAboutUs .status-IntelligenceClearViewAboutUs {
+  animation: fadeIn-IntelligenceClearViewAboutUs 0.6s ease-out 2.6s both;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .ring-IntelligenceClearViewAboutUs {
+  animation: ping-IntelligenceClearViewAboutUs 2.2s ease-out 2.8s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .ring-red-IntelligenceClearViewAboutUs {
+  animation-duration: 1.6s;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .ring-green-IntelligenceClearViewAboutUs {
+  animation-duration: 2.6s;
+  animation-delay: 3.3s;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .dot-red-IntelligenceClearViewAboutUs {
+  animation: blink-IntelligenceClearViewAboutUs 1.6s ease-in-out 2.8s infinite;
+}
+
+.is-shown-IntelligenceClearViewAboutUs .end-glow-IntelligenceClearViewAboutUs {
+  animation: endPulse-IntelligenceClearViewAboutUs 2.2s ease-in-out 2.8s infinite;
+}
+
+/* =========================== KEYFRAMES =========================== */
+
+@keyframes artIn-IntelligenceClearViewAboutUs {
+  from { opacity: 0; transform: translate3d(3%, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes fadeIn-IntelligenceClearViewAboutUs {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp-IntelligenceClearViewAboutUs {
+  from { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes lineUp-IntelligenceClearViewAboutUs {
+  from { opacity: 0; transform: translateY(105%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn-IntelligenceClearViewAboutUs {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes growX-IntelligenceClearViewAboutUs {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes rackFlicker-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.2; }
+  45% { opacity: 0.85; }
+  52% { opacity: 0.45; }
+  60% { opacity: 0.8; }
+}
+
+@keyframes floorBreath-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.92); }
+  50% { opacity: 0.9; transform: scaleX(1.06); }
+}
+
+@keyframes glowBreath-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.35; transform: scale(0.94); }
+  50% { opacity: 0.85; transform: scale(1.06); }
+}
+
+@keyframes chartDraw-IntelligenceClearViewAboutUs {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes lineBreath-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes bloomBreath-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes areaBreath-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.55; }
+}
+
+@keyframes chartFlow-IntelligenceClearViewAboutUs {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes ping-IntelligenceClearViewAboutUs {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes blink-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes endPulse-IntelligenceClearViewAboutUs {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.35); }
+}
+
+@keyframes particleRise-IntelligenceClearViewAboutUs {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(-130px) scale(1); opacity: 0; }
+}
+
+/* =====================================================================
+   DESKTOP + ZOOM LOCK (≥1101px)
+   Text on the left, dashboard artwork on the right. The section is drawn
+   on a 1920-wide design canvas: every size is a multiple of --dp
+   (1 design pixel = section width / 1920), so browser zoom in / out only
+   scales the picture — nothing moves relative to anything else.
+   ===================================================================== */
+@media (min-width: 1101px) {
+  .section-IntelligenceClearViewAboutUs {
+    --dp-IntelligenceClearViewAboutUs: calc(100cqw / 1920);
+    container-type: inline-size;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+
+  /* section height = artwork height (793 / 1983 of its width), zoom-proof */
+  .section-IntelligenceClearViewAboutUs::before {
+    content: '';
+    display: block;
+    flex: 0 0 0;
+    width: 0;
+    padding-top: 39.9899%;
+  }
+
+  .art-IntelligenceClearViewAboutUs {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    aspect-ratio: auto;
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* full-width stage = the whole section (its soft top / bottom fades
+     blend into the neighbouring sections) */
+  .stage-IntelligenceClearViewAboutUs {
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 100%;
+  }
+
+  .shade-IntelligenceClearViewAboutUs {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 40% 60% at 14% 50%, rgba(24, 72, 217, 0.08), transparent 70%),
+      linear-gradient(90deg,
+        rgba(2, 10, 19, 0.8) 0%,
+        rgba(2, 10, 19, 0.5) 26%,
+        rgba(2, 10, 19, 0) 46%);
+  }
+
+  .container-IntelligenceClearViewAboutUs {
+    order: 0;
+    max-width: calc(1730 * var(--dp-IntelligenceClearViewAboutUs));
+    padding: calc(64 * var(--dp-IntelligenceClearViewAboutUs)) calc(32 * var(--dp-IntelligenceClearViewAboutUs));
+  }
+
+  .content-IntelligenceClearViewAboutUs {
+    max-width: calc(760 * var(--dp-IntelligenceClearViewAboutUs));
+  }
+
+  .eyebrow-IntelligenceClearViewAboutUs {
+    gap: calc(12 * var(--dp-IntelligenceClearViewAboutUs));
+    /* margin-bottom: calc(22 * var(--dp-IntelligenceClearViewAboutUs)); */
+    font-size: calc(13 * var(--dp-IntelligenceClearViewAboutUs));
+  }
+
+  .eyebrow-line-IntelligenceClearViewAboutUs {
+    width: calc(28 * var(--dp-IntelligenceClearViewAboutUs));
+    height: max(1px, calc(1 * var(--dp-IntelligenceClearViewAboutUs)));
+  }
+
+  .title-IntelligenceClearViewAboutUs {
+    margin-bottom: calc(28 * var(--dp-IntelligenceClearViewAboutUs));
+    font-size: calc(46 * var(--dp-IntelligenceClearViewAboutUs));
+    white-space: nowrap;
+  }
+
+  .title-accent-IntelligenceClearViewAboutUs {
+    text-shadow: 0 0 calc(22 * var(--dp-IntelligenceClearViewAboutUs)) rgba(57, 137, 226, 0.35);
+  }
+
+  .lead-IntelligenceClearViewAboutUs {
+    max-width: calc(660 * var(--dp-IntelligenceClearViewAboutUs));
+    margin-bottom: calc(26 * var(--dp-IntelligenceClearViewAboutUs));
+    font-size: calc(20 * var(--dp-IntelligenceClearViewAboutUs));
+  }
+
+  .statement-IntelligenceClearViewAboutUs {
+    font-size: calc(20 * var(--dp-IntelligenceClearViewAboutUs));
+  }
+}
+
+/* phones: tighter crop on the dashboard (x 1180–1983, y 40–770) */
+@media (max-width: 760px) {
+  .art-IntelligenceClearViewAboutUs {
+    aspect-ratio: 803 / 730;
+  }
+
+  .stage-IntelligenceClearViewAboutUs {
+    top: -5.4795%;    /* -40 / 730 */
+    left: -146.9489%; /* -1180 / 803 */
+    width: 246.9489%; /* 1983 / 803 */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-IntelligenceClearViewAboutUs *,
+  .section-IntelligenceClearViewAboutUs *::before,
+  .section-IntelligenceClearViewAboutUs *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition: none !important;
+  }
+
+  .stage-IntelligenceClearViewAboutUs,
+  .reveal-IntelligenceClearViewAboutUs,
+  .title-text-IntelligenceClearViewAboutUs,
+  .statement-IntelligenceClearViewAboutUs {
+    opacity: 1;
+    transform: none;
+  }
+
+  .chart-packet-IntelligenceClearViewAboutUs,
+  .chart-flow-IntelligenceClearViewAboutUs,
+  .ring-IntelligenceClearViewAboutUs,
+  .particle-IntelligenceClearViewAboutUs {
+    display: none;
+  }
+}

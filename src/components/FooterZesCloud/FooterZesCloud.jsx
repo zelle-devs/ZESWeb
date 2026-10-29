@@ -67,7 +67,7 @@ function FooterZesCloud() {
       <div className="bgLayerszescloudMainFooter" aria-hidden="true">
         <div className="glowzescloudMainFooter" />
 
-        <div className="bgImageWrapzescloudMainFooter">
+        {/* <div className="bgImageWrapzescloudMainFooter">
           <img
             src="/main_logoFav.png"
             alt=""
@@ -76,7 +76,7 @@ function FooterZesCloud() {
             decoding="async"
             draggable="false"
           />
-        </div>
+        </div> */}
 
         <div className="gridzescloudMainFooter" />
         <div className="overlayzescloudMainFooter" />

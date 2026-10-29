@@ -1,0 +1,222 @@
+/* ============================================
+   DynamicButton.css
+   ZesCloud Theme
+   All colors mapped to global :root tokens
+   ============================================ */
+
+/* ============ BASE BUTTON ============ */
+.db-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: var(--zescloud-radius-pill);
+  transition: all var(--transition-base);
+  border: none;
+  font-family: var(--zescloud-font-family);
+  padding: 0 24px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+/* ============ SIZE PRESETS ============ */
+.db-sm {
+  height: 36px;
+}
+
+.db-sm .db-btn-text {
+  font-size: 0.75rem;
+}
+
+.db-md {
+  height: 44px;
+}
+
+.db-md .db-btn-text {
+  font-size: 0.875rem;
+}
+
+.db-lg {
+  height: 52px;
+}
+
+.db-lg .db-btn-text {
+  font-size: 1rem;
+}
+
+/* ============ SOLID VARIANT ============ */
+.db-solid {
+  background: var(--zescloud-btn-gradient);
+  color: var(--zescloud-text-white);
+  border: 2px solid transparent;
+  box-shadow:
+    0 4px 15px rgba(24, 72, 217, 0.35),
+    inset 0 1px 0 color-mix(in srgb, var(--zescloud-text-white) 20%, transparent);
+}
+
+.db-solid::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    color-mix(in srgb, var(--zescloud-text-white) 15%, transparent) 45%,
+    color-mix(in srgb, var(--zescloud-text-white) 25%, transparent) 50%,
+    color-mix(in srgb, var(--zescloud-text-white) 15%, transparent) 55%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.db-solid:hover::before {
+  transform: translateX(100%);
+}
+
+.db-solid .db-btn-text {
+  color: var(--zescloud-text-white);
+}
+
+.db-solid:hover {
+  background: var(--zescloud-btn-gradient-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 24px rgba(57, 137, 226, 0.5),
+    0 0 40px color-mix(in srgb, var(--zescloud-primary) 20%, transparent);
+}
+
+.db-solid:hover .db-btn-text {
+  color: var(--zescloud-text-white);
+}
+
+/* ============ OUTLINE VARIANT ============ */
+.db-outline {
+  background-color: rgba(7, 21, 39, 0.5);
+  border: 1px solid var(--zescloud-border-highlight);
+  color: var(--zescloud-text-white);
+}
+
+.db-outline .db-btn-text {
+  color: var(--zescloud-text-white);
+}
+
+.db-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--zescloud-btn-gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+.db-outline:hover::before {
+  transform: scaleX(1);
+}
+
+.db-outline .db-btn-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+.db-outline:hover {
+  border-color: var(--zescloud-primary);
+  box-shadow:
+    0 0 30px color-mix(in srgb, var(--zescloud-primary) 30%, transparent),
+    0 0 60px color-mix(in srgb, var(--zescloud-primary) 15%, transparent);
+}
+
+.db-outline:hover .db-btn-text {
+  color: var(--zescloud-text-white);
+}
+
+/* ============ DISABLED STATE ============ */
+.db-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: var(--zescloud-text-white) !important;
+}
+
+.db-btn:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.db-solid:disabled:hover {
+  background: var(--zescloud-btn-gradient);
+}
+
+.db-btn:disabled::before {
+  display: none;
+}
+
+.db-btn:disabled:hover .db-btn-text {
+  color: var(--zescloud-text-white);
+}
+
+/* ============ TEXT STYLE ============ */
+.db-btn-text {
+  position: relative;
+  z-index: 2;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  transition: all var(--transition-base);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  font-family: var(--zescloud-font-family);
+}
+
+/* ============ ICON ============ */
+.db-btn-icon {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (min-width: 1440px) {
+  .db-md { height: 48px; }
+  .db-lg { height: 56px; }
+}
+
+@media (max-width: 768px) {
+  .db-md { height: 40px; }
+  .db-lg { height: 48px; }
+}
+
+@media (max-width: 479px) {
+  .db-sm { height: 32px; }
+  .db-md { height: 38px; }
+  .db-lg { height: 44px; }
+  .db-btn { padding: 0 18px; }
+}
+
+@media (max-width: 350px) {
+  .db-sm { height: 28px; }
+  .db-md { height: 34px; }
+  .db-lg { height: 40px; }
+  .db-btn { padding: 0 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .db-btn,
+  .db-btn::before,
+  .db-btn-text {
+    transition: none !important;
+  }
+}

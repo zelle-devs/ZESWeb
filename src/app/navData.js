@@ -24,8 +24,8 @@ export const resourcesLinks = [
 ];
 
 export const companyLinks = [
-  // { label: 'About Us', href: '/about-us' },
-  // { label: 'Contact', href: '/contact-us' },
+  { label: 'About Us', href: '/about-us' },
+  { label: 'Contact', href: '/contact-us' },
 ];
 
 // Header navigation — sirf 4 links, koi dropdown nahi
@@ -45,5 +45,5 @@ export const footerLinkGroups = [
   { id: 'product', heading: 'Product', links: productLinks },
   { id: 'solutions', heading: 'Solutions', links: solutionsLinks },
   { id: 'resources', heading: 'Resources', links: resourcesLinks },
-  // { id: 'company', heading: 'Company', links: companyLinks },
+  { id: 'company', heading: 'Company', links: companyLinks },
 ];

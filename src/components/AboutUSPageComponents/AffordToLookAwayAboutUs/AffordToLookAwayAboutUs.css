@@ -1,0 +1,621 @@
+.section-AffordToLookAwayAboutUs {
+  --alw-bg: var(--zescloud-bg-base, #020a13);
+  --alw-bg-elevated: var(--zescloud-bg-elevated, #05101f);
+  --alw-surface: var(--zescloud-bg-surface, #071527);
+  --alw-border: var(--zescloud-border-subtle, #0f233d);
+  --alw-border-strong: var(--zescloud-border-highlight, #1e3a5f);
+
+  --alw-primary: var(--zescloud-primary, #3989e2);
+  --alw-cyan: var(--zescloud-accent-cyan, #56b4ff);
+  --alw-purple: var(--zescloud-status-purple, #8b5cf6);
+  --alw-green: var(--zescloud-status-healthy, #10b981);
+
+  --alw-white: var(--zescloud-text-white, #ffffff);
+  --alw-text-soft: var(--zescloud-text-gray-100, #e2e8f0);
+  --alw-muted: var(--zescloud-text-gray-300, #94a3b8);
+
+  --alw-text-gradient: var(--zescloud-text-gradient-blue, linear-gradient(90deg, #56b4ff 0%, #3989e2 100%));
+
+  --alw-radius-sm: var(--zescloud-radius-sm, 8px);
+  --alw-radius-md: var(--zescloud-radius-md, 12px);
+  --alw-radius-card: calc(var(--alw-radius-md) + 2px);
+
+  --alw-fs-sm: var(--font-size-sm, 13px);
+  --alw-fs-base: var(--font-size-base, 15px);
+  --alw-fs-lg: var(--font-size-lg, 17px);
+  --alw-fs-xl: var(--font-size-xl, 19px);
+  --alw-fs-3xl: var(--font-size-3xl, 26px);
+  --alw-fs-5xl: var(--font-size-5xl, 38px);
+
+  --alw-fw-medium: var(--fw-medium, 500);
+  --alw-fw-semibold: var(--fw-semibold, 600);
+  --alw-fw-bold: var(--fw-bold, 700);
+
+  --alw-base: var(--transition-base, 0.3s ease-in-out);
+  --alw-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --alw-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --alw-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --alw-primary-a08: color-mix(in srgb, var(--alw-primary) 8%, transparent);
+  --alw-primary-a14: color-mix(in srgb, var(--alw-primary) 14%, transparent);
+  --alw-primary-a22: color-mix(in srgb, var(--alw-primary) 22%, transparent);
+  --alw-purple-a12: var(--zescloud-status-purple-bg, color-mix(in srgb, var(--alw-purple) 12%, transparent));
+  --alw-purple-a22: color-mix(in srgb, var(--alw-purple) 22%, transparent);
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(
+      var(--zescloud-section-gap, 3rem),
+      8vw,
+      calc(var(--zescloud-section-gap, 3rem) * 2.5)
+    )
+    0;
+  background:
+    radial-gradient(1000px 480px at 12% 40%, var(--alw-primary-a14), transparent 60%),
+    radial-gradient(900px 440px at 92% 70%, var(--alw-purple-a12), transparent 60%),
+    var(--alw-bg);
+  color: var(--alw-text-soft);
+  font-family: var(--zescloud-font-family, inherit);
+}
+
+.section-AffordToLookAwayAboutUs *,
+.section-AffordToLookAwayAboutUs *::before,
+.section-AffordToLookAwayAboutUs *::after {
+  box-sizing: border-box;
+}
+
+.section-AffordToLookAwayAboutUs:not([data-active="true"]) *,
+.section-AffordToLookAwayAboutUs:not([data-active="true"]) *::before,
+.section-AffordToLookAwayAboutUs:not([data-active="true"]) *::after {
+  animation-play-state: paused !important;
+}
+
+.bg-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bgGrid-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--alw-primary-a08) 1px, transparent 1px),
+    linear-gradient(90deg, var(--alw-primary-a08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 30% 50%, #000 15%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 70% at 30% 50%, #000 15%, transparent 75%);
+  opacity: 0.45;
+}
+
+.bgOrb-AffordToLookAwayAboutUs {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.bgOrbOne-AffordToLookAwayAboutUs {
+  width: 640px;
+  height: 640px;
+  top: -30%;
+  left: -12%;
+  background: radial-gradient(circle, var(--alw-primary-a22) 0%, var(--alw-primary-a08) 40%, transparent 68%);
+  animation: alwOrbDrift 20s ease-in-out infinite;
+}
+
+.bgOrbTwo-AffordToLookAwayAboutUs {
+  width: 600px;
+  height: 600px;
+  bottom: -42%;
+  right: -10%;
+  background: radial-gradient(circle, var(--alw-purple-a22) 0%, var(--alw-purple-a12) 40%, transparent 68%);
+  opacity: 0.7;
+  animation: alwOrbDrift 24s ease-in-out -8s infinite reverse;
+}
+
+.topShade-AffordToLookAwayAboutUs,
+.bottomShade-AffordToLookAwayAboutUs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: clamp(160px, 22vw, 300px);
+  pointer-events: none;
+  background: linear-gradient(
+    var(--alw-shade-dir, 180deg),
+    var(--alw-bg) 0%,
+    color-mix(in srgb, var(--alw-bg) 86%, transparent) 28%,
+    color-mix(in srgb, var(--alw-bg) 45%, transparent) 62%,
+    transparent 100%
+  );
+}
+
+.topShade-AffordToLookAwayAboutUs {
+  top: 0;
+}
+
+.bottomShade-AffordToLookAwayAboutUs {
+  bottom: 0;
+  --alw-shade-dir: 0deg;
+}
+
+.container-AffordToLookAwayAboutUs {
+  position: relative;
+  width: 100%;
+  max-width: var(--zescloud-container-width, 1590px);
+  margin: 0 auto;
+  padding: 0 var(--zescloud-padding-x, 2rem);
+}
+
+.layout-AffordToLookAwayAboutUs {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.textCol-AffordToLookAwayAboutUs {
+  min-width: 0;
+}
+
+.eyebrow-AffordToLookAwayAboutUs {
+  display: inline-block;
+}
+
+.title-AffordToLookAwayAboutUs {
+  margin: 0.875rem 0 0;
+  font-family: var(--zescloud-heading-font, inherit);
+  font-size: clamp(var(--alw-fs-3xl), 2.8vw, var(--alw-fs-5xl));
+  font-weight: var(--alw-fw-bold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: normal;
+  color: var(--alw-white);
+}
+
+.titleLine-AffordToLookAwayAboutUs {
+  display: block;
+  width: fit-content;
+}
+
+.titleAccent-AffordToLookAwayAboutUs {
+  display: inline-block;
+  padding-bottom: 0.06em;
+  background: var(--alw-text-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.intro-AffordToLookAwayAboutUs {
+  max-width: 440px;
+  margin: 1.25rem 0 0;
+  font-size: var(--alw-fs-base);
+  line-height: 1.65;
+  color: var(--alw-muted);
+}
+
+.callout-AffordToLookAwayAboutUs {
+  max-width: 320px;
+  margin: 1.5rem 0 0;
+  font-family: var(--zescloud-heading-font, inherit);
+  font-size: var(--alw-fs-lg);
+  font-weight: var(--alw-fw-semibold);
+  line-height: 1.45;
+  color: var(--alw-cyan);
+}
+
+.reveal-AffordToLookAwayAboutUs {
+  opacity: 0;
+}
+
+.isVisible-AffordToLookAwayAboutUs .reveal-AffordToLookAwayAboutUs {
+  animation: alwRise 0.85s var(--alw-ease) var(--d, 0ms) both;
+}
+
+.cards-AffordToLookAwayAboutUs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card-AffordToLookAwayAboutUs {
+  --alw-accent: var(--alw-primary);
+  --alw-accent-light: color-mix(in srgb, var(--alw-accent) 65%, var(--alw-white));
+  --alw-accent-a08: color-mix(in srgb, var(--alw-accent) 8%, transparent);
+  --alw-accent-a14: color-mix(in srgb, var(--alw-accent) 14%, transparent);
+  --alw-accent-a22: color-mix(in srgb, var(--alw-accent) 22%, transparent);
+  --alw-accent-a35: color-mix(in srgb, var(--alw-accent) 35%, transparent);
+  --alw-accent-a50: color-mix(in srgb, var(--alw-accent) 50%, transparent);
+  --alw-accent-a70: color-mix(in srgb, var(--alw-accent) 70%, transparent);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  min-height: 340px;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+  border: 1px solid var(--alw-border);
+  border-radius: var(--alw-radius-card);
+  background: var(--alw-bg-elevated);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--alw-white) 4%, transparent),
+    0 24px 60px -36px color-mix(in srgb, var(--alw-bg) 70%, #000000);
+  opacity: 0;
+  transition:
+    translate 0.5s var(--alw-ease),
+    border-color var(--alw-base);
+}
+
+.cardBlue-AffordToLookAwayAboutUs {
+  --alw-accent: var(--alw-primary);
+}
+
+.cardPurple-AffordToLookAwayAboutUs {
+  --alw-accent: var(--alw-purple);
+}
+
+.cardGreen-AffordToLookAwayAboutUs {
+  --alw-accent: var(--alw-green);
+}
+
+.cardCyan-AffordToLookAwayAboutUs {
+  --alw-accent: var(--alw-cyan);
+}
+
+.isVisible-AffordToLookAwayAboutUs .card-AffordToLookAwayAboutUs {
+  animation: alwCardIn 0.95s var(--alw-ease) var(--d, 0ms) both;
+}
+
+.card-AffordToLookAwayAboutUs:hover {
+  translate: 0 -6px;
+  border-color: var(--alw-accent-a50);
+}
+
+.media-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--alw-accent-a22), var(--alw-surface));
+}
+
+.mediaDrift-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.isVisible-AffordToLookAwayAboutUs .mediaDrift-AffordToLookAwayAboutUs {
+  animation: alwDrift 16s ease-in-out calc(var(--d, 0ms) + 1.6s + var(--i) * 1.2s) infinite alternate;
+}
+
+.image-AffordToLookAwayAboutUs {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.85) brightness(0.72);
+  transform: scale(1.18);
+  transition:
+    scale 0.9s var(--alw-ease),
+    opacity 0.4s ease;
+}
+
+.isVisible-AffordToLookAwayAboutUs .image-AffordToLookAwayAboutUs {
+  animation: alwImageIn 1.6s var(--alw-ease) calc(var(--d, 0ms) + 150ms) both;
+}
+
+.card-AffordToLookAwayAboutUs:hover .image-AffordToLookAwayAboutUs {
+  scale: 1.07;
+}
+
+.mediaTint-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, var(--alw-accent-a22) 0%, transparent 55%),
+    linear-gradient(0deg, var(--alw-primary-a14), var(--alw-primary-a14));
+  pointer-events: none;
+}
+
+.mediaCurtain-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--alw-accent-a35), var(--alw-bg-elevated) 70%);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.isVisible-AffordToLookAwayAboutUs .mediaCurtain-AffordToLookAwayAboutUs {
+  animation: alwCurtain 1.1s var(--alw-curtain) calc(var(--d, 0ms) + 150ms) both;
+}
+
+.cardShade-AffordToLookAwayAboutUs {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--alw-bg-elevated) 15%, transparent) 30%,
+    color-mix(in srgb, var(--alw-bg-elevated) 82%, transparent) 58%,
+    var(--alw-bg-elevated) 82%
+  );
+  pointer-events: none;
+}
+
+.cardBaseLine-AffordToLookAwayAboutUs {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--alw-accent-a70), transparent);
+  transform: scaleX(0);
+  transition: transform 0.55s var(--alw-ease);
+  pointer-events: none;
+}
+
+.card-AffordToLookAwayAboutUs:hover .cardBaseLine-AffordToLookAwayAboutUs {
+  transform: scaleX(1);
+}
+
+.cardContent-AffordToLookAwayAboutUs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 1.125rem 1rem 1.25rem;
+}
+
+.iconBox-AffordToLookAwayAboutUs {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 0.875rem;
+  border: 1px solid var(--alw-accent-a50);
+  border-radius: var(--alw-radius-sm);
+  color: var(--alw-accent-light);
+  background: linear-gradient(145deg, var(--alw-accent-a35), var(--alw-accent-a08));
+  box-shadow:
+    0 0 20px -4px var(--alw-accent-a50),
+    inset 0 0 10px var(--alw-accent-a14);
+  opacity: 0;
+  transition: scale 0.45s var(--alw-ease);
+}
+
+.isVisible-AffordToLookAwayAboutUs .iconBox-AffordToLookAwayAboutUs {
+  animation: alwIconPop 0.8s var(--alw-pop) var(--d, 0ms) both;
+}
+
+.iconBox-AffordToLookAwayAboutUs::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 28px -2px var(--alw-accent-a70);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+}
+
+.card-AffordToLookAwayAboutUs:hover .iconBox-AffordToLookAwayAboutUs {
+  scale: 1.08;
+}
+
+.card-AffordToLookAwayAboutUs:hover .iconBox-AffordToLookAwayAboutUs::after {
+  opacity: 1;
+}
+
+.icon-AffordToLookAwayAboutUs {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+  overflow: visible;
+}
+
+.iconCart-AffordToLookAwayAboutUs {
+  animation: alwCartRoll 2.8s ease-in-out infinite;
+}
+
+.iconCube-AffordToLookAwayAboutUs {
+  animation: alwFloat 3s ease-in-out infinite;
+}
+
+.iconCubeFace-AffordToLookAwayAboutUs {
+  opacity: 0.15;
+  animation: alwFace 3s ease-in-out infinite;
+}
+
+.iconShieldCheck-AffordToLookAwayAboutUs {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: alwCheck 3.2s ease-in-out infinite;
+}
+
+.iconWindow-AffordToLookAwayAboutUs {
+  animation: alwWindow 2.6s ease-in-out calc(var(--w) * 0.35s) infinite;
+}
+
+.cardTitle-AffordToLookAwayAboutUs {
+  margin: 0;
+  font-family: var(--zescloud-heading-font, inherit);
+  font-size: var(--alw-fs-base);
+  font-weight: var(--alw-fw-semibold);
+  line-height: 1.3;
+  color: var(--alw-white);
+}
+
+.cardDesc-AffordToLookAwayAboutUs {
+  max-width: 170px;
+  margin: 0.375rem 0 0;
+  font-size: var(--alw-fs-sm);
+  font-weight: var(--alw-fw-medium);
+  line-height: 1.5;
+  color: var(--alw-muted);
+  transition: color var(--alw-base);
+}
+
+.card-AffordToLookAwayAboutUs:hover .cardDesc-AffordToLookAwayAboutUs {
+  color: var(--alw-text-soft);
+}
+
+@keyframes alwRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes alwCardIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 48px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes alwCurtain {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0); }
+}
+
+@keyframes alwImageIn {
+  from { transform: scale(1.18); }
+  to { transform: scale(1); }
+}
+
+@keyframes alwDrift {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(-1.5%, -1%, 0); }
+}
+
+@keyframes alwIconPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-14deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes alwOrbDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(40px, 26px, 0) scale(1.06); }
+  66% { transform: translate3d(-28px, 18px, 0) scale(0.96); }
+}
+
+@keyframes alwCartRoll {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(-1.2px); }
+  65% { transform: translateX(1.4px); }
+}
+
+@keyframes alwFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+
+@keyframes alwFace {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes alwCheck {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  35%, 82% { stroke-dashoffset: 0; opacity: 1; }
+  94%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes alwWindow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+@media (max-width: 1100px) {
+  .layout-AffordToLookAwayAboutUs {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .intro-AffordToLookAwayAboutUs {
+    max-width: 640px;
+  }
+
+  .callout-AffordToLookAwayAboutUs {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-AffordToLookAwayAboutUs {
+    padding: 0 1rem;
+  }
+
+  .cards-AffordToLookAwayAboutUs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-AffordToLookAwayAboutUs {
+    min-height: 300px;
+  }
+
+  .callout-AffordToLookAwayAboutUs {
+    font-size: var(--alw-fs-base);
+  }
+}
+
+@media (max-width: 420px) {
+  .cards-AffordToLookAwayAboutUs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card-AffordToLookAwayAboutUs {
+    min-height: 260px;
+  }
+
+  .cardDesc-AffordToLookAwayAboutUs {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-AffordToLookAwayAboutUs *,
+  .section-AffordToLookAwayAboutUs *::before,
+  .section-AffordToLookAwayAboutUs *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
