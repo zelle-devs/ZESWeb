@@ -1,0 +1,652 @@
+/* =========================================================
+   ContactUsPageSlider – Contact Us hero section
+   Colours / fonts come from the global ZesCloud tokens
+   ========================================================= */
+
+.heroSectionContactUsPageSlider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 560px;
+  padding: 110px 0 100px;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--zescloud-bg-base);
+  border-top: 1px solid rgba(15, 35, 61, 0.6);
+}
+
+/* ---------- Background layers ---------- */
+
+.bgGridContactUsPageSlider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(57, 137, 226, 0.045) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(0deg, rgba(57, 137, 226, 0.025) 0 1px, transparent 1px 56px);
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 35% 50%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 80% 90% at 35% 50%, #000 30%, transparent 85%);
+  animation: gridDriftContactUsPageSlider 30s linear infinite;
+}
+
+.bgGlowContactUsPageSlider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 40% 55% at 78% 32%, rgba(24, 72, 217, 0.22), transparent 70%),
+    radial-gradient(ellipse 35% 45% at 70% 75%, rgba(57, 137, 226, 0.12), transparent 70%),
+    linear-gradient(90deg, var(--zescloud-bg-base) 0%, rgba(2, 10, 19, 0.85) 35%, rgba(2, 10, 19, 0) 60%);
+}
+
+.bottomLineContactUsPageSlider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  z-index: 4;
+  background: linear-gradient(90deg, transparent 0%, var(--zescloud-border-highlight) 25%, rgba(57, 137, 226, 0.45) 70%, transparent 100%);
+}
+
+/* ---------- Right visual ---------- */
+
+.visualWrapContactUsPageSlider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 54%;
+  z-index: 1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+}
+
+.visualDotsContactUsPageSlider {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(86, 180, 255, 0.22) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 60% 45%, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse 60% 60% at 60% 45%, #000 20%, transparent 80%);
+}
+
+.linesSvgContactUsPageSlider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.haloLineContactUsPageSlider {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+  opacity: 0;
+  animation:
+    fadeInContactUsPageSlider 1.2s ease 1.4s forwards,
+    haloPulseContactUsPageSlider 5s ease-in-out 2.6s infinite;
+}
+
+.baseLineContactUsPageSlider {
+  fill: none;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLineContactUsPageSlider 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.mainLineContactUsPageSlider {
+  stroke-width: 2.4;
+}
+
+.streakLineContactUsPageSlider {
+  fill: none;
+  stroke: #A8DCFF;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 80 1000;
+  stroke-dashoffset: 80;
+  opacity: 0;
+  animation-name: streakMoveContactUsPageSlider;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+}
+
+.particleDotContactUsPageSlider {
+  fill: #CFEAFF;
+}
+
+.sparksContactUsPageSlider circle {
+  fill: var(--zescloud-accent-cyan);
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.2;
+  animation: sparkTwinkleContactUsPageSlider 3.4s ease-in-out infinite;
+}
+
+.flareContactUsPageSlider {
+  position: absolute;
+  left: 65%;
+  top: 30%;
+  width: 150px;
+  height: 150px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(207, 234, 255, 0.95) 0%, rgba(86, 180, 255, 0.55) 10%, rgba(57, 137, 226, 0.22) 30%, transparent 65%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation:
+    fadeInContactUsPageSlider 1s ease 1.8s forwards,
+    flarePulseContactUsPageSlider 4s ease-in-out 2.8s infinite;
+}
+
+/* Vertical light beams */
+.beamContactUsPageSlider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  overflow: hidden;
+  background: linear-gradient(180deg, transparent 0%, rgba(57, 137, 226, 0.35) 30%, rgba(57, 137, 226, 0.15) 75%, transparent 100%);
+  opacity: 0;
+  animation: fadeInContactUsPageSlider 1.2s ease 1s forwards;
+}
+
+.beamContactUsPageSlider::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -30%;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, #9AD6FF, transparent);
+  box-shadow: 0 0 8px rgba(86, 180, 255, 0.9);
+  animation: beamMoveContactUsPageSlider 5s linear infinite;
+}
+
+.beamOneContactUsPageSlider { left: 54%; }
+.beamTwoContactUsPageSlider { left: 87%; }
+.beamThreeContactUsPageSlider { left: 40%; }
+.beamFourContactUsPageSlider { left: 93%; }
+
+.beamOneContactUsPageSlider::after { animation-delay: 0.4s; }
+.beamTwoContactUsPageSlider::after { animation-delay: 2.1s; animation-duration: 6s; }
+.beamThreeContactUsPageSlider::after { animation-delay: 3.3s; animation-duration: 7s; }
+.beamFourContactUsPageSlider::after { animation-delay: 1.2s; animation-duration: 6.5s; }
+
+/* ---------- Floating tags ---------- */
+
+.tagContactUsPageSlider {
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto;
+  opacity: 0;
+  animation: tagInContactUsPageSlider 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tagInnerContactUsPageSlider {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border-radius: var(--zescloud-radius-sm);
+  border: 1px solid rgba(57, 137, 226, 0.32);
+  background: linear-gradient(180deg, rgba(11, 31, 56, 0.72) 0%, rgba(5, 16, 31, 0.78) 100%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 26px rgba(24, 72, 217, 0.18), inset 0 1px 0 rgba(86, 180, 255, 0.08);
+  animation: tagFloatContactUsPageSlider 6s ease-in-out infinite;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.tagInnerContactUsPageSlider:hover {
+  border-color: var(--zescloud-border-glow);
+  box-shadow: 0 0 34px rgba(57, 137, 226, 0.35), inset 0 1px 0 rgba(86, 180, 255, 0.14);
+}
+
+.tagDotContactUsPageSlider {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--zescloud-accent-cyan);
+  box-shadow: 0 0 8px rgba(86, 180, 255, 0.9);
+}
+
+.tagDotContactUsPageSlider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--zescloud-accent-cyan);
+  animation: dotPulseContactUsPageSlider 2.4s ease-out infinite;
+}
+
+.tagLabelContactUsPageSlider {
+  font-family: var(--zescloud-font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-medium);
+  color: var(--zescloud-text-gray-100);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tagOneContactUsPageSlider { left: 31%; top: 27.5%; animation-delay: 1.6s; }
+.tagTwoContactUsPageSlider { left: 72%; top: 35.5%; animation-delay: 1.85s; }
+.tagThreeContactUsPageSlider { left: 45%; top: 64.5%; animation-delay: 2.1s; }
+.tagFourContactUsPageSlider { left: 71%; top: 79%; animation-delay: 2.35s; }
+
+.tagOneContactUsPageSlider .tagInnerContactUsPageSlider { animation-delay: 0s; }
+.tagTwoContactUsPageSlider .tagInnerContactUsPageSlider { animation-delay: -1.5s; animation-duration: 7s; }
+.tagThreeContactUsPageSlider .tagInnerContactUsPageSlider { animation-delay: -3s; animation-duration: 6.5s; }
+.tagFourContactUsPageSlider .tagInnerContactUsPageSlider { animation-delay: -4.5s; animation-duration: 7.5s; }
+
+.tagTwoContactUsPageSlider .tagDotContactUsPageSlider::after { animation-delay: 0.6s; }
+.tagThreeContactUsPageSlider .tagDotContactUsPageSlider::after { animation-delay: 1.2s; }
+.tagFourContactUsPageSlider .tagDotContactUsPageSlider::after { animation-delay: 1.8s; }
+
+/* ---------- Left content ---------- */
+
+.containerContactUsPageSlider {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.contentContactUsPageSlider {
+  max-width: 780px;
+}
+
+.eyebrowContactUsPageSlider {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  opacity: 0;
+  animation: fadeUpContactUsPageSlider 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+.eyebrowTextContactUsPageSlider {
+  font-size: var(--font-size-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--zescloud-text-gray-100);
+  line-height: 1;
+}
+
+.eyebrowLineContactUsPageSlider {
+  display: block;
+  width: 54px;
+  height: 1px;
+  background: var(--zescloud-primary);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: lineGrowContactUsPageSlider 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+}
+
+.titleContactUsPageSlider {
+  margin-top: 24px;
+  font-family: var(--zescloud-heading-font);
+  font-size: clamp(2.4rem, 3.9vw, 4.25rem);
+  font-weight: var(--fw-bold);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--zescloud-text-white);
+}
+
+.titleLineContactUsPageSlider,
+.titleHighlightContactUsPageSlider {
+  display: block;
+  opacity: 0;
+  animation: fadeUpContactUsPageSlider 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.titleLineContactUsPageSlider {
+  animation-delay: 0.2s;
+}
+
+.titleHighlightContactUsPageSlider {
+  width: fit-content;
+  background: linear-gradient(90deg, var(--zescloud-accent-cyan) 0%, #1EA2F5 55%, var(--zescloud-primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--zescloud-accent-cyan);
+  animation-delay: 0.35s;
+}
+
+.descContactUsPageSlider {
+  max-width: 620px;
+  margin-top: 20px;
+  font-size: clamp(1.05rem, 1.55vw, 1.5rem);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
+  color: var(--zescloud-text-gray-100);
+  opacity: 0;
+  animation: fadeUpContactUsPageSlider 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+.featuresContactUsPageSlider {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 42px;
+  row-gap: 20px;
+}
+
+.featureItemContactUsPageSlider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 26px;
+  margin-right: 26px;
+  opacity: 0;
+  animation: fadeUpContactUsPageSlider 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.featureItemContactUsPageSlider:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 1px;
+  height: 46px;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, transparent, var(--zescloud-border-highlight), transparent);
+}
+
+.featureItemContactUsPageSlider:last-child {
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.featureIconContactUsPageSlider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  color: #1EA2F5;
+  background: linear-gradient(180deg, rgba(11, 31, 56, 0.9) 0%, rgba(5, 16, 31, 0.9) 100%);
+  border: 1px solid var(--zescloud-border-highlight);
+  box-shadow: inset 0 0 14px rgba(57, 137, 226, 0.08);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.featureIconContactUsPageSlider svg {
+  width: 24px;
+  height: 24px;
+}
+
+.featureItemContactUsPageSlider:hover .featureIconContactUsPageSlider {
+  transform: translateY(-3px);
+  border-color: var(--zescloud-primary);
+  box-shadow: 0 0 22px rgba(57, 137, 226, 0.35), inset 0 0 14px rgba(57, 137, 226, 0.15);
+}
+
+.featureTextWrapContactUsPageSlider {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.featureTitleContactUsPageSlider {
+  font-size: var(--font-size-base);
+  font-weight: var(--fw-semibold);
+  color: var(--zescloud-text-white);
+  line-height: 1.2;
+}
+
+.featureSubContactUsPageSlider {
+  font-size: 12.5px;
+  color: var(--zescloud-text-gray-300);
+  line-height: 1.3;
+}
+
+/* ---------- Keyframes ---------- */
+
+@keyframes fadeUpContactUsPageSlider {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInContactUsPageSlider {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lineGrowContactUsPageSlider {
+  to { transform: scaleX(1); }
+}
+
+@keyframes drawLineContactUsPageSlider {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes streakMoveContactUsPageSlider {
+  0% { stroke-dashoffset: 80; opacity: 0; }
+  10% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { stroke-dashoffset: -1000; opacity: 0; }
+}
+
+@keyframes haloPulseContactUsPageSlider {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes flarePulseContactUsPageSlider {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
+  50% { transform: translate(-50%, -50%) scale(1.18); filter: brightness(1.25); }
+}
+
+@keyframes sparkTwinkleContactUsPageSlider {
+  0%, 100% { opacity: 0.15; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+@keyframes beamMoveContactUsPageSlider {
+  0% { top: -30%; }
+  100% { top: 100%; }
+}
+
+@keyframes tagInContactUsPageSlider {
+  from { opacity: 0; transform: translateY(16px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes tagFloatContactUsPageSlider {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes dotPulseContactUsPageSlider {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes gridDriftContactUsPageSlider {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 56px 0, 0 56px; }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1280px) {
+  .visualWrapContactUsPageSlider {
+    width: 56%;
+  }
+
+  .tagInnerContactUsPageSlider {
+    padding: 12px 18px;
+    gap: 10px;
+  }
+
+  .tagLabelContactUsPageSlider {
+    font-size: var(--font-size-sm);
+  }
+
+  .featureItemContactUsPageSlider {
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroSectionContactUsPageSlider {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: auto;
+    padding: 90px 0 0;
+  }
+
+  .containerContactUsPageSlider {
+    order: 1;
+  }
+
+  .contentContactUsPageSlider {
+    max-width: 720px;
+  }
+
+  .visualWrapContactUsPageSlider {
+    position: relative;
+    order: 2;
+    width: 100%;
+    height: 400px;
+    margin-top: 30px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 100%);
+  }
+
+  .bgGlowContactUsPageSlider {
+    background:
+      radial-gradient(ellipse 70% 40% at 60% 80%, rgba(24, 72, 217, 0.22), transparent 70%),
+      linear-gradient(180deg, var(--zescloud-bg-base) 0%, rgba(2, 10, 19, 0.6) 55%, rgba(2, 10, 19, 0) 100%);
+  }
+
+  .tagOneContactUsPageSlider { left: 12%; top: 22%; }
+  .tagTwoContactUsPageSlider { left: 68%; top: 32%; }
+  .tagThreeContactUsPageSlider { left: 22%; top: 62%; }
+  .tagFourContactUsPageSlider { left: 66%; top: 78%; }
+}
+
+@media (max-width: 640px) {
+  .heroSectionContactUsPageSlider {
+    padding-top: 70px;
+  }
+
+  .eyebrowContactUsPageSlider {
+    gap: 14px;
+  }
+
+  .eyebrowTextContactUsPageSlider {
+    font-size: var(--font-size-xs);
+  }
+
+  .eyebrowLineContactUsPageSlider {
+    width: 40px;
+  }
+
+  .titleContactUsPageSlider {
+    margin-top: 18px;
+    font-size: clamp(2rem, 9vw, 2.6rem);
+  }
+
+  .featuresContactUsPageSlider {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 32px;
+    row-gap: 18px;
+  }
+
+  .featureItemContactUsPageSlider {
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .featureItemContactUsPageSlider:not(:last-child)::after {
+    display: none;
+  }
+
+  .featureIconContactUsPageSlider {
+    width: 46px;
+    height: 46px;
+  }
+
+  .visualWrapContactUsPageSlider {
+    height: 320px;
+  }
+
+  .tagInnerContactUsPageSlider {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .tagDotContactUsPageSlider {
+    width: 7px;
+    height: 7px;
+  }
+
+  .tagLabelContactUsPageSlider {
+    font-size: 12px;
+  }
+
+  .tagOneContactUsPageSlider { left: 6%; top: 20%; }
+  .tagTwoContactUsPageSlider { left: 60%; top: 30%; }
+  .tagThreeContactUsPageSlider { left: 12%; top: 60%; }
+  .tagFourContactUsPageSlider { left: 60%; top: 76%; }
+
+  .beamThreeContactUsPageSlider,
+  .beamFourContactUsPageSlider {
+    display: none;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroSectionContactUsPageSlider *,
+  .heroSectionContactUsPageSlider *::before,
+  .heroSectionContactUsPageSlider *::after {
+    animation: none !important;
+  }
+
+  .eyebrowContactUsPageSlider,
+  .titleLineContactUsPageSlider,
+  .titleHighlightContactUsPageSlider,
+  .descContactUsPageSlider,
+  .featureItemContactUsPageSlider,
+  .tagContactUsPageSlider,
+  .haloLineContactUsPageSlider,
+  .flareContactUsPageSlider,
+  .beamContactUsPageSlider {
+    opacity: 1;
+  }
+
+  .eyebrowLineContactUsPageSlider {
+    transform: scaleX(1);
+  }
+
+  .baseLineContactUsPageSlider {
+    stroke-dashoffset: 0;
+  }
+
+  .streakLineContactUsPageSlider,
+  .particlesContactUsPageSlider,
+  .beamContactUsPageSlider::after {
+    display: none;
+  }
+}
